@@ -28,7 +28,7 @@ do
         echo "Validating ${service} with ${image}"
 
         # This will fail and exit if the ioc.yaml is invalid
-        docker run --rm --entrypoint bash \
+        $docker run --rm --entrypoint bash \
             -v ${service}/config:/config ${image} \
             -c 'ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*'
 
