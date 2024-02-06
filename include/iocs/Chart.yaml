@@ -19,6 +19,6 @@ dependencies:
   - name: configmap
     version: "2.0.0+b1"
     repository: file://../../helm/configmap
-  - name: domain
+  - name: shared
     version: "2.0.0+b1"
     repository: file://../../helm/shared

@@ -1,4 +1,4 @@
 # latest container image for GigE cameras from the GitHub Container Registry
-domain:
+shared:
   ioc-instance:
     image: ghcr.io/epics-containers/ioc-adsimdetector-linux-runtime:2024.2.1
