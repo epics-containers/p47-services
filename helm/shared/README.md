@@ -2,7 +2,7 @@ Beamline or Accelerator Domain Helm Chart Template
 ==================================================
 
 The files in this folder are used to generate a helm chart for IOC instances
-on this repository's beamline or accelerator domain.
+on this repository's beamline or accelerator ioc.
 
 We generate a new helm chart for each IOC instance deployment. This is
 primarily because helm cannot package the config folder at package time.
