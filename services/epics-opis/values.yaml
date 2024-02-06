@@ -6,3 +6,9 @@ epics-opis:
   useAffinity: true
 
   # extra toleration for the shared cluster training rigs
+  tolerations:
+    - key: "nodetype"
+      operator: "Equal"
+      value: "training-rig"
+      effect: "NoSchedule"
+  

@@ -84,7 +84,7 @@ ioc-instance:
 
   # extra tolerations as required
   tolerations:
-    - key: "node-type"
+    - key: "nodetype"
       operator: "Equal"
       value: "training-rig"
       effect: "NoSchedule"
