@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 0.0.1-8-g0a60079
+_commit: 0.1.0-1-g3821bc4
 _src_path: .
 beamline: bl47p
 cluster_name: pollux

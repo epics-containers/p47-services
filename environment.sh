@@ -9,8 +9,6 @@ if [ "$0" = "$BASH_SOURCE" ]; then
     exit 1
 fi
 
-THIS_DIR=$(dirname ${0})
-
 echo "Loading environment for beamline bl47p IOC Instances and Services ..."
 
 #### SECTION 1. Environment variables ##########################################

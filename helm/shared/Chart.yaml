@@ -9,5 +9,5 @@ type: application
 dependencies:
   - name: ioc-instance
     version: "2.0.0+b1"
-    repository: "oci://ghcr.io/epics-containers"
-    #repository: "file:///scratch/hgv27681/work/ec-helm-charts/Charts/ioc-instance"
+    #repository: "oci://ghcr.io/epics-containers"
+    repository: "file:///scratch/hgv27681/work/ec-helm-charts/Charts/ioc-instance"

@@ -39,8 +39,8 @@ ioc-instance:
   # Usually override runAsXXX in the individual IOC values.yaml.
   # At DLS the IOCs that write to the shared data directory must use
   # iXXdetector user/group IDs
-    securityContext:
-      allowPrivilegeEscalation: false
+  securityContext:
+    allowPrivilegeEscalation: false
   #   runAsUser: 37887
   #   runAsGroup: 37887
 
