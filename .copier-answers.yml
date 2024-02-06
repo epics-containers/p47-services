@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 0.0.1-8-g0a60079
+_src_path: .
+beamline: bl47p
+cluster_name: pollux
+cluster_namespace: p47-iocs
+cluster_type: dls_shared
+description: beamline bl47p IOC Instances and Services
+git_platform: github.com
+github_org: epics-containers
+logging_url: https://graylog2.diamond.ac.uk/search?rangetype=relative&fields=message%2Csource&width=1489&highlightMessage=&relative=172800&q=pod_name%3A{service_name}*
+node_type: training-rig
+repo_uri: git@github.com:epics-containers/bl47p.git
+type: beamline
