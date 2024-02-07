@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 0.1.0-1-g37af357
-_src_path: .
+_commit: 0.1.1
+_src_path: gh:epics-containers/ioc-services-template
 beamline: bl47p
 cluster_name: pollux
 cluster_namespace: p47-iocs
