@@ -14,3 +14,6 @@ ec deploy epics-pvcs VERSION
 # deploy the latest version of the epics-opis service
 ec deploy epics-opis VERSION
 ```
+
+updated 2024-02-09
+
