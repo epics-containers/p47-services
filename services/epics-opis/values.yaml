@@ -1,5 +1,12 @@
 epics-opis:
-  domain: bl47p
+
+
+  # the beamline name - only set for beamlines
+  beamline: bl47p
+  # the location where the IOCs will run - same as beamline for beamlines
+  ioc_group: bl47p
+  # the name of the repository in which the IOC is grouped
+  location: bl47p
 
   # this is a shared cluster beamline so use affinity to make this run on the
   # the beamline node (p47 only has one node)

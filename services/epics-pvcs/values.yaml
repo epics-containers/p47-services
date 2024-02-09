@@ -1,2 +1,8 @@
 epics-pvcs:
-  domain: bl47p
+
+  # the beamline name - only set for beamlines
+  beamline: bl47p
+  # the location where the IOCs will run - same as beamline for beamlines
+  ioc_group: bl47p
+  # the name of the repository in which the IOC is grouped
+  location: bl47p
