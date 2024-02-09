@@ -13,5 +13,5 @@ type: application
 dependencies:
   - name: epics-opis
     version: "2.0.0+b3"
-    repository: "file:///scratch/hgv27681/work/ec-helm-charts/Charts/epics-opis"
-    #repository: "oci://ghcr.io/epics-containers"
+    #repository: "file:///scratch/hgv27681/work/ec-helm-charts/Charts/epics-opis"
+    repository: "oci://ghcr.io/epics-containers"
