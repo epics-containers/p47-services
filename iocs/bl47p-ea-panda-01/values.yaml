@@ -1,4 +1,0 @@
-image: ghcr.io/pandablocks/pandablocks-ioc:0.3.2
-iocConfig: /epics/ioc
-
-

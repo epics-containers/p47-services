@@ -32,16 +32,10 @@ export EC_LOG_URL='https://graylog2.diamond.ac.uk/search?rangetype=relative&fiel
 
 #### SECTION 2. Install ec #####################################################
 
-# check if epics-containers-cli (ec command) is installed and install if not
+# check if epics-containers-cli (ec command) is installed
 if ! ec --version &> /dev/null; then
-    # must be in a venv and this is the reliable check
-    if python3 -c 'import sys; sys.exit(0 if sys.base_prefix==sys.prefix else 1)'; then
-        echo "ERROR: Please activate a virtualenv and re-run"
-        return
-    elif ! ec --version &> /dev/null; then
-        pip install -r ${THIS_DIR}/requirements.txt
-    fi
-    ec --install-completion ${SHELL} &> /dev/null
+    echo "ERROR: Please set up a virtual environment and: 'pip install edge-containers-cli'"
+    return 1
 fi
 
 # enable shell completion for ec commands
@@ -61,5 +55,10 @@ if module --version &> /dev/null; then
         ec ps
     fi
 fi
+
+
+# enable shell completion for k8s tools
+source <(helm completion $(basename ${SHELL}))
+source <(kubectl completion $(basename ${SHELL}))
 
 

@@ -1,0 +1,39 @@
+blueapi:
+  hostNetwork: false # TODO: Can put on the host network when we move to the p47-daq namespace
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 500Mi
+    requests:
+      cpu: 500m
+      memory: 100Mi
+  #  existingSecret: blueapi-password
+  service:
+    type: LoadBalancer
+  ingress:
+    create: false
+  worker:
+    env:
+      sources:
+        - kind: dodal
+          module: dodal.beamlines.p47
+        - kind: planFunctions
+          module: dls_bluesky_core.plans
+        - kind: planFunctions
+          module: dls_bluesky_core.stubs
+        - kind: planFunctions
+          module: i22_bluesky.plans
+        - kind: planFunctions
+          module: i22_bluesky.stubs
+      data_writing:
+        visit_service_url: http://bl47p-ea-serv-01.diamond.ac.uk:8088/api
+        visit_directory: /exports/mybeamline
+        group_name: p47
+    stomp:
+      auth:
+        username: p47
+      host: daq-deployments-rabbitmq
+      port: 61613
+  scratch:
+    hostPath: /exports/mybeamline/blueapi
+    containerPath: /exports/mybeamline/blueapi

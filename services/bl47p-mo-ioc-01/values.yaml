@@ -1,0 +1,3 @@
+domain:
+  ioc-instance:
+    image: ghcr.io/epics-containers/ioc-pmac-linux-runtime:2024.2.1
