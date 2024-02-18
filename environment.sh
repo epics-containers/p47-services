@@ -46,6 +46,8 @@ source <(ec --show-completion ${SHELL})
 
 #### SECTION 3. Configure Kubernetes Cluster ###################################
 
+
+
 # the following configures kubernetes inside DLS.
 
 module unload pollux > /dev/null
@@ -59,5 +61,6 @@ kubectl version --short
 # enable shell completion for k8s tools
 source <(helm completion $(basename ${SHELL}))
 source <(kubectl completion $(basename ${SHELL}))
+
 
 
