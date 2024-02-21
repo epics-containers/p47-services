@@ -8,9 +8,12 @@ epics-opis:
   # the name of the repository in which the IOC is grouped
   location: bl47p
 
-  # this is a shared cluster beamline so use affinity to make this run on the
-  # the beamline node (p47 only has one node)
+  # useAffinity - only run on nodes with label beamline:<beamline-name>
+  # or location:<location-name>
+  # Comment out useAffiniity for dedicated cluster, set to true for shared cluster
+  
   useAffinity: true
+  
 
   # extra toleration for the shared cluster training rigs
   tolerations:

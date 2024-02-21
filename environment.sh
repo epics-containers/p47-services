@@ -59,8 +59,8 @@ kubectl version --short
 
 
 # enable shell completion for k8s tools
+if [ -n "$ZSH_VERSION" ]; then SHELL=zsh; fi
 source <(helm completion $(basename ${SHELL}))
 source <(kubectl completion $(basename ${SHELL}))
-
 
 

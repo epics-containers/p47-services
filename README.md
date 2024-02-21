@@ -1,4 +1,4 @@
-#beamline bl47p IOC Instances and Services.
+# beamline bl47p IOC Instances and Services
 
 This repository holds the a definition of beamline bl47p IOC Instances and services. Each sub folder of the `services` directory contains a helm chart for a specific service or IOC.
 

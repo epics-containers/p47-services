@@ -18,8 +18,10 @@ ioc-instance:
 
   # useAffinity - only run on nodes with label beamline:<beamline-name>
   # or location:<location-name>
-  # Set to false for dedicated cluster per beamline and accelerator
-  useAffinity: True
+  # Comment out useAffiniity for dedicated cluster, set to true for shared cluster
+  
+  useAffinity: true
+  
 
   # root folder for ioc source/binaries inside generic IOC container
   iocFolder: /epics/ioc
