@@ -1,4 +1,4 @@
-# default values for all IOCs on bl47p beamline
+# default values for all IOCs on bl47p
 ioc-instance:
   # the beamline name - only set for beamlines
   beamline: bl47p
