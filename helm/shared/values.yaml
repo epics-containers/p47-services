@@ -1,6 +1,5 @@
 # default values for all IOCs on bl47p beamline
 ioc-instance:
-
   # the beamline name - only set for beamlines
   beamline: bl47p
   # the location where the IOCs will run - same as beamline for beamlines
@@ -19,9 +18,8 @@ ioc-instance:
   # useAffinity - only run on nodes with label beamline:<beamline-name>
   # or location:<location-name>
   # Comment out useAffiniity for dedicated cluster, set to true for shared cluster
-  
+
   useAffinity: true
-  
 
   # root folder for ioc source/binaries inside generic IOC container
   iocFolder: /epics/ioc
@@ -30,7 +28,6 @@ ioc-instance:
   start: /epics/ioc/start.sh
   stop: /epics/ioc/stop.sh
   liveness: /epics/ioc/liveness.sh
-
 
   # The following are added to the pod's environment and are shared by all
   # IOCs. TODO - these defaults are for a lab crate in DLS - if you have
@@ -54,9 +51,9 @@ ioc-instance:
   # This also adds environment variables to the pod, but this should be
   # overridden by each IOC's values.yaml as needed. Don't set values in this
   # file because they will be overridden by IOCs.
-  iocEnv:
-    - name: ""
-      value: ""
+  # iocEnv:
+  #   - name: ""
+  #     value: ""
 
   # defaults for securityContext
   # Usually override runAsXXX in the individual IOC values.yaml.
@@ -111,4 +108,3 @@ ioc-instance:
       operator: "Equal"
       value: "training-rig"
       effect: "NoSchedule"
-  
