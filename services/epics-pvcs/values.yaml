@@ -2,4 +2,4 @@ epics-pvcs:
   # the location where the IOCs will run
   location: bl47p
   # the name of the repository in which the IOC is grouped
-  ioc_group: p47
+  ioc_group: bl47p
