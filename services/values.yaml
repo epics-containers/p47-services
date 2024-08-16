@@ -4,7 +4,7 @@
 
 global:
   ioc_group: p47
-  location: bl45p
+  location:bl47p
   enabled: true
 
 ioc-instance:
@@ -25,16 +25,16 @@ ioc-instance:
               - key: beamline
                 operator: In
                 values:
-                  - bl45p
+                  -bl47p
 
   tolerations:
     - key: beamline
       operator: Equal
-      value: bl45p
+      value:bl47p
       effect: NoSchedule
     - key: location
       operator: Equal
-      value: bl45p
+      value:bl47p
       effect: NoSchedule
     - key: nodetype
       operator: Equal

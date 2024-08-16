@@ -8,6 +8,6 @@ description: p47 IOC Instances and Services
 git_platform: github.com
 github_org: epics-containers
 ioc_group: p47
-location: bl45p
+location:bl47p
 logging_url: https://graylog2.diamond.ac.uk/search?rangetype=relative&fields=message%2Csource&width=1489&highlightMessage=&relative=172800&q=pod_name%3A{service_name}*
 repo_uri: https://github.com/epics-containers/p47-services
