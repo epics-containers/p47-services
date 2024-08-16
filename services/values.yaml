@@ -1,0 +1,11 @@
+# shared values for all services
+
+global:
+  ioc_group: p47
+  location: bl45p
+  enabled: true
+
+ioc-instance:
+  # useHostNetwork - use host network for IOC - required for Channel Access
+  # to work outside of the cluster
+  hostNetwork: false

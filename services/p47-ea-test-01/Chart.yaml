@@ -1,12 +1,11 @@
 # A Helm Chart for an IOC instance
 apiVersion: v2
-name: epics-opis
-
+name: ec-service
 version: 1.0.0
 
 type: application
 
 dependencies:
-  - name: epics-opis
+  - name: ioc-instance
     version: 3.5.2+b11
     repository: "oci://ghcr.io/epics-containers"
