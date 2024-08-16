@@ -38,5 +38,5 @@ ioc-instance:
       effect: NoSchedule
     - key: nodetype
       operator: Equal
-      value: test-rig
+      value: training-rig
       effect: NoSchedule
