@@ -16,7 +16,7 @@ entities:
     IOC: "{{ ioc_name | upper }}"
 
   - type: ADAravis.aravisCamera
-    CLASS: AVT_Mako_G125B
+    CLASS: AVT_Mako_G234B
     ID: 192.168.250.3
     P: BL47P-EA-DET-01
     PORT: DET.CAM

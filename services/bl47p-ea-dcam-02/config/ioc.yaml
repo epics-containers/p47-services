@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adaravis/releases/download/2024.4.2/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adaravis/releases/download/2024.8.2/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 
@@ -16,7 +16,7 @@ entities:
     IOC: "{{ ioc_name | upper }}"
 
   - type: ADAravis.aravisCamera
-    CLASS: AVT_Mako_G125B
+    CLASS: auto-generated
     ID: 192.168.250.28
     P: BL47P-EA-DET-02
     PORT: DET2.CAM
