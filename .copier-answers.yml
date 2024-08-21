@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 0.2.4
+_commit: 0.2.5b-6-g5c32212
 _src_path: gh:epics-containers/services-template-helm
 cluster_name: pollux
 cluster_namespace: p47-beamline

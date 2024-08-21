@@ -1,5 +1,4 @@
-epics-opis:
-  # the location where the IOCs will run - same as beamline for beamlines
-  location: p47
-  # the name of the repository in which the IOC is grouped
-  ioc_group: p47
+# Short name for this collection of services
+# ioc_group:
+# location where these IOCs and services will run
+# location:
