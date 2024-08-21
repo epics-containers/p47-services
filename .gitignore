@@ -1,8 +1,9 @@
 **/*.tz
 **/*.tgz
 .history
+venv*
+.venv*
 **/Chart.lock
 **/charts
-**/*.bob
-edm/bobs
 **/*copy
+*.code-workspace

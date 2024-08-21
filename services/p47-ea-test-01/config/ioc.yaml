@@ -1,8 +1,8 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-template/releases/download/2024.1.1/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-template-example/releases/download/3.5.1/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 
-description: Very generic instance for testing generic IOCs
+description: Generic instance for testing generic IOCs
 
 entities:
   - type: epics.EpicsEnvSet
@@ -16,13 +16,13 @@ entities:
     command: dbLoadRecords("/epics/ioc/config/ioc.db")
 
   - type: epics.dbpf
-    pv: bl47p:IBEK:A
+    pv: P47:IBEK:A
     value: "2.54"
 
   - type: epics.dbpf
-    pv: bl47p:IBEK:B
+    pv: P47:IBEK:B
     value: "2.61"
 
   - type: epics.PostStartupCommand
     command: |
-      dbgf bl47p:IBEK:SUM
+      dbgf P47:IBEK:SUM
