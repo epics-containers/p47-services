@@ -1,0 +1,25 @@
+# A manually constructed service to give us a fixed IP
+# TODO replace with an igress
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: epics-opis
+    ioc_group: p47
+    location: bl47p
+  name: epics-opis-static
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+  selector:
+    app: epics-opis
+  sessionAffinity: None
+  type: LoadBalancer
+  loadBalancerIP: 172.23.168.217
