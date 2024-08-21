@@ -794,6 +794,7 @@
     </y_axis>
     <data_width>1024</data_width>
     <data_height>1024</data_height>
+    <color_mode>21</color_mode>
     <unsigned>true</unsigned>
   </widget>
   <widget type="group" version="2.0.0">
