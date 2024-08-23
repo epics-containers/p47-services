@@ -10,7 +10,7 @@ global:
 ioc-instance:
   # useHostNetwork - use host network for IOC - required for Channel Access
   # to work outside of the cluster
-  hostNetwork: true
+  hostNetwork: false
 
   # affinity and tolerations to get the right nodes on pollux
   securityContext:
