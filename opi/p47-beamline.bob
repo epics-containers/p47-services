@@ -11,7 +11,7 @@
     <text>P47 Beamline Synoptic</text>
     <x use_class="true">0</x>
     <y use_class="true">0</y>
-    <width>807</width>
+    <width>1250</width>
     <height>25</height>
     <font use_class="true">
       <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
@@ -282,7 +282,6 @@
     <widget type="label" version="2.0.0">
       <name>Label_6</name>
       <text>Overview Camera</text>
-      <x>-2</x>
       <y>10</y>
       <width>150</width>
       <tooltip>$(text)</tooltip>
@@ -291,7 +290,7 @@
       <name>OpenDisplay</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.189/bl47p-ea-dcam-02/index.bob</file>
+          <file>http://172.23.168.217/bl47p-ea-dcam-02/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:DET:</R>
@@ -310,7 +309,6 @@
     <widget type="label" version="2.0.0">
       <name>Label_7</name>
       <text>Sample Camera</text>
-      <x>-2</x>
       <y>35</y>
       <width>150</width>
       <tooltip>$(text)</tooltip>
@@ -319,7 +317,7 @@
       <name>OpenDisplay_1</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.189/bl47p-ea-dcam-01/index.bob</file>
+          <file>http://172.23.168.217/bl47p-ea-dcam-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:TX:</R>
@@ -338,7 +336,6 @@
     <widget type="label" version="2.0.0">
       <name>Label_8</name>
       <text>Motors</text>
-      <x>-2</x>
       <y>60</y>
       <width>150</width>
       <tooltip>$(text)</tooltip>
@@ -347,7 +344,7 @@
       <name>OpenDisplay_2</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.189/bl47p-mo-ioc-01/index.bob</file>
+          <file>http://172.23.168.217/bl47p-mo-ioc-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
@@ -374,7 +371,7 @@
       <name>OpenDisplay_3</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.189/bl47p-ea-panda-01/index.bob</file>
+          <file>http://172.23.168.217/bl47p-ea-panda-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
@@ -392,7 +389,7 @@
     </widget>
   </widget>
   <widget type="group" version="2.0.0">
-    <name>AD Collect</name>
+    <name>Sample Camera</name>
     <macros>
       <P>BL47P-EA-DET-01</P>
       <R>:DET:</R>
@@ -797,12 +794,13 @@
     </y_axis>
     <data_width>1024</data_width>
     <data_height>1024</data_height>
+    <color_mode>21</color_mode>
     <unsigned>true</unsigned>
   </widget>
   <widget type="group" version="2.0.0">
     <name>Overview Camera</name>
     <macros>
-      <P>BL47P-EA-DET-01</P>
+      <P>BL47P-EA-DET-02</P>
       <R>:DET:</R>
     </macros>
     <x>5</x>
