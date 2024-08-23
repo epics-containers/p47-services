@@ -1,0 +1,9 @@
+# See /EPICS/extensions/src/gateway/GATEWAY.pvlist for more detailed example
+
+EVALUATION ORDER ALLOW, DENY
+
+BL47P.*            ALLOW
+
+# [0-9].*          ALLOW
+# [a-z].*          ALLOW
+# [A-Z].*          ALLOW

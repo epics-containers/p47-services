@@ -7,7 +7,7 @@ ioc-instance:
   #    this adds tools and compilers to the container so you
   #    can experiment in the cluster to fix the issue
   #
-  # image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2024.4.1
+  # image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2024.9.1
 
   # 2. override the entry point to be a sleep infinity
   #    this means you can now use 'ec exec' to get a shell

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
 
 ioc-instance:
-  image: ghcr.io/pandablocks/pandablocks-ioc:0.5.0
+  image: ghcr.io/pandablocks/pandablocks-ioc:0.9.0
   iocConfig: /epics/ioc
