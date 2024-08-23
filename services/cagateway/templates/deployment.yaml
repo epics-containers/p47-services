@@ -35,7 +35,10 @@ spec:
                       - bl47p
       containers:
         - command:
-            - -sport 6064 -cip 172.23.255.255 -pvlist /config/pvlist -access /config/access -log /dev/stdout -debug 1
+           - bash
+          args:
+           - "-c"
+           - "/epics/gateway -sport 9064 -cip 172.23.255.255 -pvlist /config/pvlist -access /config/access -log /dev/stdout -debug 1"
           env:
             - name: IOC_NAME
               value: {{ .Release.Name }}
