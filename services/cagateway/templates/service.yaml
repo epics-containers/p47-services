@@ -1,0 +1,25 @@
+# hard coded fixed IP gateway service (for POC only - will rationalize later)
+
+# not using this as gateway is run as host network right now
+
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: {{ .Release.Name }}
+#   labels:
+#     app: {{ .Release.Name }}
+# spec:
+#   type: LoadBalancer
+#   ports:
+#     - name: channel-access
+#       port: 9064
+#       protocol: TCP
+#       targetPort: 9064
+#     - name: channel-access-udp
+#       port: 9064
+#       protocol: UDP
+#       targetPort: 9064
+#   sessionAffinity: None
+#   loadBalancerIP: 172.23.168.216
+#   selector:
+#     app: {{ .Release.Name }}
