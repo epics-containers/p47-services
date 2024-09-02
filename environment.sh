@@ -19,7 +19,7 @@ export EC_TARGET=p47-beamline
 # the git repo for this project
 export EC_SERVICES_REPO=https://github.com/epics-containers/p47-services
 # declare your centralised log server Web UI
-export EC_LOG_URL="https://graylog2.diamond.ac.uk/search?rangetype=relative&fields=message%2Csource&width=1489&highlightMessage=&relative=172800&q=pod_name%3A{service_name}*"
+export EC_LOG_URL='https://graylog2.diamond.ac.uk/search?rangetype=relative&fields=message%2Csource&width=1489&highlightMessage=&relative=172800&q=pod_name%3A{service_name}*'
 
 #### SECTION 2. Install ec #####################################################
 
