@@ -32,11 +32,11 @@ entities:
     R: ":TX:"
     TIMEOUT: 0
 
-  - type: ADCore.NDFileHDF5
-    PORT: DET.HDF
-    NDARRAY_PORT: DET2.CAM
-    P: BL47P-EA-DET-02
-    R: ":HDF:"
+  # - type: ADCore.NDFileHDF5
+  #   PORT: DET.HDF
+  #   NDARRAY_PORT: DET2.CAM
+  #   P: BL47P-EA-DET-02
+  #   R: ":HDF:"
 
   - type: epics.dbpf
     pv: BL47P-EA-DET-02:DET:TriggerSource
