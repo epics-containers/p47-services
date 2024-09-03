@@ -23,6 +23,7 @@ entities:
     R: ":DET:"
 
   - type: ADCore.NDPvaPlugin
+    ENABLED: 1
     NDARRAY_PORT: DET.CAM
     P: BL47P-EA-DET-01
     PORT: DET.PVA
