@@ -1,0 +1,27 @@
+rabbitmq:
+  auth:
+    username: p47
+    existingPasswordSecret: rabbitmq-password
+  extraPlugins: rabbitmq_stomp
+  persistence:
+    enabled: false
+  rbac:
+    create: false
+  serviceAccount:
+    create: false
+    name: default-full-access-mounted  # TODO: use only required permissions
+  extraContainerPorts:
+    - name: stomp
+      containerPort: 61613
+  service:
+    type: ClusterIP
+    extraPorts:
+      - name: stomp
+        port: 61613
+        targetPort: stomp
+  metrics:  # TODO: Enable monitoring stack in namespace
+    enabled: true
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /metrics
+      prometheus.io/port: "8080"
