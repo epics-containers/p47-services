@@ -290,7 +290,7 @@
       <name>OpenDisplay</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.217/bl47p-ea-dcam-02/index.bob</file>
+          <file>https://p47-opis.diamond.ac.uk/bl47p-ea-dcam-02/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:DET:</R>
@@ -317,7 +317,7 @@
       <name>OpenDisplay_1</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.217/bl47p-ea-dcam-01/index.bob</file>
+          <file>https://p47-opis.diamond.ac.uk/bl47p-ea-dcam-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:TX:</R>
@@ -344,7 +344,7 @@
       <name>OpenDisplay_2</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.217/bl47p-mo-ioc-01/index.bob</file>
+          <file>https://p47-opis.diamond.ac.uk/bl47p-mo-ioc-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
@@ -371,7 +371,7 @@
       <name>OpenDisplay_3</name>
       <actions>
         <action type="open_display">
-          <file>http://172.23.168.217/bl47p-ea-panda-01/index.bob</file>
+          <file>https://p47-opis.diamond.ac.uk/bl47p-ea-panda-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
