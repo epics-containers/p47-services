@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-template-example/releases/download/3.5.1/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-template-example/releases/download/4.0.0/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 
@@ -15,14 +15,8 @@ entities:
   - type: epics.StartupCommand
     command: dbLoadRecords("/epics/ioc/config/ioc.db")
 
-  - type: epics.dbpf
-    pv: P47:IBEK:A
-    value: "2.54"
-
-  - type: epics.dbpf
-    pv: P47:IBEK:B
-    value: "2.61"
-
   - type: epics.PostStartupCommand
     command: |
+      dbpf P47:IBEK:A "2.54"
+      dbpf P47:IBEK:B "2.61"
       dbgf P47:IBEK:SUM

@@ -7,3 +7,4 @@ venv*
 **/charts
 **/*copy
 *.code-workspace
+.ci_work
