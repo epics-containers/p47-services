@@ -16,11 +16,14 @@ entities:
     IOC: "{{ ioc_name | upper }}"
 
   - type: ADAravis.aravisCamera
-    CLASS: AVT_Mako_G234C
+    CLASS: AutoADGenICam
     ID: 192.168.250.28
     P: BL47P-EA-DET-02
     PORT: DET2.CAM
     R: ":DET:"
+
+  - type: ADAravis.aravisSettings
+    camera: DET2.CAM
 
   - type: ADCore.NDPvaPlugin
     ENABLED: 1
