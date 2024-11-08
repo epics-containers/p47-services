@@ -1,0 +1,22 @@
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  type: LoadBalancer
+  ports:
+    - name: {{ .Release.Name }}-tcp
+      port: {{ .Values.ca_port }}
+      protocol: TCP
+      targetPort: {{ .Values.ca_port }}
+    - name: {{ .Release.Name }}-udp
+      port: {{ .Values.ca_port }}
+      protocol: UDP
+      targetPort: {{ .Values.ca_port }}
+  sessionAffinity: None
+  selector:
+    app: {{ .Release.Name }}

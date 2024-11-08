@@ -38,7 +38,7 @@ spec:
            - bash
           args:
            - "-c"
-           - "/epics/gateway -sport 9064 -cip 172.23.255.255 -pvlist /config/pvlist -access /config/access -log /dev/stdout -debug 1"
+           - "/epics/gateway -sport {{ .Values.ca_port }} -cip 172.23.255.255 -pvlist /config/pvlist -access /config/access -log /dev/stdout -debug 1"
           env:
             - name: IOC_NAME
               value: {{ .Release.Name }}
