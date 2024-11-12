@@ -36,11 +36,8 @@ source <(ec --show-completion ${SHELL})
 #### SECTION 3. Configure Kubernetes Cluster ###################################
 
 
-# the following configures kubernetes inside DLS.
-
-module unload pollux > /dev/null
-module load pollux > /dev/null
 # set the default namespace for kubectl and helm (for convenience only)
+kubectl config use-context kind-kind-cluster
 kubectl config set-context --current --namespace=p47-beamline
 # make sure the user has provided credentials
 kubectl version
