@@ -24,6 +24,7 @@ spec:
         location: bl47p
         rollme: goWO0
     spec:
+      serviceAccountName: default-full-access-mounted
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -38,14 +39,12 @@ spec:
            - bash
           args:
            - "-c"
-           - "/epics/gateway -sport 9064 -cip 172.23.255.255 -pvlist /config/pvlist -access /config/access -log /dev/stdout -debug 1"
+           - "python3 /launch_gateway.py --port {{ .Values.ca_port }} --namespace ${MY_POD_NAMESPACE}"
           env:
-            - name: IOC_NAME
-              value: {{ .Release.Name }}
-            - name: IOC_LOCATION
-              value: bl47p
-            - name: IOC_GROUP
-              value: p47
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           image: {{ .Values.image }}
           imagePullPolicy: Always
           name: {{ .Release.Name }}
@@ -63,7 +62,7 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config-volume
-      hostNetwork: true
+      hostNetwork: false
       restartPolicy: Always
       terminationGracePeriodSeconds: 3
       tolerations:
