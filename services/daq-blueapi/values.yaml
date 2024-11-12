@@ -1,0 +1,59 @@
+blueapi:
+  hostNetwork: false
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 500Mi
+    requests:
+      cpu: 500m
+      memory: 100Mi
+  nodeSelector:
+    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+  tolerations:
+    - key: nodetype
+      operator: Equal
+      value: training-rig
+      effect: NoSchedule
+    - key: beamline
+      operator: Equal
+      value: bl47p
+      effect: NoSchedule
+  ingress:
+    create: true
+    host: p47-blueapi.diamond.ac.uk
+  extraEnvVars:
+    - name: BEAMLINE
+      value: p47
+
+    - name: RABBITMQ_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: rabbitmq-password
+          key: rabbitmq-password
+  worker:
+    env:
+      sources:
+      - kind: dodal
+        module: dodal.beamlines.training_rig
+        # TODO: Make training rig plans repository
+      - kind: planFunctions
+        module: blueapi.startup
+      events:
+        broadcast_status_events: False
+    stomp:
+      auth:
+        username: p47
+        password: ${RABBITMQ_PASSWORD}
+      host: daq-rabbitmq
+    scratch:
+      root: /exports/mybeamline/p47/scratch/blueapi
+  
+  initContainer:
+    scratch:
+      root: /exports/mybeamline/p47/scratch/blueapi
+      repositories:
+        - name: dodal
+          remote_url: https://github.com/DiamondLightSource/dodal.git
+        - name: blueapi
+          remote_url: https://github.com/DiamondLightSource/blueapi.git
+  scratchHostPath: /exports/mybeamline/p47/scratch/blueapi
