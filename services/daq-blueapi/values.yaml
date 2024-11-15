@@ -43,7 +43,7 @@ blueapi:
         module: dodal.beamlines.training_rig
         # TODO: Make training rig plans repository
       - kind: planFunctions
-        module: blueapi.startup
+        module: dodal.plans.wrapped
       events:
         broadcast_status_events: False
     stomp:
