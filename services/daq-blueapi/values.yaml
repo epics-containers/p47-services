@@ -29,8 +29,6 @@ blueapi:
         secretKeyRef:
           name: rabbitmq-password
           key: rabbitmq-password
-    - name: OTLP_EXPORT_ENABLED
-      value: "false"
     - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
       value: http/protobuf
     - name: OTEL_EXPORTER_OTLP_ENDPOINT
