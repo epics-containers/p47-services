@@ -21,15 +21,23 @@ blueapi:
   ingress:
     create: true
     host: p47-blueapi.diamond.ac.uk
-  extraEnvVars:
+  extraEnvVars: |
     - name: BEAMLINE
       value: p47
-
     - name: RABBITMQ_PASSWORD
       valueFrom:
         secretKeyRef:
           name: rabbitmq-password
           key: rabbitmq-password
+    - name: OTLP_EXPORT_ENABLED
+      value: {{ .Values.tracing.otlp.export_enabled }}
+    - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
+      value: {{ .Values.tracing.otlp.protocol }}
+    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+      value: "{{ .Values.tracing.otlp.host }}:{{ .Values.tracing.otlp.port }}"
+  tracing:
+    otlp:
+      host: https://jaeger-all-in-one # replace with central instance
   worker:
     env:
       sources:
@@ -47,7 +55,6 @@ blueapi:
       host: daq-rabbitmq
     scratch:
       root: /exports/mybeamline/p47/scratch/blueapi
-  
   initContainer:
     scratch:
       root: /exports/mybeamline/p47/scratch/blueapi
