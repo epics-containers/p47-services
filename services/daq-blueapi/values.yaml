@@ -50,9 +50,9 @@ blueapi:
         password: ${RABBITMQ_PASSWORD}
       host: daq-rabbitmq
     oidc:
-      well_known_url: https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration
+      well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
       client_id: "blueapi-cli"
-      client_audience: "p47"
+      client_audience: ["p47", "blueapi"]
     scratch:
       root: /exports/mybeamline/p47/scratch/blueapi
   initContainer:
