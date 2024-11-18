@@ -33,7 +33,7 @@ blueapi:
     otlp:
       enabled: true
       server:
-        host: https://jaeger-all-in-one # replace with central instance
+        host: http://jaeger-all-in-one # replace with central instance
   worker:
     env:
       sources:
