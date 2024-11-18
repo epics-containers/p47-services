@@ -32,7 +32,8 @@ blueapi:
   tracing:
     otlp:
       enabled: true
-      host: https://jaeger-all-in-one # replace with central instance
+      server:
+        host: https://jaeger-all-in-one # replace with central instance
   worker:
     env:
       sources:
