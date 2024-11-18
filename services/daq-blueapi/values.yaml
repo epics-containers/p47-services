@@ -29,12 +29,9 @@ blueapi:
         secretKeyRef:
           name: rabbitmq-password
           key: rabbitmq-password
-    - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
-      value: http/protobuf
-    - name: OTEL_EXPORTER_OTLP_ENDPOINT
-      value: https://jaeger-all-in-one:4318
   tracing:
     otlp:
+      enabled: true
       host: https://jaeger-all-in-one # replace with central instance
   worker:
     env:
@@ -51,6 +48,10 @@ blueapi:
         username: p47
         password: ${RABBITMQ_PASSWORD}
       host: daq-rabbitmq
+    oidc:
+      well_known_url: https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration
+      client_id: blueapi-cli
+      client_audience: [blueapi, p47]
     scratch:
       root: /exports/mybeamline/p47/scratch/blueapi
   initContainer:
