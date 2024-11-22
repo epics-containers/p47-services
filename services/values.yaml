@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
+# yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/4.1.3/ioc-instance.schema.json
 
 # shared values for all services
 
@@ -10,7 +10,7 @@ global:
 ioc-instance:
   # useHostNetwork - use host network for IOC - required for Channel Access
   # to work outside of the cluster
-  hostNetwork: true
+  hostNetwork: false
 
   # affinity and tolerations to get the right nodes on pollux
   securityContext:
