@@ -55,6 +55,10 @@ entities:
     TYPE: Int8
 
   - type: epics.dbpf
+    pv: BL47P-EA-DET-01:DET:TriggerSource
+    value: '"Freerun"'
+
+  - type: epics.dbpf
     pv: BL47P-EA-DET-01:DET:GC_GevSCPSPacketSize
     value: "1500"
 
