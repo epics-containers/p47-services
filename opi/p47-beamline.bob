@@ -282,7 +282,7 @@
     <widget type="label" version="2.0.0">
       <name>Label_6</name>
       <text>Overview Camera</text>
-      <y>10</y>
+      <y>36</y>
       <width>150</width>
       <tooltip>$(text)</tooltip>
     </widget>
@@ -301,34 +301,7 @@
       </actions>
       <text>BL47P-EA-DET-02</text>
       <x>153</x>
-      <y>10</y>
-      <width>205</width>
-      <height>20</height>
-      <tooltip>$(actions)</tooltip>
-    </widget>
-    <widget type="label" version="2.0.0">
-      <name>Label_7</name>
-      <text>Sample Camera</text>
-      <y>35</y>
-      <width>150</width>
-      <tooltip>$(text)</tooltip>
-    </widget>
-    <widget type="action_button" version="3.0.0">
-      <name>OpenDisplay_1</name>
-      <actions>
-        <action type="open_display">
-          <file>https://p47-opis.diamond.ac.uk/bl47p-ea-dcam-01/index.bob</file>
-          <macros>
-            <P>BL47P-EA-DET-01</P>
-            <R>:TX:</R>
-          </macros>
-          <target>tab</target>
-          <description>Open Display</description>
-        </action>
-      </actions>
-      <text>BL47P-EA-DET-01</text>
-      <x>153</x>
-      <y>35</y>
+      <y>36</y>
       <width>205</width>
       <height>20</height>
       <tooltip>$(actions)</tooltip>
@@ -383,6 +356,33 @@
       <text>BL47P-MO-PANDA-01</text>
       <x>153</x>
       <y>85</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_7</name>
+      <text>Sample Camera</text>
+      <y>11</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>OpenDisplay_1</name>
+      <actions>
+        <action type="open_display">
+          <file>https://p47-opis.diamond.ac.uk/bl47p-ea-dcam-01/index.bob</file>
+          <macros>
+            <P>BL47P-EA-DET-01</P>
+            <R>:TX:</R>
+          </macros>
+          <target>tab</target>
+          <description>Open Display</description>
+        </action>
+      </actions>
+      <text>BL47P-EA-DET-01</text>
+      <x>153</x>
+      <y>11</y>
       <width>205</width>
       <height>20</height>
       <tooltip>$(actions)</tooltip>

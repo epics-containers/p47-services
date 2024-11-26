@@ -50,3 +50,7 @@ entities:
   - type: epics.dbpf
     pv: BL47P-EA-DET-02:DET:AcquireTime
     value: "0.5"
+
+  - type: epics.dbpf
+    pv: BL47P-EA-DET-02:TX:EnableCallbacks
+    value: "1"
