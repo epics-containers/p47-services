@@ -38,7 +38,8 @@ do
     fi
 
     $docker run --rm --entrypoint bash \
-        -v ${ROOT}/.ci_work:/services \
+        -v ${ROOT}/.ci_work:/services:z \
+        -v ${ROOT}/.helm-shared:/.helm-shared:z \
         alpine/helm:3.14.3 \
         -c "
            helm lint /services/$service_name --values /services/values.yaml &&
@@ -66,8 +67,8 @@ do
 
         # This will fail and exit if the ioc.yaml is invalid
         $docker run --rm --entrypoint bash \
-            -v ${service}/config:/config \
-            -v ${runtime}:/epics/runtime \
+            -v ${service}/config:/config:z \
+            -v ${runtime}:/epics/runtime:z \
             ${image} \
             -c 'ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*'
         # show the startup script we just generated (and verify it exists)
