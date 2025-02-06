@@ -48,7 +48,7 @@ blueapi:
       auth:
         username: p47
         password: ${RABBITMQ_PASSWORD}
-      host: daq-rabbitmq
+      host: p47-rabbitmq
     oidc:
       well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
       client_id: "blueapi-cli"
