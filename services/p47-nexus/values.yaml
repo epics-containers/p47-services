@@ -33,7 +33,7 @@ nexus-file-converter:
       profiles:
         active: rabbitmq
       rabbitmq:
-        host: daq-rabbitmq
+        host: p47-rabbitmq
         username: p47
     files:
       output:
