@@ -33,7 +33,7 @@ blueapi:
     otlp:
       enabled: true
       server:
-        host: http://jaeger-all-in-one # replace with central instance
+        host: http://jaeger-all-in-one.p46-beamline.svc.cluster.local
   worker:
     env:
       sources:
