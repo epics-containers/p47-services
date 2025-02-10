@@ -50,7 +50,7 @@ nexus-file-converter:
   - name: SPRING_RABBITMQ_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: rabbitmq-password
+        name: rabbitmq-secrets
         key: rabbitmq-password
   securityContext:
     runAsUser: 37500 # p47-detector

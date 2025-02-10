@@ -1,16 +1,8 @@
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
-  creationTimestamp: null
-  name: rabbitmq-password
+  name: rabbitmq-secrets
   namespace: p47-beamline
 spec:
   encryptedData:
-    rabbitmq-password: AgBuFYh/3RtlhL9Q+LGx5US4jAugqU92ucm8ZE3V1Tw9NvRyZnLQg45bhaQalzvnE/Lh/BjDyybPhVU2Un5GYTVyF4bsGeuBOV39f2V0O+sMjpF6S0L/EU5IAKnPmfqjyLFkCt7LA+7dEwK04p2gE3ssM+ahNzEO6fHIho46oHmtGsm1VjlD3o5YbV+fheWb++09Q+j9I+uWz4eCd9pwDqHDWtlOloJ8FH5PXb1YSPB1+OrQp2Z2o8vbwn5mLTLSqwMABAl7npqkM+maMaY7U1E3DE5h7vAG7SQwddzdZaW8U9KTXK2MDwTJNm0ls2GxV2EYAUJTdvI6BOqYuEV1BSXr2UfuSpvhF4r83MgfFQaWVGHgdbE5TZntj+MuTFQsF3TKRvL7g1+gF/7VMMw46fgHWxVGOHFxjJDnm5XH+9BvcLdxo8Y+HzniN4Io9Y12qQvE9cddCez5svYrtrV5wYIrBFaeptrHads7Xh6f4PUPepNOPVdzDkraUPEAoyl8Gg7JPXeBOtBG8am82ac65m096kzu01wrggjrtmhCTv3Wtz085YapwlTQ4ZLSZOHdWsTKz6QUPqxdBxthOMoPuWeNoFsK1q9EyntQfDBcuR6TDZL/DBnXrU7FvJBQtkH0b0XgFEhGd66eYleyPT+zCz/Qe6a2YQGRK2X0+rkBqK/4EUFgLtKNKSseeSMhw4hvi/AZVew=
-  template:
-    data: null
-    metadata:
-      creationTimestamp: null
-      name: rabbitmq-password
-      namespace: p47-beamline
-
+    rabbitmq-password: AgBxwTrhe6MlBnfURGeS8v/QeuakER51FygJiVKSCLDLoI6ZNbrpfhyN+LV+koreEDW15ktE1GeYNzrVCW6G0Qo/x/lPf6+xa36oL9ez1iADjK6YvzCsa82BanQLgAPRWCR7GgGVtkg9/ThdCa/iPLSoNwIo8Ky0c2UtozR5ewzzmzL8PveHU/gyu6Tz/khAhCFSHNKcyEaEdDFgQRaNSop+CSijGPVGjJrX1EnNefUlEEIAPNfNoT5y8EXeYsL6zEfmATLrZORwblYoaIpU8uQ7+wHoMZ3hq+ZBWMmOMJy73C2nlgbctDZP1R0ap2dvT/bxoiwoq1nnzrBvAOYngN3mbecm1kPj13fejBzel+0YE9ueVdkWjilKFMBaVRu/Mk+K2e9DY9paYSjxPBS+XFofjrqORdo9+Tju4o4UfIe6UlNqiUOq4Ol9KChlZjGyOd4B030MTo7fnDbyh21thCpqccIRcFN0JuzyuIC1FKgEH/UkEhqn1hwseokTaeTADlHEV0/I3P6NsyiY+jnN+m1wh0NGBURfXKtuZcMqRtRvDH+LdPSegRdcabjsX1+/BQV1GpAYNeOELx7/2gx19E9NJ+cBtN/IbmltOJ4o+L0MAE7rZlvofyQc3sEFZLIqJkZmoR8Y/vDtm1JORVcSJh0BmrCnZo4nWP6Jnf/jOKWtJo/5/toSwoTiW2QzYDTycZQS/WBCSVoOvRVE8WWc
