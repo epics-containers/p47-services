@@ -6,6 +6,7 @@ rabbitmq:
   extraPlugins: rabbitmq_stomp
   persistence:
     enabled: false
+  initScriptsCM: rabbitmq-init
   rbac:
     create: false
   serviceAccount:
