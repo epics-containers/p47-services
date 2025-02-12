@@ -34,7 +34,8 @@ nexus-file-converter:
         active: rabbitmq
       rabbitmq:
         host: p47-rabbitmq
-        username: p47
+        username: guest
+        password: guest
     files:
       output:
         directory:
@@ -46,12 +47,6 @@ nexus-file-converter:
             sample_stage: NX_COLLECTION
             sample_stage.x: NX_POSITIONER
             sample_stage.theta: NX_POSITIONER
-  containerEnvVars:
-  - name: SPRING_RABBITMQ_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: rabbitmq-secrets
-        key: rabbitmq-password
   securityContext:
     runAsUser: 37500 # p47-detector
     runAsGroup: 37500
