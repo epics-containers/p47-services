@@ -6,23 +6,30 @@ metadata:
 spec:
   encryptedData:
     rabbitmq-erlang-cookie: AgBfIseY03T1nhOMPDNdDEstetGFOOZNykWt9pcEMDXW96T0bl7Z63WYhN6EFCs1/QUBjt7Owi0DOQAt5MzGpBBpwUrLkkis4PuNW+1aQB/oUaP220Dfo3MP06l+YP4GuIzxOvQEVID5JCBIPb5m0lOQ66ZkrVzitssU4w+mswcIKXJxUwzMzhGmOMF5Ila6iD9wyk5VZFJgK9wJ8EIcwhG/IjsIALzYvK0b86W4FGQiVUaERHscZ2L00ib4xMNJJog6AQZ/cbnc1FblMc4XtYzw5//CjIYI42Q0cjCd9vd9QkNo/vspPJOYmoxDAICoYdrwudqSy3RpN0Xit4kOduFmCDuEGSMAwFdju6dIPXzJsu5zehqJAGnHsuuHRdfUxT3IjWeWexFs+HP4sXrU/zXLIkAxEvU/N0/aelhZMdk4K9iw2bSi+gxIFAmtUhFBnPTNYLd44Wm+9NvxgupCBN3MLjdj9zrNg70em4QsTySk0KmiWZq/RUFfOgRV78T3ZnkNlL/haDDS0V4Yt7zCAQ9AFQqt2g1scrjxDIUx4j4arPVgClYyyOzUI8vj+GMrIt0tPp9f83KlEJW/NiU4wZtMAptdjQdU3bBqm4AZWbMO1lvHxl5uR/6Hf15D1oo/78cDFJa4dkZLiX1peUvA0cuWPm/Opvj31gclqB8xYj68+Xnvog6BEeyL7816PzswcNO7Kr5IMyKJqRcasbnx
-  stringData:
-    load_definition.json: |-
-      {
-        "users": [
-            {
-                "name": "admin",
-                "password": "{{ randAlphaNum 10 }}",
-                "tags": "administrator"
-            },
-            {
-                "name": "guest",
-                "password": "guest"
-            }
-        ],
-        "vhosts": [
-            {
-                "name": "/"
-            }
-        ]
-      }
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rabbitmq-files
+stringData:
+  load_definition.json: |-
+    {
+      "users": [
+          {
+              "name": "admin",
+              "password": "{{ randAlphaNum 10 }}",
+              "tags": "administrator"
+          },
+          {
+              "name": "guest",
+              "password": "guest"
+          }
+      ],
+      "vhosts": [
+          {
+              "name": "/"
+          }
+      ]
+    }

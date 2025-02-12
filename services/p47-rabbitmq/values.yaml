@@ -1,7 +1,7 @@
 rabbitmq:
   loadDefinition:
     enabled: true
-    existingSecret: rabbitmq-secrets
+    existingSecret: rabbitmq-files
   auth:
     username: p47
     existingErlangSecret: rabbitmq-secrets
