@@ -61,4 +61,9 @@ blueapi:
           remote_url: https://github.com/DiamondLightSource/dodal.git
         - name: htss-rig-bluesky
           remote_url: https://github.com/DiamondLightSource/htss-rig-bluesky.git
+        # Temporarily added for testing ScanSpec fixes 
+        - name: ophyd-async
+          remote_url: git@github.com:bluesky/ophyd-async.git
+        - name: scanspec
+          remote_url: https://github.com/bluesky/scanspec.git
   scratchHostPath: /dls_sw/htss/p47/scratch
