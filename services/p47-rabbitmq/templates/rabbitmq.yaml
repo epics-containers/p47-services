@@ -24,7 +24,8 @@ stringData:
           },
           {
               "name": "guest",
-              "password": "guest"
+              "password": "guest",
+              "tags": "administrator"
           }
       ],
       "vhosts": [
