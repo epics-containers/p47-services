@@ -25,18 +25,18 @@ entities:
   - type: ADAravis.aravisSettings
     camera: DET.CAM
 
-  - type: ADCore.NDPvaPlugin
-    NDARRAY_PORT: DET.OVER
-    P: BL47P-EA-DET-01
-    PORT: DET.PVA
-    R: ":TX:"
-    PVNAME: BL47P-EA-DET-01:TX:PVA
-
   - type: ADCore.NDPosPlugin
     NDARRAY_PORT: DET.CAM
     P: BL47P-EA-DET-01
     PORT: DET.POS
     R: ":POS:"
+
+  - type: ADCore.NDProcess
+    NDARRAY_PORT: DET.CAM
+    P: BL47P-EA-DET-01
+    PORT: DET.PROC
+    R: ":PROC:"
+    ENABLED: 1
 
   - type: ADCore.NDFileHDF5
     ENABLED: 1
@@ -44,6 +44,22 @@ entities:
     P: BL47P-EA-DET-01
     PORT: DET.HDF
     R: ":HDF5:"
+
+  - type: ADCore.NDOverlay
+    PORT: DET.OVER
+    P: BL47P-EA-DET-01
+    R: ":OVER:"
+    NDARRAY_PORT: DET.PROC
+    NOverlays: 4
+    ENABLED: 1
+
+  - type: ADCore.NDROIStat
+    PORT: DET.ROISTAT
+    P: BL47P-EA-DET-01
+    R: ":ROISTAT:"
+    NDARRAY_PORT: DET.PROC
+    MAX_ROIS: 4
+    ENABLED: 1
 
   - type: ADCore.NDStdArrays
     FTVL: UCHAR
@@ -54,19 +70,13 @@ entities:
     R: ":ARR:"
     TYPE: Int8
 
-  - type: ADCore.NDOverlay
-    PORT: DET.OVER
+  - type: ADCore.NDPvaPlugin
+    NDARRAY_PORT: DET.OVER
     P: BL47P-EA-DET-01
-    R: ":OVER:"
-    NDARRAY_PORT: DET.PROC
-    NOverlays: 4
-
-  - type: ADCore.NDROIStat
-    PORT: DET.ROISTAT
-    P: BL47P-EA-DET-01
-    R: ":ROISTAT:"
-    NDARRAY_PORT: DET.PROC
-    MAX_ROIS: 4
+    PORT: DET.PVA
+    R: ":TX:"
+    PVNAME: BL47P-EA-DET-01:TX:PVA
+    ENABLED: 1
 
   - type: epics.dbpf
     pv: BL47P-EA-DET-01:DET:TriggerSource
@@ -75,7 +85,3 @@ entities:
   - type: epics.dbpf
     pv: BL47P-EA-DET-01:DET:GC_GevSCPSPacketSize
     value: "1500"
-
-  - type: epics.dbpf
-    pv: BL47P-EA-DET-01:TX:EnableCallbacks
-    value: "1"
