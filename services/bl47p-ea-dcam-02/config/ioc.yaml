@@ -25,29 +25,38 @@ entities:
   - type: ADAravis.aravisSettings
     camera: DET2.CAM
 
-  - type: ADCore.NDPvaPlugin
-    ENABLED: 1
-    NDARRAY_ADDR: 0
-    NDARRAY_PORT: DET2.OVER
+  - type: ADCore.NDProcess
+    NDARRAY_PORT: DET2.CAM
     P: BL47P-EA-DET-02
-    PORT: DET.PVA
-    PVNAME: BL47P-EA-DET-02:TX:PVA
-    R: ":TX:"
-    TIMEOUT: 0
+    PORT: DET2.PROC
+    R: ":PROC:"
+    ENABLED: 1
 
   - type: ADCore.NDOverlay
     PORT: DET2.OVER
     P: BL47P-EA-DET-02
     R: ":OVER:"
-    NDARRAY_PORT: DET.PROC
+    NDARRAY_PORT: DET2.PROC
     NOverlays: 4
+    ENABLED: 1
+
+  - type: ADCore.NDPvaPlugin
+    ENABLED: 1
+    NDARRAY_ADDR: 0
+    NDARRAY_PORT: DET2.OVER
+    P: BL47P-EA-DET-02
+    PORT: DET2.PVA
+    PVNAME: BL47P-EA-DET-02:TX:PVA
+    R: ":TX:"
+    TIMEOUT: 0
 
   - type: ADCore.NDROIStat
     PORT: DET2.ROISTAT
     P: BL47P-EA-DET-02
     R: ":ROISTAT:"
-    NDARRAY_PORT: DET.PROC
+    NDARRAY_PORT: DET2.PROC
     MAX_ROIS: 4
+    ENABLED: 1
 
   - type: epics.dbpf
     pv: BL47P-EA-DET-02:DET:TriggerSource
