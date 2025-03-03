@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adaravis/releases/download/2024.7.2b1/ibek.ioc.schema.json
+# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adaravis/releases/download/2025.3.1/ibek.ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 
@@ -28,12 +28,26 @@ entities:
   - type: ADCore.NDPvaPlugin
     ENABLED: 1
     NDARRAY_ADDR: 0
-    NDARRAY_PORT: DET2.CAM
+    NDARRAY_PORT: DET2.OVER
     P: BL47P-EA-DET-02
     PORT: DET.PVA
     PVNAME: BL47P-EA-DET-02:TX:PVA
     R: ":TX:"
     TIMEOUT: 0
+
+  - type: ADCore.NDOverlay
+    PORT: DET2.OVER
+    P: BL47P-EA-DET-02
+    R: ":OVER:"
+    NDARRAY_PORT: DET.PROC
+    NOverlays: 4
+
+  - type: ADCore.NDROIStat
+    PORT: DET2.ROISTAT
+    P: BL47P-EA-DET-02
+    R: ":ROISTAT:"
+    NDARRAY_PORT: DET.PROC
+    MAX_ROIS: 4
 
   - type: epics.dbpf
     pv: BL47P-EA-DET-02:DET:TriggerSource
