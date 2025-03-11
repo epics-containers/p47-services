@@ -8,14 +8,18 @@
 # other future services that don't use ibek, we will need to add a standard
 # entrypoint for validating the config folder mounted at /config.
 
-HERE=$(realpath $(dirname ${0}))
-ROOT=$(realpath ${HERE}/../..)
+ROOT=$(realpath $(dirname ${0}))
 set -xe
 rm -rf ${ROOT}/.ci_work/
 mkdir -p ${ROOT}/.ci_work
 
-# use docker if available else use podman
-if ! docker version &>/dev/null; then docker=podman; else docker=docker; fi
+# if a docker provider is specified, use it
+if [[ $DOCKER_PROVIDER ]]; then
+    docker=$DOCKER_PROVIDER
+# Otherwise use docker if available else use podman
+else
+    if ! docker version &>/dev/null; then docker=podman; else docker=docker; fi
+fi
 
 # copy the services to a temporary location to avoid dirtying the repo
 cp -r ${ROOT}/services/* ${ROOT}/.ci_work/
@@ -25,8 +29,8 @@ do
     ### Lint each service chart and validate if schema given ###
     service_name=$(basename $service)
 
-    # skip services appearing in ci_skip_checks
-    checks=${HERE}/ci_skip_checks
+    # skip services appearing in .ci_skip_checks
+    checks=${ROOT}/.ci_skip_checks
     if [[ -f ${checks} ]] && grep -q ${service_name} ${checks}; then
         echo "Skipping ${service_name}"
         continue
@@ -66,16 +70,16 @@ do
         sed -i s/AutoADGenICam/ADGenICam/ ${service}/config/ioc.yaml
 
         # This will fail and exit if the ioc.yaml is invalid
+        # Also show the startup script we just generated (and verify it exists)
         $docker run --rm --entrypoint bash \
             -v ${service}/config:/config:z \
-            -v ${runtime}:/epics/runtime:z \
             ${image} \
-            -c 'ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*'
-        # show the startup script we just generated (and verify it exists)
-        cat  ${runtime}/st.cmd
+            -c "
+            ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*  &&
+            cat /epics/runtime/st.cmd
+            "
 
     fi
-
 done
 
 rm -r ${ROOT}/.ci_work
