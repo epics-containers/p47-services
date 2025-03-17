@@ -2,13 +2,3 @@
 
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-pmac-runtime:2025.3.1
-
-  volumeMounts:
-    - mountPath: /epics/autosave
-      name: autosave
-
-  volumes:
-    - name: autosave
-      persistentVolumeClaim:
-        claimName: p47-autosave-claim
-        subPath: bl47p-mo-ioc-01

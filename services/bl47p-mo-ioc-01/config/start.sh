@@ -128,7 +128,7 @@ if [ -f ${ibek_src} ]; then
     # get the ibek support yaml files this ioc's support modules
     defs=/epics/ibek-defs/*.ibek.support.yaml
     ibek runtime generate ${ibek_src} ${defs}
-    ibek runtime generate-autosave
+    # ibek runtime generate-autosave
     if [[ -d /epics/support/configure/protocol ]] ; then
         rm -fr ${RUNTIME_DIR}/protocol
         cp -r /epics/support/configure/protocol  ${RUNTIME_DIR}
