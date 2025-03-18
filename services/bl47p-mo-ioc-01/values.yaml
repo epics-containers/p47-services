@@ -1,4 +1,4 @@
 # yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-pmac-developer:2025.3.2b2
+  image: ghcr.io/epics-containers/ioc-pmac-developer:2025.3.2b3
