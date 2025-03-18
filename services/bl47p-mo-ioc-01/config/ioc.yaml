@@ -14,8 +14,8 @@ entities:
   - type: devIocStats.iocAdminSoft
     IOC: "{{ ioc_name | upper }}"
 
-  # - type: autosave.Autosave
-  #   P: BL47P-MO-IOC-01
+  - type: autosave.Autosave
+    P: BL47P-MO-IOC-01
 
   - type: pvlogging.PvLogging
 
