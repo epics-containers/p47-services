@@ -75,7 +75,8 @@ do
             -v ${service}/config:/config:z \
             ${image} \
             -c "
-            ibek runtime generate /config/ioc.yaml /epics/ibek-defs/*  &&
+            ibek runtime generate /config/ioc.yaml \
+              /epics/ibek-defs/*.ibek.support.yaml  &&
             cat /epics/runtime/st.cmd
             "
 

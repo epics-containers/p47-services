@@ -5,8 +5,7 @@ name: epics-pvcs
 version: 1.0.0
 
 type: application
-
 dependencies:
   - name: epics-pvcs
-    version: 4.0.0
+    version: 4.2.1
     repository: "oci://ghcr.io/epics-containers"
