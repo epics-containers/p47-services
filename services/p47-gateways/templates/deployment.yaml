@@ -38,10 +38,9 @@ spec:
             - name: EPICS_CA_AUTO_ADDR_LIST
               value: "NO"
             - name: EPICS_CA_ADDR_LIST
-            # broadcast on controls dev network
-              value: "172.23.255.255"
+              value: {{ .Values.caAddrList }}
             - name: CA_SERVER_PORT
-              value: "9064"
+              value:  {{ .Values.caServerPort | toString}}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
@@ -71,10 +70,9 @@ spec:
             - name: EPICS_PVA_AUTO_ADDR_LIST
               value: "NO"
             - name: EPICS_PVA_ADDR_LIST
-            # broadcast on controls dev network
-              value: "172.23.255.255"
+              value: {{ .Values.pvaAddrList }}
             - name: PVA_SERVER_PORT
-              value: "9065"
+              value:  {{ .Values.pvaServerPort | toString }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
