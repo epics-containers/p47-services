@@ -40,7 +40,7 @@ spec:
             - name: EPICS_CA_ADDR_LIST
               value: {{ .Values.caAddrList }}
             - name: CA_SERVER_PORT
-              value:  {{ .Values.caServerPort | toString}}
+              value:  {{ .Values.caServerPort | quote }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
@@ -72,7 +72,7 @@ spec:
             - name: EPICS_PVA_ADDR_LIST
               value: {{ .Values.pvaAddrList }}
             - name: PVA_SERVER_PORT
-              value:  {{ .Values.pvaServerPort | toString }}
+              value:  {{ .Values.pvaServerPort | quote }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:

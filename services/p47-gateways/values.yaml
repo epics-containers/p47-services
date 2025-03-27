@@ -5,7 +5,7 @@ overrideConfig: true
 
 # broadcast on controls dev network
 caAddrList: 172.23.255.255
-pvAddrList: 172.23.255.255
+pvaAddrList: 172.23.255.255
 
-caServerPort: "9064"
-pvaServerPort: "9065"
+caServerPort: 9064
+pvaServerPort: 9065
