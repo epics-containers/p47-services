@@ -12,7 +12,7 @@ if [[ ${HOST_NETWORK} == "NO" ]]; then
   export IPS="$(python3 /config/get_ioc_ips.py)"
   export EPICS_PVA_ADDR_LIST=${IPS:-127.0.0.1}
 else
-  export EPICS_PVA_ADDR_LIST=127.0.0.1
+  export EPICS_PVA_ADDR_LIST=${EPICS_PVA_ADDR_LIST:-127.0.0.1}
 fi
 
 # PORTS for CA and PVA
