@@ -52,5 +52,17 @@ source <(helm completion $(basename ${SHELL}))
 source <(kubectl completion $(basename ${SHELL}))
 
 # Additional settings for routing to p47-gateways from different networks
-export EPICS_CA_NAME_SERVERS=bl47p-ea-serv-01:9064
-export EPICS_PVA_NAME_SERVERS=bl47p-ea-serv-01:9065
+export EPICS_CA_NAME_SERVERS=localhost:9064
+export EPICS_PVA_NAME_SERVERS=localhost.diamond.ac.uk:9065
+
+# localhost requires setting up a ssh tunnel to the actual destination
+# we do this to get through the VPN port restrictions. If you were on a
+# DLS network, you could use p47-ea-serv-01 instead of localhost
+# and not require the tunnel
+#
+# also note that no changes required for using this in the controls dev network
+# because AUTO_ADDR_LIST is still enabled.
+#
+# to set up the tunnel:
+# ssh -f -L 6443:api.pollux.diamond.ac.uk:6443 -L 9064:bl47p-ea-serv-01.diamond.ac.uk:9064 -L 9065:bl47p-ea-serv-01.diamond.ac.uk:9065  hgv27681@pc0116.cs.diamond.ac.uk -N
+
