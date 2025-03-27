@@ -5,13 +5,14 @@
 # EPICS_CA_AUTO_ADDR_LIST=YES implies we are running in hostNetwork
 #   in this case we can broadcast to find local subnet PVs
 
-if [[ ${EPICS_CA_AUTO_ADDR_LIST} == "NO" ]]; then
+if [[ ${HOST_NETWORK} == "NO" ]]; then
   # IP lists for IOCS (blank if get_ioc_ips.py fails)
   export IPS="$(python3 /config/get_ioc_ips.py)"
   export EPICS_CA_ADDR_LIST=${IPS:-127.0.0.1}
+fi
+
+if [[ -n ${EPICS_CA_ADDR_LIST} ]]; then
   cip="-cip ${EPICS_CA_ADDR_LIST}"
-else
-  export EPICS_CA_ADDR_LIST=
 fi
 
 # PORTS for CA and PVA

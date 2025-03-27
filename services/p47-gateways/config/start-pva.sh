@@ -6,11 +6,9 @@
 #   in this case we can broadcast to find local subnet PVs
 
 # IP lists for IOCS (blank if get_ioc_ips.py fails)
-if [[ ${EPICS_PVA_AUTO_ADDR_LIST} == "NO" ]]; then
+if [[ ${HOST_NETWORK} == "NO" ]]; then
   export IPS="$(python3 /config/get_ioc_ips.py)"
   export EPICS_PVA_ADDR_LIST=${IPS:-127.0.0.1}
-else
-  export EPICS_PVA_ADDR_LIST=
 fi
 
 # PORTS for CA and PVA
