@@ -1,0 +1,34 @@
+/* pvagw configuration template
+ *
+ * requires replacement of IOC server address list for gw client side
+ * and SERVER PORT for gw server side
+ *
+ */
+{
+    "version":2,
+    "readOnly":false,
+    "clients":[
+        {
+            "name":"theclient",
+            "provider":"pva",
+            "addrlist":"PVA_ADDR_LIST",
+            "autoaddrlist":PVA_AUTO_ADDR_LIST,
+            "serverport":5075,
+            "bcastport":5076
+        }
+    ],
+    "servers":[
+        {
+            "name":"theserver",
+            "clients":["theclient"],
+            /* "interface":["127.0.0.1"], */
+            /* "addrlist":"127.255.255.255", */
+            "autoaddrlist":false,
+            "serverport":PVA_SERVER_PORT,
+            /* "bcastport":5076, */
+            "statusprefix":"sts:"
+            /* "access":"some.acf", */
+            /* "pvlist":"some.pvlist", */
+        }
+    ]
+}
