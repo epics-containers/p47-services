@@ -50,3 +50,7 @@ kubectl version
 if [ -n "$ZSH_VERSION" ]; then SHELL=zsh; fi
 source <(helm completion $(basename ${SHELL}))
 source <(kubectl completion $(basename ${SHELL}))
+
+# Additional settings for routing to p47-gateways from different networks
+export EPICS_CA_NAME_SERVERS=bl47p-ea-serv-01:9064
+export EPICS_PVA_NAME_SERVERS=bl47p-ea-serv-01:9065
