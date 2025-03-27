@@ -1,0 +1,19 @@
+# hard coded fixed IP gateway service (for POC only - will rationalize later)
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  type: LoadBalancer
+  ports:
+    - name: pvacess
+      port: 9065
+      protocol: TCP
+    - name: channel-access
+      port: 9064
+      protocol: TCP
+  selector:
+    app: {{ .Release.Name }}
