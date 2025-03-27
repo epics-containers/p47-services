@@ -138,6 +138,9 @@ spec:
                 - WAKE_ALARM
           stdin: true
           tty: true
+      {{- if .Values.nodeName }}
+      nodeName: {{ .Values.nodeName }}
+      {{- end }}
       hostNetwork: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 1
