@@ -17,6 +17,12 @@ spec:
     spec:
       # must be commented out for network host
       # serviceAccountName: default-full-access-mounted
+      {{- if .Values.overrideConfig }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-config
+      {{- end }}
       containers:
         - name: {{ .Release.Name }}-ca-gateway
           command:
@@ -24,11 +30,17 @@ spec:
           args:
            - "/config/start-ca.sh"
           env:
-            # IMPORTANT - set this to YES for network host or NO for internal network
-            - name: EPICS_CA_AUTO_ADDR_LIST
+            # set this to YES for network host or NO for cluster network
+            # this controls wether the gateway will use ADDR_LIST of internal
+            # addresses, or use the ADDR_LIST below
+            - name: HOST_NETWORK
               value: "YES"
+            - name: EPICS_CA_AUTO_ADDR_LIST
+              value: "NO"
+            - name: EPICS_CA_ADDR_LIST
+              value: {{ .Values.caAddrList }}
             - name: CA_SERVER_PORT
-              value: "9064"
+              value:  {{ .Values.caServerPort | quote }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
@@ -38,57 +50,29 @@ spec:
             requests:
               cpu: 200m
               memory: 500Mi
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-                drop:
-                - NET_RAW
-                - AUDIT_WRITE
-                - CHOWN
-                - DAC_OVERRIDE
-                - FOWNER
-                - FSETID
-                - KILL
-                - MKNOD
-                - NET_BIND_SERVICE
-                - SETFCAP
-                - SETGID
-                - SETPCAP
-                - SETUID
-                - SYS_CHROOT
-                - AUDIT_CONTROL
-                - BLOCK_SUSPEND
-                - DAC_READ_SEARCH
-                - IPC_LOCK
-                - IPC_OWNER
-                - LEASE
-                - LINUX_IMMUTABLE
-                - MAC_ADMIN
-                - MAC_OVERRIDE
-                - SYS_ADMIN
-                - SYS_BOOT
-                - SYS_MODULE
-                - SYS_NICE
-                - SYS_PACCT
-                - SYS_PTRACE
-                - SYS_RESOURCE
-                - SYS_TIME
-                - SYS_TTY_CONFIG
-                - SYSLOG
-                - WAKE_ALARM
           stdin: true
           tty: true
+          {{- if .Values.overrideConfig }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /config
+          {{- end }}
+
         - name: "{{ .Release.Name }}-pva-gateway"
           command:
            - bash
           args:
            - "/config/start-pva.sh"
           env:
-            # IMPORTANT - set this to YES for net=host or NO for internal network
-            - name: EPICS_PVA_AUTO_ADDR_LIST
+            # IMPORTANT - set this to YES for net=host
+            - name: HOST_NETWORK
               value: "YES"
+            - name: EPICS_PVA_AUTO_ADDR_LIST
+              value: "NO"
+            - name: EPICS_PVA_ADDR_LIST
+              value: {{ .Values.pvaAddrList }}
             - name: PVA_SERVER_PORT
-              value: "9065"
+              value:  {{ .Values.pvaServerPort | quote }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
@@ -98,46 +82,17 @@ spec:
             requests:
               cpu: 200m
               memory: 400Mi
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-                drop:
-                - NET_RAW
-                - AUDIT_WRITE
-                - CHOWN
-                - DAC_OVERRIDE
-                - FOWNER
-                - FSETID
-                - KILL
-                - MKNOD
-                - NET_BIND_SERVICE
-                - SETFCAP
-                - SETGID
-                - SETPCAP
-                - SETUID
-                - SYS_CHROOT
-                - AUDIT_CONTROL
-                - BLOCK_SUSPEND
-                - DAC_READ_SEARCH
-                - IPC_LOCK
-                - IPC_OWNER
-                - LEASE
-                - LINUX_IMMUTABLE
-                - MAC_ADMIN
-                - MAC_OVERRIDE
-                - SYS_ADMIN
-                - SYS_BOOT
-                - SYS_MODULE
-                - SYS_NICE
-                - SYS_PACCT
-                - SYS_PTRACE
-                - SYS_RESOURCE
-                - SYS_TIME
-                - SYS_TTY_CONFIG
-                - SYSLOG
-                - WAKE_ALARM
           stdin: true
           tty: true
+          {{- if .Values.overrideConfig }}
+          volumeMounts:
+          - name: config-volume
+            mountPath: /config
+          {{- end }}
+
+      {{- if .Values.nodeName }}
+      nodeName: {{ .Values.nodeName }}
+      {{- end }}
       hostNetwork: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 1
