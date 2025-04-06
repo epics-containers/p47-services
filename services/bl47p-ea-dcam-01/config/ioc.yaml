@@ -80,7 +80,7 @@ entities:
 
   - type: epics.dbpf
     pv: BL47P-EA-DET-01:DET:TriggerSource
-    value: '"Freerun"'
+    value: '"FixedRate"'
 
   - type: epics.dbpf
     pv: BL47P-EA-DET-01:DET:GC_GevSCPSPacketSize
