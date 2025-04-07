@@ -2,3 +2,5 @@
 # ioc_group:
 # location where these IOCs and services will run
 # location:
+epics-opis:
+  image: nginx:1.27.4
