@@ -1,5 +1,24 @@
 # yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
 
 ioc-instance:
-  image: ghcr.io/pandablocks/pandablocks-ioc:0.11.2
+  #image: ghcr.io/pandablocks/pandablocks-ioc:0.11.2
+  image: ghcr.io/gilesknap/pandablocks-ioc:1.0.0b1-debug
   iocConfig: /epics/ioc
+
+  # don't make the IOC the entrypoint
+  startCommand: sleep
+  startArgs: infinity
+
+  # use root for now
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+
+  # generous resources to handle the extra overheads of debugging
+  resources:
+    limits:
+      cpu: 4
+      memory: 4Gi
+    requests:
+      cpu: 1
+      memory: 1Gi
