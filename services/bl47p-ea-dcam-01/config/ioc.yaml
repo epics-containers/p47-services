@@ -58,7 +58,7 @@ entities:
     P: BL47P-EA-DET-01
     R: ":ROISTAT:"
     NDARRAY_PORT: DET.PROC
-    MAX_ROIS: 4
+    MAX_ROIS: 8
     ENABLED: 1
 
   - type: ADCore.NDStdArrays
