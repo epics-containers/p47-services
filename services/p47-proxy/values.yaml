@@ -1,0 +1,41 @@
+image: alpine/socat:1.7.4.3-r0
+
+# deployment.yaml will create a pod that runs a container for each command
+# in 'commands', which is a dictionery of container_name:command
+commands:
+  panda8080: socat tcp-l:8080,fork,reuseaddr tcp:192.168.250.18:80
+  panda80: socat tcp-l:8008,fork,reuseaddr tcp:192.168.250.18:8008
+  pmac1025: socat tcp-l:1025,fork,reuseaddr tcp:192.168.250.13:1025
+
+# services.yaml will create a service that forwards the ports in 'service_ports'
+# to the above pod. 'service_pods' is a dictionary of port:target (TCP)
+service_ports:
+  80: 8080 # we go via 8080 because we cant bind socat to 80
+  8008: 8008
+  1025: 1025
+
+# add affinity and tolerances as required below. Delete these if not required
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: beamline
+              operator: In
+              values:
+                - bl47p
+
+tolerations:
+  - key: beamline
+    operator: Equal
+    value: bl47p
+    effect: NoSchedule
+  - key: location
+    operator: Equal
+    value: bl47p
+    effect: NoSchedule
+  - key: nodetype
+    operator: Equal
+    value: training-rig
+    effect: NoSchedule
