@@ -14,6 +14,9 @@ service_ports:
   8008: 8008
   1025: 1025
 
+# set this if you want a fixed IP for the service (must be from the fixed pool)
+service_ip: 172.23.168.209
+
 # add affinity and tolerances as required below. Delete these if not required
 
 affinity:
