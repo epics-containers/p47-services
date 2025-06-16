@@ -12,7 +12,7 @@ services:
 
   ca-gateway: &ca-gateway
 
-    image: ghcr.io/epics-containers/docker-ca-gateway:2.1.3ec1
+    image: ghcr.io/epics-containers/docker-ca-gateway:2.1.3ec2b4
 
     expose:
       - 5064-5065/udp
