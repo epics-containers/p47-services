@@ -1,4 +1,4 @@
-image: ghcr.io/epics-containers/gateways-developer:2024.12.3
+image: ghcr.io/epics-containers/gateways-developer:2025.7.1
 
 nodeName: bl47p-ea-serv-01.diamond.ac.uk
 overrideConfig: true
