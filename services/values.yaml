@@ -14,8 +14,8 @@ ioc-instance:
 
   # affinity and tolerations to get the right nodes on pollux
   securityContext:
-    runAsUser: 37500
-    runAsGroup: 37500
+    runAsUser: 37887
+    runAsGroup: 37887
 
   affinity:
     nodeAffinity:
