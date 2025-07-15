@@ -11,8 +11,8 @@ ioc-instance:
   # startArgs: /epics/ioc/start.sh
 
   # don't make the IOC the entrypoint
-  startCommand: sleep
-  startArgs: infinity
+  startCommand: /exports/mybeamline/data/2030/venv/bin/stdio-expose
+  startArgs: /epics/ioc/start.sh
 
   # disable host networking to allow root user
   hostNetwork: false
@@ -23,10 +23,6 @@ ioc-instance:
   #   runAsGroup: 0
   #   readOnlyRootFilesystem: false
   #   runAsNonRoot: false
-
-  # mount the config map elsewhere so we can copy and edit it
-  # i.e. `cp -r /tmp/config /epics/ioc/` before starting the IOC
-  iocConfig: /tmp/config
 
   # generous resources to handle the extra overheads of debugging
   resources:
