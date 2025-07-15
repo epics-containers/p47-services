@@ -12,7 +12,7 @@ ioc-instance:
 
   # don't make the IOC the entrypoint
   startCommand: /exports/mybeamline/data/2030/venv/bin/stdio-expose
-  startArgs: --version
+  startArgs: /epics/ioc/start.sh
 
   # disable host networking to allow root user
   hostNetwork: false
