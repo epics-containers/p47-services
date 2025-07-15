@@ -1,23 +1,21 @@
 # yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-adaravis-runtime:2025.7.1b1
+  image: ghcr.io/epics-containers/ioc-adaravis-developer:2025.7.1b1
 
   dataVolume:
     pvc: false
     hostPath: /exports/mybeamline/data/
 
-  startCommand: stdio-expose
-  startArgs: /epics/ioc/start.sh
+  # startCommand: stdio-expose
+  # startArgs: /epics/ioc/start.sh
 
-  # image: ghcr.io/epics-containers/ioc-adaravis-developer:2025.3.4
+  # don't make the IOC the entrypoint
+  startCommand: sleep
+  startArgs: infinity
 
-  # # don't make the IOC the entrypoint
-  # startCommand: sleep
-  # startArgs: infinity
-
-  # # disable host networking to allow root user
-  # hostNetwork: false
+  # disable host networking to allow root user
+  hostNetwork: false
 
   # # choose root user for write access to the container filesystem
   # securityContext:
@@ -26,15 +24,15 @@ ioc-instance:
   #   readOnlyRootFilesystem: false
   #   runAsNonRoot: false
 
-  # # mount the config map elsewhere so we can copy and edit it
-  # # i.e. `cp -r /tmp/config /epics/ioc/` before starting the IOC
-  # iocConfig: /tmp/config
+  # mount the config map elsewhere so we can copy and edit it
+  # i.e. `cp -r /tmp/config /epics/ioc/` before starting the IOC
+  iocConfig: /tmp/config
 
-  # # generous resources to handle the extra overheads of debugging
-  # resources:
-  #   limits:
-  #     cpu: 4
-  #     memory: 4Gi
-  #   requests:
-  #     cpu: 1
-  #     memory: 1Gi
+  # generous resources to handle the extra overheads of debugging
+  resources:
+    limits:
+      cpu: 4
+      memory: 4Gi
+    requests:
+      cpu: 1
+      memory: 1Gi
