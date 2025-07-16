@@ -7,12 +7,12 @@ ioc-instance:
     pvc: false
     hostPath: /exports/mybeamline/data/
 
-  startCommand: stdio-expose
-  startArgs: /epics/ioc/start.sh
-
-  # # trying out stdio-expose in a persisted venv
-  # startCommand: /exports/mybeamline/data/2030/venv/bin/stdio-expose
+  # startCommand: stdio-expose
   # startArgs: /epics/ioc/start.sh
+
+  # trying out stdio-expose in a persisted venv
+  startCommand: /exports/mybeamline/data/2030/venv/bin/stdio-expose
+  startArgs: /epics/ioc/start.sh
 
   # # disable host networking to allow root user
   # hostNetwork: false
