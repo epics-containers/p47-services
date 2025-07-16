@@ -2,3 +2,14 @@
 
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-pmac-developer:2025.3.2
+
+  dataVolume:
+    pvc: false
+    hostPath: /exports/mybeamline/data/
+
+  # startCommand: stdio-expose
+  # startArgs: /epics/ioc/start.sh
+
+  # trying out stdio-expose in a persisted venv
+  startCommand: /exports/mybeamline/data/2030/venv/bin/stdio-expose
+  startArgs: /epics/ioc/start.sh
