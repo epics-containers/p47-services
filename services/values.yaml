@@ -12,11 +12,11 @@ ioc-instance:
   # to work outside of the cluster
   hostNetwork: true
 
-  # affinity and tolerations to get the right nodes on pollux
   securityContext:
     runAsUser: 37887
     runAsGroup: 37887
 
+  # affinity and tolerations to get the right nodes on pollux
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
