@@ -9,7 +9,3 @@ ioc-instance:
 
   # startCommand: stdio-expose
   # startArgs: /epics/ioc/start.sh
-
-  # trying out stdio-expose in a persisted venv
-  startCommand: /exports/mybeamline/data/2030/venv/bin/stdio-expose
-  startArgs: /epics/ioc/start.sh
