@@ -4,7 +4,7 @@ THIS="$(dirname "$(readlink -f "$0")")"
 source "${THIS}/environment.sh"
 
 if [[  ${EPICS_PVA_AUTO_ADDR_LIST} = "YES" ]]; then
-  BROADCAST=\"bcastport\":"5076"
+  BROADCAST=\"bcastport\":5076,
 else
   BROADCAST=""
 fi
