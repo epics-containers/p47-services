@@ -1,4 +1,3 @@
-{{- if not .Values.hostNetwork }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -95,5 +94,3 @@ spec:
       hostNetwork: {{ .Values.hostNetwork | default "false" }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 1
-
-{{- end}}

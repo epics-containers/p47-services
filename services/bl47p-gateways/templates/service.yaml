@@ -1,4 +1,4 @@
-# hard coded fixed IP gateway service (for POC only - will rationalize later)
+{{- if not .Values.hostNetwork }}
 
 kind: Service
 apiVersion: v1
@@ -39,3 +39,4 @@ spec:
       protocol: UDP
   selector:
     app: {{ .Release.Name }}
+{{- end }}
