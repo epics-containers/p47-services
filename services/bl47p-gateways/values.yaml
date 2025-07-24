@@ -11,7 +11,7 @@ pvaServerPort: 9075
 nodeName: bl47p-ea-serv-01.diamond.ac.uk
 
 # set the maximum size of arrays that can be sent over CA
-caMaxArrayBytes: 3000000
+caMaxArrayBytes: "3000000"
 
 # set to false to run the gateway in clusterIP mode
 hostNetwork: true
