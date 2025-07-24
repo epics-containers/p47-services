@@ -8,7 +8,7 @@ caServerPort: 9064
 pvaServerPort: 9075
 
 # set to false to run the gateway in clusterIP mode
-hostNetwork: false
+hostNetwork: true
 
 # set these to space separated lists of IPs or DNS names to override the default
 # of discovering IOCs in the same namespace.
