@@ -7,6 +7,9 @@ overrideConfig: true
 caServerPort: 9064
 pvaServerPort: 9075
 
+# set the maximum size of arrays that can be sent over CA
+caMaxArrayBytes: 3000000
+
 # set to false to run the gateway in clusterIP mode
 hostNetwork: true
 
