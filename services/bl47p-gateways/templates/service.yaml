@@ -1,5 +1,3 @@
-{{- if not .Values.hostNetwork }}
-
 kind: Service
 apiVersion: v1
 metadata:
@@ -11,6 +9,8 @@ spec:
   # allocate a fixed clusterIP for this service based on the service name
   {{- $alloc_args := dict "name" .Release.Name "namespace" .Release.Namespace "baseIp" .Values.baseIp "startIp" .Values.startIp }}
   clusterIP: {{ include "allocateIpFromName" $alloc_args }}
+  {{- if .Values.hostNetwork }}
+  {{- end }}
   ports:
     # CA and PVA ports, always map to default targets IOCs will always use.
     - name: ca-server-tcp
@@ -39,4 +39,3 @@ spec:
       protocol: UDP
   selector:
     app: {{ .Release.Name }}
-{{- end }}
