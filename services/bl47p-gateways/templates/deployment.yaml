@@ -15,6 +15,9 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      {{- with .Values.nodeName }}
+      nodeName: {{ . }}
+      {{- end }}
       # enable the k8s service account so we can query for IOCs in the namespace
       serviceAccountName: default-full-access-mounted
       # if overrideConfig is set, mount the config map over the default

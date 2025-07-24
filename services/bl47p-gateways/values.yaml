@@ -7,6 +7,9 @@ overrideConfig: true
 caServerPort: 9064
 pvaServerPort: 9075
 
+# set the node name to use for the gateway only for use in training rigs
+nodeName: bl47p-ea-serv-01.diamond.ac.uk
+
 # set the maximum size of arrays that can be sent over CA
 caMaxArrayBytes: 3000000
 
