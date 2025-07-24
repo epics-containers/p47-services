@@ -10,6 +10,7 @@ spec:
   {{- $alloc_args := dict "name" .Release.Name "namespace" .Release.Namespace "baseIp" .Values.baseIp "startIp" .Values.startIp }}
   clusterIP: {{ include "allocateIpFromName" $alloc_args }}
   {{- if .Values.hostNetwork }}
+
   {{- end }}
   ports:
     # CA and PVA ports, always map to default targets IOCs will always use.
