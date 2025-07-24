@@ -1,3 +1,4 @@
+{{- if not .Values.hostNetwork }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,8 +16,10 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      # must be commented out for network host
-      # serviceAccountName: default-full-access-mounted
+      # enable the k8s service account so we can query for IOCs in the namespace
+      serviceAccountName: default-full-access-mounted
+      # if overrideConfig is set, mount the config map over the default
+      # config files supplied inside the container image
       {{- if .Values.overrideConfig }}
       volumes:
         - name: config-volume
@@ -29,18 +32,23 @@ spec:
            - bash
           args:
            - "/config/start-ca.sh"
-          env:
-            # set this to YES for network host or NO for cluster network
-            # this controls wether the gateway will use ADDR_LIST of internal
-            # addresses, or use the ADDR_LIST below
-            - name: HOST_NETWORK
-              value: "YES"
+          env: &env_gateways
             - name: EPICS_CA_AUTO_ADDR_LIST
-              value: "NO"
+              value: {{ ternary "YES" "NO" .Values.hostNetwork | quote}}
+            - name: EPICS_PVA_AUTO_ADDR_LIST
+              value: {{ ternary "YES" "NO" .Values.hostNetwork | quote}}
             - name: EPICS_CA_ADDR_LIST
-              value: {{ .Values.caAddrList }}
+              value: {{ .Values.caAddrList  | quote}}
+            - name: EPICS_PVA_ADDR_LIST
+              value: {{ .Values.pvaAddrList  | quote}}
             - name: CA_SERVER_PORT
-              value:  {{ .Values.caServerPort | quote }}
+              value:  {{ .Values.caServerPort  | quote}}
+            - name: PVA_SERVER_PORT
+              value:  {{ .Values.pvaServerPort | quote }}
+            - name: CA_DEBUG
+              value: {{ .Values.caDebug | quote }}
+            - name: PVA_DEBUG
+              value: {{ .Values.pvaDebug | quote }}
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
@@ -63,16 +71,7 @@ spec:
            - bash
           args:
            - "/config/start-pva.sh"
-          env:
-            # IMPORTANT - set this to YES for net=host
-            - name: HOST_NETWORK
-              value: "YES"
-            - name: EPICS_PVA_AUTO_ADDR_LIST
-              value: "NO"
-            - name: EPICS_PVA_ADDR_LIST
-              value: {{ .Values.pvaAddrList }}
-            - name: PVA_SERVER_PORT
-              value:  {{ .Values.pvaServerPort | quote }}
+          env: *env_gateways
           image: {{ .Values.image }}
           imagePullPolicy: Always
           resources:
@@ -93,7 +92,8 @@ spec:
       {{- if .Values.nodeName }}
       nodeName: {{ .Values.nodeName }}
       {{- end }}
-      hostNetwork: true
+      hostNetwork: {{ .Values.hostNetwork | default "false" }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 1
 
+{{- end}}
