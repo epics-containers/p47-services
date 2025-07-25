@@ -5,3 +5,8 @@ name: ec-gateways
 version: 1.0.0
 
 type: application
+
+dependencies:
+  - name: epics-gateways
+    version: 2025.7.2
+    repository: "oci://ghcr.io/epics-containers"

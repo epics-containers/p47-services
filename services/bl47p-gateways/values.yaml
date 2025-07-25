@@ -1,30 +1,7 @@
-image: ghcr.io/epics-containers/gateways-developer:2024.12.3
+epics-gateways:
+  # set the node name to use for the gateway only for use in training rigs
+  # DONT run on the same node as the IOCs to avoid localhost dual binding issues
+  nodeName: bl48p-ea-serv-01.diamond.ac.uk
 
-# nodeName: # if set, the pod will be scheduled on this node
-overrideConfig: true
-
-# set the CA and PVA server ports that the gateways will listen on
-caServerPort: 9064
-pvaServerPort: 9075
-
-# set the node name to use for the gateway only for use in training rigs
-# DONT run on the same node as the IOCs to avoid localhost dual binding issues
-nodeName: bl48p-ea-serv-01.diamond.ac.uk
-
-# set the maximum size of arrays that can be sent over CA
-caMaxArrayBytes: "3000000"
-
-# set to false to run the gateway in clusterIP mode
-hostNetwork: true
-
-# set these to space separated lists of IPs or DNS names to override the default
-# of discovering IOCs in the same namespace.
-pvaAddrList:
-caAddrList:
-
-# set these to 1 to enable debugging
-caDebug: 0
-pvaDebug: 0
-
-# must be the CIDR of the cluster network
-baseIp: "10.96.0.0/12"
+  # set to false to run the gateway in clusterIP mode
+  hostNetwork: true
