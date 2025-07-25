@@ -13,12 +13,12 @@ if [[ ${EPICS_CA_AUTO_ADDR_LIST} == "NO" ]]; then
 
   if [[ -z ${EPICS_CA_ADDR_LIST} ]]; then
     echo "EPICS_CA_ADDR_LIST is not set, discovering IOCs DNS names in the namespace"
-    export EPICS_CA_ADDR_LIST=$(python3 ${THIS_DIR}/get_ioc_list.py --namespace hgv27681 --dns-names)
+    export EPICS_CA_ADDR_LIST=$(python3 ${THIS_DIR}/get_ioc_list.py --dns-names)
   fi
 
   if [[ -z ${EPICS_PVA_ADDR_LIST} ]]; then
     echo "EPICS_PVA_ADDR_LIST is not set, discovering IOCs DNS names in the namespace"
-    export EPICS_PVA_ADDR_LIST="$(python3 ${THIS_DIR}/get_ioc_list.py --namespace hgv27681 --dns-names)"
+    export EPICS_PVA_ADDR_LIST="$(python3 ${THIS_DIR}/get_ioc_list.py --dns-names)"
   fi
 
 fi
