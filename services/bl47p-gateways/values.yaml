@@ -7,3 +7,5 @@ epics-gateways:
   hostNetwork: true
 
   image: ghcr.io/epics-containers/epics-gateways-developer:2025.7.3b1
+
+  overrideConfig: true
