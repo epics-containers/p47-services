@@ -8,5 +8,5 @@ type: application
 
 dependencies:
   - name: epics-gateways
-    version: 2025.7.3+b1
+    version: 2025.7.3
     repository: "oci://ghcr.io/epics-containers"

@@ -1,11 +1,7 @@
 epics-gateways:
-  # set the node name to use for the gateway only for use in training rigs
-  # DONT run on the same node as the IOCs to avoid localhost dual binding issues
+  # needs to be a server in controls dev network - preferably not where the IOCs
+  # are running to avoid dual CA search response warnings.
   nodeName: bl48p-ea-serv-01.diamond.ac.uk
 
   # set to false to run the gateway in clusterIP mode
   hostNetwork: true
-
-  image: ghcr.io/epics-containers/epics-gateways-developer:2025.7.3b1
-
-  overrideConfig: true
