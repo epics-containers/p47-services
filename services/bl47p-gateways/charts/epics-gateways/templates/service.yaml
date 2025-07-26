@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  type: LoadBalancer
+  # allocate a fixed clusterIP for this service based on the service name
+  {{- $alloc_args := dict "name" .Release.Name "namespace" .Release.Namespace "baseIp" .Values.baseIp "startIp" .Values.startIp }}
+  clusterIP: {{ include "allocateIpFromName" $alloc_args }}
+  {{- if .Values.hostNetwork }}
+
+  {{- end }}
+  ports:
+    # CA and PVA ports, always map to default targets IOCs will always use.
+    - name: ca-server-tcp
+      port: {{ .Values.caServerPort }}
+      targetPort: {{ .Values.caServerPort }}
+      protocol: TCP
+    - name: ca-server-udp
+      port: {{ .Values.caServerPort }}
+      targetPort: {{ .Values.caServerPort }}
+      protocol: UDP
+    - name: ca-repeater-tcp
+      port: {{ add1 (.Values.caServerPort) }}
+      targetPort: {{ add1 (.Values.caServerPort) }}
+      protocol: TCP
+    - name: ca-repeater-udp
+      port: {{ add1 (.Values.caServerPort) }}
+      targetPort: {{ add1 (.Values.caServerPort) }}
+      protocol: UDP
+    - name: pva-server-tcp
+      port: {{ .Values.pvaServerPort }}
+      targetPort: {{ .Values.pvaServerPort }}
+      protocol: TCP
+    - name: pva-server-udp
+      port: {{ add1 (.Values.pvaServerPort) }}
+      targetPort: {{ add1 (.Values.pvaServerPort) }}
+      protocol: UDP
+  selector:
+    app: {{ .Release.Name }}
