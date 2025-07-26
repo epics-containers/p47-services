@@ -5,3 +5,5 @@ epics-gateways:
 
   # set to false to run the gateway in clusterIP mode
   hostNetwork: true
+
+  image: ghcr.io/epics-containers/epics-gateways-developer:2025.7.3
