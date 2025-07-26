@@ -1,5 +1,5 @@
 #!/bin/bash
-ssh -f -L 9064:172.23.168.161:9064 -L 9075:172.23.168.161:9075 hgv27681@pc0116 -N
+ssh -f -L 9064:172.23.168.161:9064 -L 9075:172.23.168.161:9075 hgv27681@bl46p-ea-serv-01 -N
 
 # This is where:
 # - gateways loadbalancer IP is: 172.23.168.161
