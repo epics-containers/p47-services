@@ -1,2 +1,0 @@
-image: ghcr.io/epics-containers/docker-ca-gateway-debug:2.1.3ec2b4
-ca_port: 9064

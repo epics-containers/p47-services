@@ -46,7 +46,8 @@ else
     export MYHOME=/home/${USER}
     # mount in your own home dir in same folder for access to external files
     mounts="
-    -v=/tmp:/tmp
+    -v=${XSOCK}:${XSOCK}
+    -v=${XAUTH}:${XAUTH}
     -v=${MYHOME}/.ssh:/root/.ssh
     -v=${MYHOME}:${MYHOME}
     -v=${workspace}:/workspace
@@ -56,6 +57,7 @@ else
     settings="
     -resource /workspace/opi/p47-beamline.opi
     -settings /workspace/opi/settings.ini
+    -port 10101
     "
 
     set -x
