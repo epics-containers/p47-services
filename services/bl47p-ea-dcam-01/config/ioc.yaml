@@ -70,7 +70,7 @@ entities:
     R: ":ARR:"
     TYPE: Int8
 
-  - type: ADCore.NDPvaPlugin
+  - type: ADCore.NDPvxsPlugin
     NDARRAY_PORT: DET.OVER
     P: BL47P-EA-DET-01
     PORT: DET.PVA
