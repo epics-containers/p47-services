@@ -40,7 +40,7 @@ entities:
     NOverlays: 4
     ENABLED: 1
 
-  - type: ADCore.NDPvaPlugin
+  - type: ADCore.NDPvxsPlugin
     ENABLED: 1
     NDARRAY_ADDR: 0
     NDARRAY_PORT: DET2.OVER
