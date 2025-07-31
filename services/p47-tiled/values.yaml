@@ -1,0 +1,57 @@
+tiled:
+  config:
+    authentication:
+      allow_anonymous_access: true
+    trees:
+    - args:
+        init_if_not_exists: true
+        readable_storage:
+        - /exports/mybeamline/data
+        uri: sqlite:////exports/mybeamline/tiled-catalog/catalog.db
+        writable_storage: /exports/mybeamline/tiled-catalog
+      path: /
+      tree: catalog
+  extraEnvVars:
+  - name: TILED_SINGLE_USER_API_KEY
+    valueFrom:
+      secretKeyRef:
+        key: TILED_SINGLE_USER_API_KEY
+        name: tiled-secret
+  nodeSelector:
+    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+  ingress:
+    enabled: true
+    className: "nginx"
+    hosts:
+      - host: p47-tiled.diamond.ac.uk
+        paths:
+          - path: /
+            pathType: Prefix
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 2Gi
+  tolerations:
+  - effect: NoSchedule
+    key: nodetype
+    operator: Equal
+    value: training-rig
+  - effect: NoSchedule
+    key: beamline
+    operator: Equal
+    value: bl47p
+  volumeMounts:
+  - mountPath: /deploy/config
+    name: config
+    readOnly: true
+  - mountPath: /exports/mybeamline
+    mountPropagation: HostToContainer
+    name: data
+  volumes:
+  - hostPath:
+      path: /exports/mybeamline
+      type: DirectoryOrCreate
+    name: data

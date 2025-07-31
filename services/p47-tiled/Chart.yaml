@@ -1,0 +1,15 @@
+apiVersion: v2
+name: p47-tiled
+description: Tiled deployed for p47
+version: 1.0.0
+
+# When we deploy with the edge-containers-cli we override this on the command line.
+# Direct deployment with Helm will use the default beta value.
+appVersion: 0.0.1b1
+
+type: application
+
+dependencies:
+  - name: tiled
+    version: "0.1.0-b29"
+    repository: "oci://ghcr.io/bluesky/charts"
