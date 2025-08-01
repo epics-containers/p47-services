@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/4.1.3/ioc-instance.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-motorsim-developer:2025.7.3b1
+  image: ghcr.io/epics-containers/ioc-motorsim-developer:2025.8.2
 
   # Debugging values ##########################################################
   # image: ghcr.io/epics-containers/ioc-IOC_NAME-developer:VERSION
