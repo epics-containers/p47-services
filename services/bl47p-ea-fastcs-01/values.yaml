@@ -7,6 +7,10 @@ fastcs-instance:
     - run
     - /epics/ioc/config/controller.yaml
 
+  securityContext:
+    runAsUser: 37887
+    runAsGroup: 37887
+
   extra_containers:
     - name: temp-controller-simulator
       image: ghcr.io/diamondlightsource/fastcs-example:2025.8.1-beta.4

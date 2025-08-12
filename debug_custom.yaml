@@ -1,0 +1,10 @@
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - NET_RAW
+  privileged: false
+  runAsUser: 37887
+volumeMounts:
+  - name: opis-volume
+    mountPath: /opis
