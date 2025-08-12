@@ -5,6 +5,10 @@ securityContext:
       - NET_RAW
   privileged: false
   runAsUser: 37887
+  seLinuxOptions:
+    level: "s0:c123,c456"
 volumeMounts:
   - name: opis-volume
     mountPath: /opis
+# goal of this is to be able to run
+# debugpy --listen 5678 --pid 1
