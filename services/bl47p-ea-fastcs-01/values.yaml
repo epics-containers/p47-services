@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://github.com/DiamondLightSource/FastCS/releases/download/0.9.2-alpha.3/fastcs-instance-ioc.schema.json
 
 fastcs-instance:
-  image: ghcr.io/diamondlightsource/fastcs-example:2025.8.1.beta.3
+  image: ghcr.io/diamondlightsource/fastcs-example:2025.8.1-beta.3
   command:
     - fastcs-example
     - run
@@ -9,8 +9,16 @@ fastcs-instance:
 
   extra_containers:
     - name: temp-controller-simulator
-      image: ghcr.io/diamondlightsource/fastcs-example:2025.8.1.beta.3
+      image: ghcr.io/diamondlightsource/fastcs-example:2025.8.1-beta.3
       command:
         - tickit
         - all
         - /epics/ioc/config/temp_controller.yaml
+
+  volumes:
+    - name: beamline-data
+      hostPath:
+        path: /exports/mybeamline/data/
+  volumeMounts:
+    - name: beamline-data
+      mountPath: /exports/mybeamline/data/
