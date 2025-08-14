@@ -7,5 +7,7 @@ type: application
 
 dependencies:
   - name: fastcs-instance
-    version: 0.9.2-alpha.4
-    repository: "oci://ghcr.io/diamondlightsource/charts"
+    # version: 0.9.2-alpha.4
+    # repository: "oci://ghcr.io/diamondlightsource/charts"
+    version: 0.1.0
+    repository: "file://../../../fastcs/Charts/fastcs-instance"
