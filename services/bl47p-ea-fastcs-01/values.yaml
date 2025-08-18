@@ -1,6 +1,6 @@
-# yaml-language-server: $schema=../../../fastcs/schemas/fastcs-instance-ioc.schema.json
+# yaml-language-server: $schema=../../../fastcs/schemas/fastcs-ioc.schema.json
 
-fastcs-instance:
+fastcs:
   image:
     repository: ghcr.io/diamondlightsource/fastcs-example
     tag: latest
@@ -11,7 +11,7 @@ fastcs-instance:
     - run
     - /epics/ioc/config/controller.yaml
 
-  debugMode: true
+  developerMode: true
 
   # account p47-detector for ALL containers in the pod
   securityContext:
