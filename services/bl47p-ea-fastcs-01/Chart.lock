@@ -1,0 +1,6 @@
+dependencies:
+- name: fastcs
+  repository: file://../../../fastcs/Charts/fastcs
+  version: 0.1.0
+digest: sha256:801a9b6b80e97c429ce910299fa6c212ebb17deb0081bbb525a2fd23e420a080
+generated: "2025-08-18T10:25:16.123850341Z"
