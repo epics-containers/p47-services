@@ -17,4 +17,6 @@ SSH_PID=$!
 $THIS_DIR/opi/phoebus-launch.sh
 
 # kill the ssh tunnel when done
+echo "Killing Phoebus' SSH tunnel..."
 kill $SSH_PID
+echo "Phoebus launch done."
