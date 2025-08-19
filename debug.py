@@ -118,6 +118,14 @@ def do_developer_mode(ioc: str, namespace: str, debug_args: str):
         run(f"kubectl exec -tin {namespace} {ioc}-0 -c fastcs -- {debug_cmd}")
 
 
+def do_production_mode(ioc: str, namespace: str):
+    """
+    Handle production mode for the specified IOC.
+    This is a placeholder function for future implementation.
+    """
+    report(f"Running {ioc} in production mode with args: {debug_args}")
+
+
 def main():
     args = parse_args()
 
