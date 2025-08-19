@@ -11,7 +11,7 @@ fastcs:
     - run
     - /epics/ioc/config/controller.yaml
 
-  developerMode: true
+  developerMode: false
 
   # account p47-detector for ALL containers in the pod
   securityContext:
