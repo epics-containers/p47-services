@@ -11,7 +11,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 from subprocess import PIPE, Popen
 from subprocess import run as subprocess
-from typing import Union
+from typing import Optional, Union
 
 from yaml import safe_load
 
@@ -59,10 +59,17 @@ def extract_command_develop(ioc: str):
 
 
 def run(
-    cmd: str, allow_failure=False, out=False, background=False
+    cmd: str,
+    allow_failure=False,
+    out=False,
+    background=False,
+    last_arg: Optional[str] = None,
 ) -> Union[bool, str, int]:
-    report(f"Running command: {cmd}", color="green")
     command = cmd.split()
+    if last_arg is not None:
+        command.append(last_arg)
+
+    report(f"Running command: {' '.join(command)}", color="green")
 
     if background:
         result = Popen(command)
@@ -123,7 +130,20 @@ def do_production_mode(ioc: str, namespace: str):
     Handle production mode for the specified IOC.
     This is a placeholder function for future implementation.
     """
-    report(f"Running {ioc} in production mode with args: {debug_args}")
+    report(f"Running {ioc} in production mode")
+
+    report("Checking if debugpy is already running ...")
+    out = run(f"kubectl exec -n {namespace} {ioc}-0 -- ps aux", out=True)
+
+    if "debugpy" in str(out):
+        report("Debugpy is already running, not starting it again.")
+    else:
+        report("Attaching debugpy to process 1 ...")
+        debug_cmd = "nohup debugpy --listen 5678 --pid 1 > /venv/nohup.out &"
+        run(
+            f"kubectl exec -tin {namespace} {ioc}-0 -c fastcs -- bash -c",
+            last_arg=debug_cmd,
+        )
 
 
 def main():
@@ -145,9 +165,9 @@ def main():
         if developerMode:
             do_developer_mode(args.ioc, args.namespace, debug_args)
         else:
-            report(f"Running {args.ioc} in production mode")
-            report("todo: attach a debugger")
+            do_production_mode(args.ioc, args.namespace)
     finally:
+        input("Press Enter to stop port forwarding ...")
         if pid:
             run(f"kill {pid}")
             report(f"Port forwarding stopped for PID {pid}.")

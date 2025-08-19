@@ -11,7 +11,7 @@ fastcs:
     - run
     - /epics/ioc/config/controller.yaml
 
-  developerMode: false
+  developerMode: true
 
   extra_containers:
     - name: temp-controller-simulator
