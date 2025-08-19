@@ -3,7 +3,7 @@
 fastcs:
   image:
     repository: ghcr.io/diamondlightsource/fastcs-example
-    tag: latest
+    tag: 2025.8.1-beta.7
     pullPolicy: IfNotPresent
 
   command:
