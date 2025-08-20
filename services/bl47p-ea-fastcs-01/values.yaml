@@ -1,4 +1,4 @@
-yaml-language-server: $schema=https://github.com/DiamondLightSource/FastCS/releases/download/0.9.2-beta.2/fastcs-ioc.schema.json
+yaml-language-server: $schema=https://github.com/DiamondLightSource/FastCS/releases/download/0.9.2-beta.3/fastcs-ioc.schema.json
 
 fastcs:
   image:
