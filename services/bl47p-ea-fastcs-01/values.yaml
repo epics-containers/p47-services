@@ -11,7 +11,8 @@ ioc-instance:
     - run
     - /epics/ioc/config/controller.yaml
 
-  developerMode: true
+  editable: true
+  autostart: false
 
   extra_containers:
     - name: temp-controller-simulator
