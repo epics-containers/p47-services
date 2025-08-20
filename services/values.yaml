@@ -7,7 +7,7 @@ global:
   location: bl47p
   enabled: true
 
-ioc-instance:
+ioc-instance: &ioc-instance
   # useHostNetwork - use host network for IOC - required for Channel Access
   # to work outside of the cluster
   hostNetwork: true
@@ -40,3 +40,7 @@ ioc-instance:
       operator: Equal
       value: training-rig
       effect: NoSchedule
+
+# common values for all IOCs are shared between C++ IOCs and fastcs IOCs
+fastcs:
+  <<: *ioc-instance
