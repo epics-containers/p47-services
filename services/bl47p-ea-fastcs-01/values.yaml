@@ -1,5 +1,7 @@
-# yaml-language-server: $schema=../../../fastcs/schemas/fastcs-service.schema.json
-# $schema=https://github.com/DiamondLightSource/FastCS/releases/download/0.9.2-alpha.6/fastcs-service.schema.json
+# yaml-language-server: $schema=https://github.com/DiamondLightSource/FastCS/releases/download/0.9.2-alpha.6/fastcs-service.schema.json
+
+# for local testing of schema changes switch to:
+### yaml-language-server: $schema=../../../fastcs/schemas/fastcs-service.schema.json
 
 fastcs:
   image:
