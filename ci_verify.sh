@@ -26,9 +26,9 @@ cp -r ${ROOT}/services/* ${ROOT}/.ci_work/
 
 # arg 1 is a substring to match the service names to check
 if [ -z "${1}" ]; then
-    services=$(ls -d ${ROOT}/.ci_work/*)
+    services=$(find ${ROOT}/.ci_work -maxdepth 1 -type d)
 else
-    services=$(ls -d ${ROOT}/.ci_work/*${1}*)
+    services=$(find ${ROOT}/.ci_work -maxdepth 1 -type d -name '*'${1}'*')
 fi
 echo "Checking services: ${services}"
 
