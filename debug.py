@@ -11,7 +11,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 from subprocess import PIPE, Popen
 from subprocess import run as subprocess
-from typing import Optional, Union
+from typing import List, Optional, Tuple, Union
 
 from yaml import safe_load
 
@@ -39,7 +39,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def extract_command_develop(ioc: str):
+def extract_command_develop(ioc: str) -> Tuple[List[str], bool, bool]:
     ioc_values = Path(f"services/{ioc}/values.yaml")
     if not ioc_values.exists():
         report(f"Error: {ioc_values} does not exist")
@@ -52,10 +52,12 @@ def extract_command_develop(ioc: str):
         report(f"Error: 'command' not found in {ioc_values}")
         exit(1)
 
-    developerMode = values.get("fastcs", {}).get("developerMode", False)
-    report(f"Developer Mode: {developerMode}")
+    editable = values.get("fastcs", {}).get("editable", False)
+    autostart = values.get("fastcs", {}).get("autostart", False)
+    report(f"Editable: {editable}")
+    report(f"Autostart: {autostart}")
 
-    return command, developerMode
+    return command, editable, autostart
 
 
 def run(
@@ -91,14 +93,14 @@ def run(
         return result.returncode != 0
 
 
-def do_developer_mode(ioc: str, namespace: str, debug_args: str):
+def do_mount_source(ioc: str, namespace: str):
     """
-    Handle developer mode for the specified IOC.
+    Handle editable mode for the specified IOC.
 
     Mount the source locally, open it in vscode and start debugpy in
     the correct pod.
     """
-    report(f"{ioc} is in developer mode, mounting code from the cluster ...")
+    report(f"{ioc} is in editable mode, mounting code from the cluster ...")
 
     mount_point = Path(f"{ioc}-develop")
     mount_point.mkdir(parents=True, exist_ok=True)
@@ -111,6 +113,11 @@ def do_developer_mode(ioc: str, namespace: str, debug_args: str):
     report(f"Launching VS Code with mounted workspace {mount_point} ...")
     run(f"code {mount_point / 'workspaces' / '*'}")
 
+
+def debugpy_launch(ioc: str, namespace: str, debug_args: str):
+    """
+    Launch the project with debugpy.
+    """
     report("Checking if debugpy is already running ...")
     out = run(f"kubectl exec -n {namespace} {ioc}-0 -- ps aux", out=True)
 
@@ -125,12 +132,13 @@ def do_developer_mode(ioc: str, namespace: str, debug_args: str):
         run(f"kubectl exec -tin {namespace} {ioc}-0 -c fastcs -- {debug_cmd}")
 
 
-def do_production_mode(ioc: str, namespace: str):
+def debugpy_attach(ioc: str, namespace: str):
     """
-    Handle production mode for the specified IOC.
+    Handle autostart mode for the specified IOC by attaching debugpy to proc 1.
+
     This is a placeholder function for future implementation.
     """
-    report(f"Running {ioc} in production mode")
+    report(f"Attaching to {ioc} ...")
 
     report("Checking if debugpy is already running ...")
     out = run(f"kubectl exec -n {namespace} {ioc}-0 -- ps aux", out=True)
@@ -151,7 +159,7 @@ def main():
 
     os.chdir(Path(__file__).parent)
 
-    cmd_list, developerMode = extract_command_develop(args.ioc)
+    cmd_list, editable, autostart = extract_command_develop(args.ioc)
     # commands that have - will have modules with _ )
     cmd_list[0] = cmd_list[0].replace("-", "_")
     debug_args = " ".join(cmd_list)
@@ -162,10 +170,13 @@ def main():
     )
 
     try:
-        if developerMode:
-            do_developer_mode(args.ioc, args.namespace, debug_args)
+        if editable:
+            do_mount_source(args.ioc, args.namespace)
+
+        if autostart:
+            debugpy_attach(args.ioc, args.namespace)
         else:
-            do_production_mode(args.ioc, args.namespace)
+            debugpy_launch(args.ioc, args.namespace, debug_args)
     finally:
         input("Press Enter to stop port forwarding ...")
         if pid:
