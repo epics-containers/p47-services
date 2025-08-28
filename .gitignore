@@ -9,3 +9,4 @@ venv*
 *.code-workspace
 .ci_work
 !services/bl47p-gateways/charts
+*-develop

@@ -16,8 +16,8 @@ fastcs:
     - run
     - /epics/ioc/config/controller.yaml
 
-  editable: true
-  autostart: false
+  editable: false
+  autostart: true
 
   extraContainers:
     - name: temp-controller-simulator
