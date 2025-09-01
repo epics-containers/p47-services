@@ -18,4 +18,4 @@ SSH_PID=$(ssh -S "$sock" -O check $HOSTNAME 2>&1 | sed -n 's/.*pid=\([0-9]\+\).*
 trap 'kill $SSH_PID' EXIT
 
 # use the phoebus launcher script to start the GUI
-$THIS_DIR/opi/phoebus-launch.sh
+$THIS_DIR/opi/phoebus-launch.sh -settings /workspace/settings.ini
