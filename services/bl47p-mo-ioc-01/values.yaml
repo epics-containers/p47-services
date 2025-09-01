@@ -1,11 +1,4 @@
 # yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-pmac-runtime:2025.8.1b1
-
-  dataVolume:
-    pvc: false
-    hostPath: /exports/mybeamline/data/
-
-  # startCommand: stdio-expose
-  # startArgs: /epics/ioc/start.sh
+  image: ghcr.io/epics-containers/ioc-pmac-runtime:2024.12.1

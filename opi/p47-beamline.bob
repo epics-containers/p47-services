@@ -2,7 +2,7 @@
 <display version="2.0.0">
   <name>p47-beamline</name>
   <width>1250</width>
-  <height>1000</height>
+  <height>1050</height>
   <grid_step_x>4</grid_step_x>
   <grid_step_y>4</grid_step_y>
   <widget type="label" version="2.0.0">
@@ -277,7 +277,7 @@
     <x>5</x>
     <y>850</y>
     <width>396</width>
-    <height>140</height>
+    <height>162</height>
     <transparent>true</transparent>
     <widget type="label" version="2.0.0">
       <name>Label_6</name>
@@ -383,6 +383,34 @@
       <text>BL47P-EA-DET-01</text>
       <x>153</x>
       <y>11</y>
+      <width>205</width>
+      <height>20</height>
+      <tooltip>$(actions)</tooltip>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_29</name>
+      <text>Fast CS Temp Ctrlr</text>
+      <x>1</x>
+      <y>111</y>
+      <width>150</width>
+      <tooltip>$(text)</tooltip>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>OpenDisplay_4</name>
+      <actions>
+        <action type="open_display">
+          <file>https://p47-opis.diamond.ac.uk/bl47p-ea-fastcs-01/ca_example.bob</file>
+          <macros>
+            <P>BL47P-EA-DET-01</P>
+            <R>:HDF5:</R>
+          </macros>
+          <target>tab</target>
+          <description>Open Display</description>
+        </action>
+      </actions>
+      <text>BL47P-EA-FASTCS-01</text>
+      <x>154</x>
+      <y>111</y>
       <width>205</width>
       <height>20</height>
       <tooltip>$(actions)</tooltip>
