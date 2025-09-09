@@ -46,13 +46,7 @@ do
         continue
     fi
 
-    # ioc-instance oci chart does not yet include its schema so we pull it into
-    # the folder. TODO remove once the chart includes its own schema
-    schema=$(cat ${service}/values.yaml | sed -rn 's/^# yaml-language-server: \$schema=(.*)/\1/p')
-    if [[ -n "${schema}" ]] && [[  ${schema} =~ 'ioc-instance' ]] ; then
-        echo "{\"\$ref\": \"$schema\"}" > ${service}/values.schema.json
-    fi
-
+    echo "Validating helm chart for ${service_name}"
     $docker run --rm --entrypoint bash \
         -v ${ROOT}/.ci_work:/services:z \
         -v ${ROOT}/.helm-shared:/.helm-shared:z \
