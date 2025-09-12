@@ -1,4 +1,4 @@
-image: alpine/socat:1.7.4.3-r0
+image: alpine/socat:1.7.4.4-r0
 
 # deployment.yaml will create a pod that runs a container for each command
 # in 'commands', which is a dictionery of container_name:command
