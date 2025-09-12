@@ -14,5 +14,6 @@
         "These dependencies are updated as part of updating the copier template"
       ]
     }
-  ]
+  ],
+  "automerge": true
 }
