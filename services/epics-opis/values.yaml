@@ -3,4 +3,4 @@
 # location where these IOCs and services will run
 # location:
 epics-opis:
-  image: nginx:1.29.0
+  image: nginx:1.29.1
