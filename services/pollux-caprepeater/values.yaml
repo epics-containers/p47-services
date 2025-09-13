@@ -1,6 +1,4 @@
 carepeater:
-  image:
-    repository: ghcr.io/epics-containers/epics-base-developer
   # only run on pollux beamline nodes
   affinity:
     nodeAffinity:

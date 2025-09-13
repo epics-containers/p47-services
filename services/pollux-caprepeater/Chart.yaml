@@ -7,7 +7,7 @@ type: application
 
 dependencies:
   - name: carepeater
-    #   version: 4.4.4
-    #   repository: "oci://ghcr.io/epics-containers"
-    version: 0.1.0
-    repository: "file://../../../ec-helm-charts/Charts/carepeater"
+    version: 4.4.5-beta.1
+    repository: "oci://ghcr.io/epics-containers"
+    # version: 0.1.0
+    # repository: "file://../../../ec-helm-charts/Charts/carepeater"
