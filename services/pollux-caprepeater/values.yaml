@@ -1,4 +1,9 @@
 carepeater:
+<<<<<<< HEAD
+=======
+  image:
+    repository: ghcr.io/epics-containers/epics-base-developer
+>>>>>>> 831c81e (add a carepeater daemonset for all pollux beamlines)
   # only run on pollux beamline nodes
   affinity:
     nodeAffinity:
