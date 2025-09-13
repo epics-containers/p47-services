@@ -1,0 +1,13 @@
+# A Helm Chart for an IOC instance
+apiVersion: v2
+name: ec-repeater
+version: 1.0.0
+
+type: application
+
+dependencies:
+  - name: carepeater
+    #   version: 4.4.4
+    #   repository: "oci://ghcr.io/epics-containers"
+    version: 0.1.0
+    repository: "file://../../../ec-helm-charts/Charts/carepeater"

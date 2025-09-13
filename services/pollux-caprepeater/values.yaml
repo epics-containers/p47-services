@@ -1,0 +1,36 @@
+carepeater:
+  image:
+    repository: ghcr.io/epics-containers/epics-base-developer
+  # only run on pollux beamline nodes
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: nodetype
+                operator: In
+                values:
+                  - test-rig
+                  - training-rig
+  tolerations:
+    - key: nodetype
+      operator: Equal
+      value: test-rig
+    - key: nodetype
+      operator: Equal
+      value: training-rig
+    - key: beamline
+      operator: Equal
+      value: bl45p
+    - key: beamline
+      operator: Equal
+      value: bl46p
+    - key: beamline
+      operator: Equal
+      value: bl47p
+    - key: beamline
+      operator: Equal
+      value: bl48p
+    - key: beamline
+      operator: Equal
+      value: bl49p
