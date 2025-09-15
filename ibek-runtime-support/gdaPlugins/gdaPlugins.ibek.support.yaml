@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://github.com/epics-containers/ibek/releases/download/3.0.1/ibek.support.schema.json
+
+# NOTE: this soft support depends upon ADCore.support.yaml
+
+module: gdaPlugins
+
+entity_models:
+  - name: gdaPlugins
+    description: |-
+      A standard set of Areadetector Plugins (historically) used by GDA
+
+    parameters:
+      P:
+        type: str
+        description: PV Prefix for all PVs
+
+      PORTPREFIX:
+        type: str
+        description: A prefix for the Asyn Port Name for all plugins
+
+      CAM:
+        type: str
+        description: camera device Asyn Port Name
+
+      XSIZE:
+        type: int
+        description: XSize for NDStats
+        default: 1024
+
+      YSIZE:
+        type: int
+        description: YSize for NDStats
+        default: 768
+
+      PLUGINQUEUE:
+        type: int
+        description: number of NDARRAYS in the queue for all plugins except STDArray
+        default: 16
+
+      HIST_SIZE:
+        type: int
+        description: History size for stats plugins
+        default: 256
+
+      NCHANS:
+        type: int
+        description: Number of channels for the stats plugins
+        default: 20000
+
+      NELEMENTS:
+        type: int
+        description: Number of elements for the STDArray
+        default: 786432
+
+      DISPLAYQUEUE:
+        type: int
+        description: Number of elements for the STDArray
+        default: 2
+
+      ARRTYPE:
+        type: str
+        description: The type for the STDArray PV waveform elements
+        default: Int8
+
+      ARRFTVL:
+        type: str
+        description: The underlying array type for the STDArray waveform
+        default: UCHAR
+
+      HTTP_PORT:
+        type: int
+        description: HTTP port number for ffmpegServer
+        default: 8080
