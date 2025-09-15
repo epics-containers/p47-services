@@ -71,3 +71,51 @@ entity_models:
         type: int
         description: HTTP port number for ffmpegServer
         default: 8080
+
+    sub_entities:
+      - type: ADCore.NDProcess
+        P: "{{P}}"
+        R: ":PROC:"
+        PORT: "{{PORTPREFIX}}.arr"
+        NDARRAY_PORT: "{{CAM}}"
+        ENABLED: 1
+
+      - type: ADCore.NDStdArrays
+        P: "{{P}}"
+        R: ":PROC:"
+        PORT: "{{PORTPREFIX}}.arr"
+        NDARRAY_PORT: "{{PORTPREFIX}}.roi"
+        ENABLED: 1
+
+      - type: ADCore.NDROI
+        P: "{{P}}"
+        R: ":ROI:"
+        PORT: "{{PORTPREFIX}}.roi"
+        NDARRAY_PORT: "{{CAM}}"
+        QUEUE: "{{PLUGINQUEUE}}"
+
+      - type: ibek.repeat
+        values: "{{ range(1,7) | list }}"
+        variable: idx
+        entity:
+          type: ADCore.NDROI
+          P: "{{P}}"
+          R: ":ROI{{idx}}:"
+          PORT: "{{PORTPREFIX}}.rois.roi{{idx}}"
+          NDARRAY_PORT: "{{CAM}}"
+          QUEUE: "{{PLUGINQUEUE}}"
+
+      - type: ibek.repeat
+        values: "{{ range(1,7) | list }}"
+        variable: idx
+        entity:
+          type: ADCore.NDStats
+          P: "{{P}}"
+          R: ":STATS{{idx}}:"
+          PORT: "{{PORTPREFIX}}.stats.stat{{idx}}"
+          NDARRAY_PORT: "{{PORTPREFIX}}.rois.roi1"
+          HIST_SIZE: "{{HIST_SIZE}}"
+          NCHANS: "{{NCHANS}}"
+          QUEUE: "{{PLUGINQUEUE}}"
+          XSIZE: "{{XSIZE}}"
+          YSIZE: "{{YSIZE}}"

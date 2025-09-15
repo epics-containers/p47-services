@@ -25,12 +25,6 @@ entities:
   - type: ADAravis.aravisSettings
     camera: DET.CAM
 
-  - type: ADCore.NDPosPlugin
-    NDARRAY_PORT: DET.CAM
-    P: BL47P-EA-DET-01
-    PORT: DET.POS
-    R: ":POS:"
-
   - type: ADCore.NDProcess
     NDARRAY_PORT: DET.CAM
     P: BL47P-EA-DET-01

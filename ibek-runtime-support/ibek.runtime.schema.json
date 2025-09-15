@@ -1,0 +1,287 @@
+{
+  "$defs": {
+    "RepeatEntity": {
+      "additionalProperties": false,
+      "description": "A definition of RepeatEntity for the type checker\n\nThis is not really used - instead the dynamic class is created\nby the make_entity_model function is used.",
+      "properties": {
+        "type": {
+          "const": "ibek.repeat",
+          "default": "ibek.repeat",
+          "enum": [
+            "ibek.repeat"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "values": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "The list of values to iterate over",
+          "title": "Values"
+        },
+        "variable": {
+          "default": "index",
+          "description": "The variable name to use in the entity model",
+          "title": "Variable",
+          "type": "string"
+        },
+        "entity": {
+          "description": "The entity model to repeat",
+          "title": "Entity",
+          "type": "object"
+        }
+      },
+      "required": [
+        "values",
+        "entity"
+      ],
+      "title": "RepeatEntity",
+      "type": "object"
+    },
+    "gdaPlugins_gdaPlugins": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "gdaPlugins.gdaPlugins",
+          "description": "A standard set of Areadetector Plugins (historically) used by GDA",
+          "enum": [
+            "gdaPlugins.gdaPlugins"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "P": {
+          "description": "PV Prefix for all PVs",
+          "title": "P",
+          "type": "string"
+        },
+        "PORTPREFIX": {
+          "description": "A prefix for the Asyn Port Name for all plugins",
+          "title": "Portprefix",
+          "type": "string"
+        },
+        "CAM": {
+          "description": "camera device Asyn Port Name",
+          "title": "Cam",
+          "type": "string"
+        },
+        "XSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "XSize for NDStats",
+              "type": "integer"
+            }
+          ],
+          "default": 1024,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xsize"
+        },
+        "YSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "YSize for NDStats",
+              "type": "integer"
+            }
+          ],
+          "default": 768,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Ysize"
+        },
+        "PLUGINQUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "number of NDARRAYS in the queue for all plugins except STDArray",
+              "type": "integer"
+            }
+          ],
+          "default": 16,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Pluginqueue"
+        },
+        "HIST_SIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "History size for stats plugins",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Hist Size"
+        },
+        "NCHANS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of channels for the stats plugins",
+              "type": "integer"
+            }
+          ],
+          "default": 20000,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nchans"
+        },
+        "NELEMENTS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements for the STDArray",
+              "type": "integer"
+            }
+          ],
+          "default": 786432,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nelements"
+        },
+        "DISPLAYQUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements for the STDArray",
+              "type": "integer"
+            }
+          ],
+          "default": 2,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Displayqueue"
+        },
+        "ARRTYPE": {
+          "default": "Int8",
+          "description": "The type for the STDArray PV waveform elements",
+          "title": "Arrtype",
+          "type": "string"
+        },
+        "ARRFTVL": {
+          "default": "UCHAR",
+          "description": "The underlying array type for the STDArray waveform",
+          "title": "Arrftvl",
+          "type": "string"
+        },
+        "HTTP_PORT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "HTTP port number for ffmpegServer",
+              "type": "integer"
+            }
+          ],
+          "default": 8080,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Http Port"
+        }
+      },
+      "required": [
+        "type",
+        "P",
+        "PORTPREFIX",
+        "CAM"
+      ],
+      "title": "gdaPlugins_gdaPlugins",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "ioc_name": {
+      "description": "Name of IOC instance",
+      "title": "Ioc Name",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of what the IOC does",
+      "title": "Description",
+      "type": "string"
+    },
+    "entities": {
+      "description": "List of entities this IOC instantiates",
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "gdaPlugins.gdaPlugins": "#/$defs/gdaPlugins_gdaPlugins",
+            "ibek.repeat": "#/$defs/RepeatEntity"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/gdaPlugins_gdaPlugins"
+          },
+          {
+            "$ref": "#/$defs/RepeatEntity"
+          }
+        ]
+      },
+      "title": "Entities",
+      "type": "array"
+    },
+    "shared": {
+      "default": [],
+      "description": "A place to create any anchors required for repeating YAML",
+      "items": {},
+      "title": "Shared",
+      "type": "array"
+    }
+  },
+  "required": [
+    "ioc_name",
+    "description",
+    "entities"
+  ],
+  "title": "NewIOC",
+  "type": "object"
+}

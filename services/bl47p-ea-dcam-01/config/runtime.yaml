@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=../../../ibek-runtime-support/ibek.runtime.schema.json
+
+ioc_name: "{{ _global.get_env('IOC_NAME') }}"
+
+description: additional soft support for this IOC
+
+entities:
+  - type: gdaPlugins.gdaPlugins
+    # TODO: P and CAM could come from the camera device object
+    P: BL47P-EA-DET-01
+    CAM: DET.CAM
+    PORTPREFIX: DET
