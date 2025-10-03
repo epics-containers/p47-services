@@ -55,6 +55,10 @@ do
            helm lint /services/$service_name --values /services/values.yaml \
              --values /services/$service_name/values.yaml &&
            helm dependency update /services/$service_name &&
+           helm template /services/$service_name --values /services/values.yaml \\
+             --values /services/$service_name/values.yaml &&
+           helm lint /services/$service_name --values /services/values.yaml \\
+             --values /services/$service_name/values.yaml &&
            rm -rf /services/$service_name/charts
         "
 

@@ -7,14 +7,18 @@ global:
   location: bl47p
   enabled: true
 
-ioc-instance: &ioc-instance
-  # useHostNetwork - use host network for IOC - required for Channel Access
-  # to work outside of the cluster
+shared: &shared
+  # hostNetwork
+  # set to true for Channel Access to work outside of the cluster (or use a gateway)
   hostNetwork: true
 
+  # running as ixxdetector account uid,gid gives access to /dls/ixx/data
+  podSecurityContext:
+    runAsUser: 37988
+    runAsGroup: 37988
+
   securityContext:
-    runAsUser: 37887
-    runAsGroup: 37887
+    allowPrivilegeEscalation: false
 
   # affinity and tolerations to get the right nodes on pollux
   affinity:
@@ -41,6 +45,10 @@ ioc-instance: &ioc-instance
       value: training-rig
       effect: NoSchedule
 
-# common values for all IOCs are shared between C++ IOCs and fastcs IOCs
-fastcs:
-  <<: *ioc-instance
+# shared settings for all ibek IOCs using the ioc-instance helm chart
+ioc-instance:
+  <<: *shared
+
+# shared setting for all legacy IOCs using the dev-c7 helm chart
+dev-c7:
+  <<: *shared

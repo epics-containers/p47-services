@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 4.4.4-2-g927f7fa
+_commit: 4.5.0-1-g500b841
 _src_path: gh:epics-containers/services-template-helm
 athena_services: []
 cluster_name: pollux

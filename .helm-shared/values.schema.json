@@ -13,7 +13,7 @@
             "description": "Shared values for the root `services/values.yaml`. Use Anchor at the root to share the whole object between ioc-instance/dev-c7/fastcs as needed. Or use anchors on properties to create multiple sharable objects. Use a merge key (<<: *shared) to merge in the shared values where needed."
         },
         "ioc-instance": {
-            "$ref": "https://github.com/epics-containers/ec-helm-charts/releases/download/4.4.3/ioc-instance.schema.json#$defs/base",
+            "$ref": "https://github.com/epics-containers/ec-helm-charts/releases/download/5.0.0-beta.1/ioc-instance.schema.json#/properties/ioc-instance",
             "type": "object",
             "additionalProperties": false,
             "description": "Shared values for ioc-instance charts. These represent ibek IOCs"
@@ -23,12 +23,6 @@
             "type": "object",
             "additionalProperties": false,
             "description": "Shared values for dev-c7 charts. These represent DLS legacy IOCs running out of the shared file system"
-        },
-        "fastcs": {
-            "$ref": "https://github.com/DiamondLightSource/FastCS/releases/download/0.10.1/fastcs-values.schema.json",
-            "type": "object",
-            "additionalProperties": false,
-            "description": "Shared values for fastcs charts. These represent python IOCs based on FastCS"
         }
     },
     "additionalProperties": false
