@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=../.helm-shared/values.schema.json
 
 # shared values for all services
-
 global:
   domain: p47
   location: bl47p
   enabled: true
 
+# shared values for IOCs
 shared: &shared
   # hostNetwork
   # set to true for Channel Access to work outside of the cluster (or use a gateway)
@@ -16,9 +16,6 @@ shared: &shared
   podSecurityContext:
     runAsUser: 37988
     runAsGroup: 37988
-
-  securityContext:
-    allowPrivilegeEscalation: false
 
   # affinity and tolerations to get the right nodes on pollux
   affinity:
