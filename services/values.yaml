@@ -3,7 +3,7 @@
 # shared values for all services
 
 global:
-  ioc_group: p47
+  domain: p47
   location: bl47p
   enabled: true
 
