@@ -2,6 +2,6 @@
 
 ioc-instance:
   image: ghcr.io/pandablocks/pandablocks-ioc:0.11.5
-  iocConfig: /epics/ioc
 
-  # don't specify start.sh because it is the default (having done iocConfig)
+  args:
+    - bash /epics/ioc/config/start.sh
