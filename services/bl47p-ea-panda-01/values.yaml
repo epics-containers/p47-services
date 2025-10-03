@@ -5,3 +5,7 @@ ioc-instance:
 
   args:
     - bash /epics/ioc/config/start.sh
+
+  # don't use livenesProbe, preStop which dont exist in panda image.
+  livenessExecutable: ""
+  preStopExecutable: ""
