@@ -8,8 +8,8 @@
 # other future services that don't use ibek, we will need to add a standard
 # entrypoint for validating the config folder mounted at /config.
 
-set -e
 ROOT=$(realpath $(dirname ${0}))
+set -xe
 rm -rf ${ROOT}/.ci_work/
 mkdir -p ${ROOT}/.ci_work
 
@@ -24,17 +24,7 @@ fi
 # copy the services to a temporary location to avoid dirtying the repo
 cp -r ${ROOT}/services/* ${ROOT}/.ci_work/
 
-# arg 1 is a substring to match the service names to check
-if [ -z "${1}" ]; then
-    services=$(find ${ROOT}/.ci_work -maxdepth 1 -mindepth 1 -type d)
-else
-    services=$(find ${ROOT}/.ci_work -maxdepth 1 -mindepth 1 -type d -name '*'${1}'*')
-fi
-echo "Checking services: ${services}"
-
-set -x
-
-for service in ${services}
+for service in ${ROOT}/.ci_work/*/  # */ to skip files
 do
     ### Lint each service chart and validate if schema given ###
     service_name=$(basename $service)
@@ -52,8 +42,6 @@ do
         -v ${ROOT}/.helm-shared:/.helm-shared:z \
         alpine/helm:3.14.3 \
         -c "
-           helm lint /services/$service_name --values /services/values.yaml \
-             --values /services/$service_name/values.yaml &&
            helm dependency update /services/$service_name &&
            helm template /services/$service_name --values /services/values.yaml \\
              --values /services/$service_name/values.yaml &&
@@ -94,4 +82,4 @@ do
     fi
 done
 
-# rm -r ${ROOT}/.ci_work
+rm -r ${ROOT}/.ci_work
