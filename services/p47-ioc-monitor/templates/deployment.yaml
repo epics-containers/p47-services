@@ -28,12 +28,12 @@ spec:
           imagePullPolicy: Always
           name: {{ $name }}
           resources:
-            limits:
-              cpu: 1
-              memory: 200Mi
             requests:
+              cpu: 1
+              memory: 400Mi
+            limits:
               cpu: 4
-              memory: 2000Mi
+              memory: 4000Mi
           securityContext:
             allowPrivilegeEscalation: false
           stdin: true
