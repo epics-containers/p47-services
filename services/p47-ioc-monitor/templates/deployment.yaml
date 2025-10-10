@@ -29,11 +29,11 @@ spec:
           name: {{ $name }}
           resources:
             limits:
-              cpu: 100m
-              memory: 100Mi
+              cpu: 1
+              memory: 200Mi
             requests:
-              cpu: 10m
-              memory: 10Mi
+              cpu: 4
+              memory: 2000Mi
           securityContext:
             allowPrivilegeEscalation: false
           stdin: true
