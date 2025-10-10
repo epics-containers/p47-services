@@ -1,4 +1,8 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/3.4.4/ioc-instance.schema.json#/$defs/service
+# yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-pmac-runtime:2025.9.3
+
+  volumeMounts:
+    - name: dev-shm
+      mountPath: /dev/shm
