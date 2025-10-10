@@ -3,6 +3,12 @@
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-pmac-runtime:2025.9.3
 
+  volumes:
+    - name: dev-shm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 1Gi
+
   volumeMounts:
     - name: dev-shm
       mountPath: /dev/shm
