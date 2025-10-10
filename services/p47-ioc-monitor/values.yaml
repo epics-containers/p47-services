@@ -3,9 +3,7 @@ image: ghcr.io/epics-containers/k8s-ioc-monitor:2025.10.1-beta.1
 # deployment.yaml will create a pod that runs a container for each command
 # in 'commands', which is a dictionery of container_name:command
 commands:
-  panda8080: socat tcp-l:8080,fork,reuseaddr tcp:192.168.250.18:80
-  panda80: socat tcp-l:8008,fork,reuseaddr tcp:192.168.250.18:8008
-  pmac1025: socat tcp-l:1025,fork,reuseaddr tcp:192.168.250.13:1025
+  ioc-monitor: python /app/.venv/lib/python3.11/site-packages/k8s_ioc_monitor/web.py
 
 # services.yaml will create a service that forwards the ports in 'service_ports'
 # to the above pod. 'service_pods' is a dictionary of port:target (TCP)
