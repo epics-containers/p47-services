@@ -29,8 +29,8 @@ spec:
           name: {{ $name }}
           resources:
             requests:
-              cpu: 1
-              memory: 400Mi
+              cpu: 2
+              memory: 1000Mi
             limits:
               cpu: 4
               memory: 4000Mi
