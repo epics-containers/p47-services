@@ -48,5 +48,5 @@ nexus-file-converter:
             sample_stage.x: NX_POSITIONER
             sample_stage.theta: NX_POSITIONER
   securityContext:
-    runAsUser: 37500 # p47-detector
-    runAsGroup: 37500
+    runAsUser: 37887 # p47detector
+    runAsGroup: 37887
