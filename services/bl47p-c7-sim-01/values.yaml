@@ -2,4 +2,4 @@
 
 dev-c7:
   iocPath: /dls_sw/prod/R3.14.12.7/ioc/TS/TS-EA-IOC-01
-  nameOverride: 3-9
+  iocName: 3-9
