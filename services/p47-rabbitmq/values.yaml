@@ -1,4 +1,6 @@
 rabbitmq:
+  image:
+    repository: bitnamilegacy/rabbitmq
   auth:
     username: admin
     existingPasswordSecret: rabbitmq-secrets
