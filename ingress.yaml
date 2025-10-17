@@ -15,6 +15,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: epics-opis
+                name: p47-epics-opis
                 port:
                   number: 80
