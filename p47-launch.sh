@@ -5,6 +5,8 @@ THIS_DIR=$(dirname "$(readlink -f "$0")")
 set -e
 
 # load the argus to talk to user's FEDID namespace in the Argus cluster
+module unload ec
+module unload argus
 module load pollux
 
 # setup an ssh tunnel to the gateways and opis services
