@@ -2,11 +2,11 @@ blueapi:
   hostNetwork: false
   resources:
     limits:
-      cpu: 1000m
-      memory: 500Mi
+      cpu: 2000m
+      memory: 4000Mi
     requests:
       cpu: 500m
-      memory: 100Mi
+      memory: 400Mi
   nodeSelector:
     kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
   tolerations:
@@ -19,8 +19,12 @@ blueapi:
       value: bl47p
       effect: NoSchedule
   ingress:
-    create: true
-    host: p47-blueapi.diamond.ac.uk
+    enabled: true
+    hosts:
+      - host: p47-blueapi.diamond.ac.uk
+        paths:
+          - path: /
+            pathType: Prefix
   extraEnvVars:
     - name: BEAMLINE
       value: p47
@@ -28,9 +32,11 @@ blueapi:
     otlp:
       enabled: true
       server:
-        host: http://pxx-jaeger.p46-beamline.svc.cluster.local
+        host: http://opentelemetry-collector.tracing
   worker:
     env:
+      metadata:
+        instrument: p47
       sources:
       - kind: dodal
         module: dodal.beamlines.training_rig
@@ -44,14 +50,18 @@ blueapi:
       auth:
         username: guest
         password: guest
-      host: p47-rabbitmq
-    oidc:
-      well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
-      client_id: "blueapi-cli"
-    scratch:
-      root: /dls_sw/htss/p47/scratch
-  
-  initContainer:
+      url: tcp://p47-rabbitmq-daq.diamond.ac.uk:61613
+      enabled: true
+    logging:
+      level: "INFO"
+      graylog:
+        enabled: true
+    # oidc:
+    #   well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
+    #   client_id: "blueapi-cli"
+    #   logout_redirect_endpoint: "oauth2/sign_out"
+    # numtracker:
+    #   url: https://numtracker.diamond.ac.uk/graphql
     scratch:
       root: /dls_sw/htss/p47/scratch
       repositories:
@@ -59,4 +69,8 @@ blueapi:
           remote_url: https://github.com/DiamondLightSource/dodal.git
         - name: htss-rig-bluesky
           remote_url: https://github.com/DiamondLightSource/htss-rig-bluesky.git
-  scratchHostPath: /dls_sw/htss/p47/scratch
+  initContainer:
+    enabled: true
+    persistentVolume:
+      enabled: true
+      # existingClaimName: foo
