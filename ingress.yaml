@@ -1,20 +1,20 @@
 kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: "{{ .Values.global.domain }}-opis-ingress"
+  name: p47-opis-ingress
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - "{{ .Values.global.domain }}-opis.diamond.ac.uk"
+        - p47-opis.diamond.ac.uk
   rules:
-    - host: "{{ .Values.global.domain }}-opis.diamond.ac.uk"
+    - host: p47-opis.diamond.ac.uk
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: epics-opis
+                name: p47-epics-opis
                 port:
                   number: 80

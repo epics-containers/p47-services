@@ -5,7 +5,8 @@ name: epics-pvcs
 version: 1.0.0
 
 type: application
+
 dependencies:
   - name: epics-pvcs
-    version: 5.0.0-beta.4
+    version: 5.0.0-beta.7
     repository: "oci://ghcr.io/epics-containers/charts"
