@@ -42,14 +42,6 @@ shared: &shared
       value: training-rig
       effect: NoSchedule
 
-  volumes:
-    - name: beamline-data
-      hostPath:
-        path: /exports/mybeamline/data/
-  volumeMounts:
-    - name: beamline-data
-      mountPath: /exports/mybeamline/data/
-
 # shared settings for all ibek IOCs using the ioc-instance helm chart
 ioc-instance:
   <<: *shared
