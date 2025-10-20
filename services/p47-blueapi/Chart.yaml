@@ -11,5 +11,5 @@ type: application
 
 dependencies:
   - name: blueapi
-    version: "1.5.0"
+    version: "1.6.0"
     repository: "oci://ghcr.io/diamondlightsource/charts"
