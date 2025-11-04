@@ -3,3 +3,13 @@
 dev-c7:
   iocPath: /dls_sw/prod/R3.14.12.7/ioc/TS/TS-EA-IOC-01
   iocName: 3-9
+
+  extraVolumeMounts:
+    - name: apps
+      mountPath: /dls_sw/apps
+      readOnly: true
+
+  extraVolumes:
+    - name: apps
+      hostPath:
+        path: /dls_sw/apps
