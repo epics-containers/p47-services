@@ -13,7 +13,7 @@ shared: &shared
   hostNetwork: true
 
   # running as ixxdetector account uid,gid gives access to /dls/ixx/data
-  podSecurityContext:
+  securityContext:
     runAsUser: 37988
     runAsGroup: 37988
 

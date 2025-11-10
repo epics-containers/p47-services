@@ -1,7 +1,7 @@
 epics-gateways:
   # needs to be a server in controls dev network - preferably not where the IOCs
   # are running to avoid dual CA search response warnings.
-  # nodeName: bl48p-ea-serv-01.diamond.ac.uk
+  nodeName: bl47p-ea-serv-01.diamond.ac.uk
 
   # set to false to run the gateway in clusterIP mode
   hostNetwork: true
