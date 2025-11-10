@@ -3,4 +3,4 @@ dependencies:
   repository: oci://ghcr.io/epics-containers/charts
   version: 5.0.1-beta.2
 digest: sha256:53b9efddee280d0e9910c4b4df3003f8f35108b90fe3de49b672af25730d50cd
-generated: "2025-11-10T12:46:11.484870952Z"
+generated: "2025-11-10T16:19:40.417584439Z"
