@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=../../.helm-shared/values.schema.json
+## yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
   image: ghcr.io/diamondlightsource/fastcs-example-debug:2025.10.1
