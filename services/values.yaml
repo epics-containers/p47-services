@@ -14,8 +14,8 @@ shared: &shared
 
   # running as ixxdetector account uid,gid gives access to /dls/ixx/data
   securityContext:
-    runAsUser: 37988
-    runAsGroup: 37988
+    runAsUser: 37887
+    runAsGroup: 37887
 
   # affinity and tolerations to get the right nodes on pollux
   affinity:
