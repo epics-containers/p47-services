@@ -17,10 +17,8 @@ ioc-instance:
     - name: test-init
       image: alpine/git
       command:
-        - bash
-        - -c
-      args:
-        - just testing
+        - git
+        - --version
 
   # don't use the ioc-instance livenesProbe, preStop which dont exist in fastcs image.
   livenessExecutable: ""
