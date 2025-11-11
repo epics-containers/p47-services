@@ -13,6 +13,7 @@ ioc-instance:
         - all
         - /epics/ioc/config/temp_controller.yaml
 
+  # dummy change to test reboot
   rebootEveryCommit: true
 
   initContainers:
