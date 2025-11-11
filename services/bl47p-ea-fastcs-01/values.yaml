@@ -13,11 +13,12 @@ ioc-instance:
         - all
         - /epics/ioc/config/temp_controller.yaml
 
+  rebootEveryCommit: true
+
   initContainers:
     - name: test-init
       image: alpine/git
-      command:
-        - git
+      args:
         - --version
 
   # don't use the ioc-instance livenesProbe, preStop which dont exist in fastcs image.

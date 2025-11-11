@@ -3,4 +3,4 @@ dependencies:
   repository: file://../../../ec-helm-charts/Charts/ioc-instance
   version: 1.0.0
 digest: sha256:bbb908c93d031d9efa62ea85c3372fcf1b4f6e9f8d9ed1103bc9336cde8597c4
-generated: "2025-11-11T10:59:52.301373985Z"
+generated: "2025-11-11T13:55:45.336511257Z"
