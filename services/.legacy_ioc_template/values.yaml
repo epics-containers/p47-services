@@ -3,11 +3,11 @@
 dev-c7:
   # prod #######################################################################
   # To run a dls_sw/prod IOC only set iocVersion. This will launch from:
-  # /dls_sw/prod/$epicsVersion/ioc/$iocLocation/$iocName/$iocVersion
+  # /dls_sw/prod/$epicsVersion/ioc/$epicsDomain/$iocName/$iocVersion
   #
   # Optionally override any of the following:
   # iocName: Defaults to ucase of service folder name
-  # iocLocation: Defaults to ucase of global.location or dev-c7.location
+  # epicsDomain: Defaults to ucase of global.location or dev-c7.location
   # epicsVersion: Defaults to R3.14.12.7
   iocVersion: REPLACE WITH IOC PROD VERSION (eg 2-1)
 
@@ -19,4 +19,10 @@ dev-c7:
   # $iocPath/$iocName
   #
   # iocName: Defaults to ucase of service folder name
-  # setting iocPath overrides use of iocVersion, iocLocation and epicsVersion
+  # setting iocPath overrides use of iocVersion, epicsDomain and epicsVersion
+
+  # arbitrary folder and entrypoint ############################################
+  # e.g.
+  # workingDir: /dls_sw/prod/python3/RHEL7-x86_64/feSequencers/1.1.4/src/iocs
+  # args:
+  #   - stdio-socket --ptty ./fe03i.sh
