@@ -3,9 +3,15 @@
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-adaravis-runtime:2025.8.3
 
-  dataVolume:
-    pvc: false
-    hostPath: /exports/mybeamline/data/
+  # dataVolume:
+  #   pvc: false
+  #   hostPath: /exports/mybeamline/data/
+
+  # DEBUG SETTINGS ###########################################################
+  # to use these deploy with these settings and then open a shell in the pod
+  # then:-
+  #   cp -r /tmp/config /epics/ioc/
+  #   /epics/ioc/start.sh
 
   # don't make the IOC the entrypoint
   args:
@@ -30,6 +36,8 @@ ioc-instance:
   # these remaining settings mean you won't be able to see PVs from outside
   # the cluster. But could do so if you add a gateway like we did in the
   # t01-services tutorial.
+  # WARNING: you must also disable any host mounts otherwise you are not
+  # allowed to run as root.
 
   # disable host networking to allow root user
   hostNetwork: false
