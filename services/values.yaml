@@ -46,14 +46,14 @@ shared: &shared
 ioc-instance:
   <<: *shared
 
-  # local persistent storage for ibek IOCs
-  volumes:
-    - name: beamline-data
-      hostPath:
-        path: /exports/mybeamline/data/
-  volumeMounts:
-    - name: beamline-data
-      mountPath: /exports/mybeamline/data/
+  # # local persistent storage for ibek IOCs
+  # volumes:
+  #   - name: beamline-data
+  #     hostPath:
+  #       path: /exports/mybeamline/data/
+  # volumeMounts:
+  #   - name: beamline-data
+  #     mountPath: /exports/mybeamline/data/
 
 # shared setting for all legacy IOCs using the dev-c7 helm chart
 dev-c7:
