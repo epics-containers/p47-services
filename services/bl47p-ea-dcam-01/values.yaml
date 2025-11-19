@@ -15,8 +15,7 @@ ioc-instance:
 
   # don't make the IOC the entrypoint
   args:
-    - sleep
-    - infinity
+    - sleep infinity
 
   # mount the config map elsewhere so we can copy and edit it
   # i.e. `cp -r /tmp/config /epics/ioc/` before starting the IOC
