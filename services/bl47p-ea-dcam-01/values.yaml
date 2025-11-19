@@ -28,7 +28,7 @@ ioc-instance:
   env:
     # stop start.sh from wrapping the IOC in stdio-socket
     - name: STDIO_EXPOSED
-      value: "NO"
+      value: ignore
 
   # generous resources to handle the extra overheads of debugging
   # e.g. you could attach vscode remote dev to this using the
