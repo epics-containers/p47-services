@@ -27,10 +27,10 @@ ioc-instance:
   # kubernetes and remote development extensions
   resources:
     limits:
-      cpu: 4000m
+      cpu: 3000m
       memory: 4Gi
     requests:
-      cpu: 1000m
+      cpu: 500m
       memory: 1Gi
 
   # these remaining settings mean you won't be able to see PVs from outside
