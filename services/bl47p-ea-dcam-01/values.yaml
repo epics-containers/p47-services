@@ -46,5 +46,3 @@ ioc-instance:
   securityContext:
     runAsUser: 0
     runAsGroup: 0
-    readOnlyRootFilesystem: false
-    runAsNonRoot: false
