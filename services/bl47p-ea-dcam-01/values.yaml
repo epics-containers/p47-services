@@ -1,28 +1,34 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-adaravis-runtime:2025.8.3
+  # use developer image for debugging
+  image: ghcr.io/epics-containers/ioc-adaravis-developer:2025.8.3
 
   # dataVolume:
   #   pvc: false
   #   hostPath: /exports/mybeamline/data/
 
   # DEBUG SETTINGS ###########################################################
-  # to use these deploy with these settings and then open a shell in the pod
+  # To use these deploy with these settings and open a shell in the pod.
   # then:-
-  #   cp -r /tmp/config /epics/ioc/
   #   /epics/ioc/start.sh
   #
   # NOTE: at present you need to go to another terminal and type `console`
   # to interact with the IOC console (we should fix this)
 
-  # don't make the IOC the entrypoint
+  # don't make the IOC the entrypoint, just sleep
+  # (and copy config to /epics/ioc/)
   args:
-    - sleep infinity
+    - cp -r /tmp/config /epics/ioc/; sleep infinity
 
   # mount the config map elsewhere so we can copy and edit it
   # i.e. `cp -r /tmp/config /epics/ioc/` before starting the IOC
   iocConfig: /tmp/config
+
+  env:
+    # stop start.sh from wrapping the IOC in stdio-socket
+    - name: STDIO_EXPOSED
+      value: "NO"
 
   # generous resources to handle the extra overheads of debugging
   # e.g. you could attach vscode remote dev to this using the
