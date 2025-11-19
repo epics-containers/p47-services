@@ -7,14 +7,36 @@ ioc-instance:
     pvc: false
     hostPath: /exports/mybeamline/data/
 
-  # # disable host networking to allow root user
-  # hostNetwork: false
+  # don't make the IOC the entrypoint
+  args:
+    - sleep
+    - infinity
 
-  # # generous resources to handle the extra overheads of debugging
-  # resources:
-  #   limits:
-  #     cpu: 4
-  #     memory: 4Gi
-  #   requests:
-  #     cpu: 1
-  #     memory: 1Gi
+  # mount the config map elsewhere so we can copy and edit it
+  # i.e. `cp -r /tmp/config /epics/ioc/` before starting the IOC
+  iocConfig: /tmp/config
+
+  # generous resources to handle the extra overheads of debugging
+  # e.g. you could attach vscode remote dev to this using the
+  # kubernetes and remote development extensions
+  resources:
+    limits:
+      cpu: 4000m
+      memory: 4Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+
+  # these remaining settings mean you won't be able to see PVs from outside
+  # the cluster. But could do so if you add a gateway like we did in the
+  # t01-services tutorial.
+
+  # disable host networking to allow root user
+  hostNetwork: false
+
+  # choose root user for write access to the container filesystem
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+    readOnlyRootFilesystem: false
+    runAsNonRoot: false
