@@ -12,6 +12,9 @@ ioc-instance:
   # then:-
   #   cp -r /tmp/config /epics/ioc/
   #   /epics/ioc/start.sh
+  #
+  # NOTE: at present you need to go to another terminal and type `console`
+  # to interact with the IOC console (we should fix this)
 
   # don't make the IOC the entrypoint
   args:
