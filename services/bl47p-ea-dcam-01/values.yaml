@@ -48,7 +48,7 @@ ioc-instance:
   # allowed to run as root.
 
   # disable host networking to allow root user
-  hostNetwork: false
+  # hostNetwork: false
 
   # choose root user for write access to the container filesystem
   securityContext:
