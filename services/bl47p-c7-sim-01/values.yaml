@@ -1,8 +1,9 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 dev-c7:
-  iocPath: /dls_sw/prod/R3.14.12.7/ioc/TS/TS-EA-IOC-01
-  iocName: 3-9
+  # iocPath: /dls_sw/prod/R3.14.12.7/ioc/TS/
+  # iocName: TS-EA-IOC-01/3-9
+  workingDir: /dls_sw/prod/R3.14.12.7/ioc/TS/TS-EA-IOC-01/3-9
 
   extraVolumeMounts:
     - name: apps
