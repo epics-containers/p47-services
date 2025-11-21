@@ -1,0 +1,45 @@
+nexus-file-converter:
+  debug:
+    enabled: false
+    suspend: false
+  beamline: p47
+  template:
+    entry/:
+      NX_class@: NXentry
+      instrument/:
+        NX_class@: NXinstrument
+        name: p47
+
+  volumes:
+  - name: nexus-data
+    hostPath:
+      path: /dls/p47/data
+      type: DirectoryOrCreate
+
+  volumeMounts:
+  - name: nexus-data
+    mountPath: /dls/p47/data
+    mountPropagation: HostToContainer
+
+  application:
+    server:
+      port: 8084
+    spring:
+      profiles:
+        active: rabbitmq
+      rabbitmq:
+        host: p47-rabbitmq-daq.diamond.ac.uk
+        username: guest
+        password: guest
+    files:
+      output:
+        
+        directory:
+          staticDirectory: ""  # explicitly empty, get from StartDocument metadata
+        
+        devices:
+          types:
+            synchrotron: NX_SOURCE
+#  securityContext:
+#    runAsUser:
+#    runAsGroup:

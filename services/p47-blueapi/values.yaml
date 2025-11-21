@@ -1,0 +1,122 @@
+blueapi:
+  
+  ingress:
+    enabled: false
+    hosts:
+      - host: p47-blueapi.diamond.ac.uk
+        paths:
+          - path: /
+            pathType: Prefix
+  
+  extraEnvVars:
+    - name: BEAMLINE
+      value: p47
+    - name: INSTRUMENT
+      value: p47
+    - name: EPICS_PVA_NAME_SERVERS
+      value: p47-epics-gateways:9075
+    - name: EPICS_CA_NAME_SERVERS
+      value: p47-epics-gateways:9064
+    - name: EPICS_PVA_AUTO_ADDR_LIST
+      value: "NO"
+    - name: EPICS_CA_AUTO_ADDR_LIST
+      value: "NO"
+
+  worker:
+    env:
+      metadata:
+        instrument: p47
+      sources:
+      - kind: dodal
+        module: dodal.beamlines.p47
+      - kind: planFunctions
+        module: dodal.plans
+      events:
+        broadcast_status_events: false
+    stomp:
+      auth:
+        username: guest
+        password: guest
+      url: tcp://p47-rabbitmq-daq.diamond.ac.uk:61613
+      enabled: true
+    logging:
+      level: "INFO"
+      graylog:
+        enabled: true
+    
+    oidc:
+      well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
+      client_id: "blueapi-cli"
+      logout_redirect_endpoint: "oauth2/sign_out"
+    
+    
+    numtracker:
+      url: https://numtracker.diamond.ac.uk/graphql
+    
+    scratch:
+      root: /dls_sw/p47/software/blueapi/scratch
+      repositories:
+        - name: dodal
+          remote_url: https://github.com/DiamondLightSource/dodal.git
+  initContainer:
+    enabled: true
+
+
+oauth2:
+  proxyVarsAsSecrets: false
+  extraEnv:
+    - name: OAUTH2_PROXY_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: blueapi-secret
+          key: client-secret
+    - name: OAUTH2_PROXY_COOKIE_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: blueapi-secret
+          key: cookie-secret
+  config:
+    configFile: |-
+      skip_provider_button = true
+      skip_jwt_bearer_tokens = true
+      cookie_refresh="1m"
+      cookie_expire="30m"
+      email_domains = [ "*" ]
+      skip_auth_routes=[
+      "GET=^/config/oidc",
+      "GET=^/healthz"
+      ]
+      whitelist_domains=["authn.diamond.ac.uk"]
+  ingress:
+    enabled: true
+    hosts:
+      - p47-blueapi.diamond.ac.uk
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+    path: /
+    pathType: Prefix
+  alphaConfig:
+    enabled: true
+    configData:
+      upstreamConfig:
+        proxyRawPath: true
+        upstreams:
+          - id: blueapi
+            path: /
+            uri: http://p47-blueapi
+      providers:
+        - provider: oidc
+          id: authn.diamond.ac.uk
+          clientID: p47-blueapi
+          clientSecret: ${OAUTH2_PROXY_CLIENT_SECRET}
+          oidcConfig:
+            insecureAllowUnverifiedEmail: true
+            emailClaim: sub
+            audienceClaims: ["aud"]
+            extraAudiences: ["blueapi"]
+            issuerURL: https://authn.diamond.ac.uk/realms/master
+      injectRequestHeaders:
+        - name: Authorization
+          values:
+            - claim: access_token
+              prefix: "Bearer "

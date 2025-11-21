@@ -1,0 +1,16 @@
+apiVersion: v2
+name: p47-nexus
+description: NeXus service deployed for p47
+
+version: 4.1.5
+
+# When we deploy with the edge-containers-cli we override this on the command line.
+# Direct deployment with Helm will use the default beta value.
+appVersion: 0.0.1b1
+
+type: application
+
+dependencies:
+  - name: nexus-file-converter
+    version: "4.1.5"
+    repository: "https://sonatypenexus.diamond.ac.uk/repository/daq-helm/"
