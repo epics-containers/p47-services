@@ -1,3 +1,7 @@
+global:
+  security:
+    allowInsecureImages: true
+
 rabbitmq:
   customConfig: |-
     stomp.default_user = guest
@@ -20,9 +24,14 @@ rabbitmq:
     create: false
   serviceAccount:
     create: false
+  networkPolicy:
+    enabled: false
+  extraContainerPorts:
+    - name: stomp
+      containerPort: 61613
   service:
     type: LoadBalancer
-    # loadBalancerIP: <loadBalancerIP> 
+    loadBalancerIP: 172.23.168.213
     extraPorts:
       - name: stomp
         port: 61613
