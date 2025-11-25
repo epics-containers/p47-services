@@ -21,7 +21,11 @@ blueapi:
       value: "NO"
     - name: EPICS_CA_AUTO_ADDR_LIST
       value: "NO"
-
+  tracing:
+    otlp:
+      enabled: true
+      server:
+        host: http://opentelemetry-collector.tracing
   worker:
     env:
       metadata:
