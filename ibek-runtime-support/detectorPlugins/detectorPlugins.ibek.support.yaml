@@ -121,7 +121,7 @@ entity_models:
       - type: ADCore.NDPvxsPlugin
         NDARRAY_PORT: "{{ CAM }}"
         P: "{{ P }}"
-        PORT: "{{ PORTPREFIX }}.PVA"
+        PORT: "{{ PORTPREFIX }}.pva"
         QUEUE: "{{ PLUGINQUEUE }}"
         R: ":PVA:"
         PVNAME: "{{ P }}:PVA:OUTPUT"
@@ -167,9 +167,10 @@ entity_models:
       - type: ADCore.NDPvxsPlugin
         NDARRAY_PORT: "{{ CAM }}"
         P: "{{ P }}"
-        PORT: "{{ PORTPREFIX }}.PVA"
+        PORT: "{{ PORTPREFIX }}.pva"
         QUEUE: "{{ PLUGINQUEUE }}"
         R: ":PVA:"
+        PVNAME: "{{ P }}:PVA:OUTPUT"
 
       - type: ADCore.NDStats
         HIST_SIZE: "{{ HIST_SIZE }}"
