@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://github.com/epics-containers/ibek/releases/download/3.0.1/ibek.support.schema.json
+
+# A place to add additional EPICS Db templates or other features to
+# be used by this beamline/tech area
+
+module: b01-1-support
+
+entity_models: []

@@ -1,0 +1,194 @@
+# yaml-language-server: $schema=https://github.com/epics-containers/ibek/releases/download/3.0.1/ibek.support.schema.json
+
+module: detectorPlugins
+
+entity_models:
+  - name: gdaPlugins
+    description: Standard set of AreaDetector plugins for GDA
+    parameters:
+      P:
+        type: str
+        description: Prefix for the AreaDetector PVs
+      CAM:
+        type: str
+        description: AreaDetector NDArray port name of the camera
+      PORTPREFIX:
+        type: str
+        description: Prefix for all plugin ports
+      PLUGINQUEUE:
+        type: int
+        description: Queue size for all plugins
+        default: 16
+      DISPLAYQUEUE:
+        type: int
+        description: Queue size for display plugins
+        default: 2
+      HIST_SIZE:
+        type: int
+        description: Histogram size for NDStats plugin
+        default: 256
+      NCHANS:
+        type: int
+        description: Number of channels for NDStats plugin
+        default: 20000
+      XSIZE:
+        type: int
+        description: X size for NDStats plugin
+        default: 1024
+      YSIZE:
+        type: int
+        description: Y size for NDStats plugin
+        default: 768
+      NELEMENTS:
+        type: int
+        description: Number of elements for NDStdArrays plugin
+        default: 786432
+      ARRFTVL:
+        type: str
+        description: FTVL for NDStdArrays plugin
+        default: UCHAR
+      ARRTYPE:
+        type: str
+        description: TYPE for NDStdArrays plugin
+        default: Int8
+
+    sub_entities:
+      - type: ADCore.NDROI
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.roi"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":ROI:"
+
+      - type: ADCore.NDStats
+        HIST_SIZE: "{{ HIST_SIZE }}"
+        NCHANS: "{{ NCHANS }}"
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.stat"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":STAT:"
+        XSIZE: "{{ XSIZE }}"
+        YSIZE: "{{ YSIZE }}"
+
+      - type: ADCore.NDStdArrays
+        R: ":ARR:"
+        FTVL: "{{ ARRFTVL }}"
+        NDARRAY_PORT: "{{ PORTPREFIX }}.roi"
+        NELEMENTS: "{{ NELEMENTS }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.arr"
+        QUEUE: "{{ DISPLAYQUEUE }}"
+        TYPE: "{{ ARRTYPE }}"
+
+      - type: ADCore.NDProcess
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.proc"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":PROC:"
+
+      - type: ADCore.NDOverlay
+        NDARRAY_PORT: "{{ PORTPREFIX }}.proc"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.over"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":OVER:"
+
+      - type: ADCore.NDFileTIFF
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.tiff"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":TIFF:"
+
+      - type: ADCore.NDROIStat
+        NDARRAY_PORT: "{{ PORTPREFIX }}.stat"
+        P: "{{ P }}"
+        R: ":STATS:"
+        PORT: "{{ PORTPREFIX }}.roistat"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        MAX_ROIS: "{{ MAX_ROIS }}"
+        NCHANS: "{{ NCHANS }}"
+
+      - type: ADCore.NDFileHDF5
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.hdf5"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":HDF5:"
+
+      - type: ADCore.NDPvxsPlugin
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.PVA"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":PVA:"
+        PVNAME: "{{ P }}:PVA:OUTPUT"
+
+  - name: detectorPlugins
+    description: Standard set of AreaDetector plugins for Ophyd
+    parameters:
+      P:
+        type: str
+        description: Prefix for the AreaDetector PVs
+      CAM:
+        type: str
+        description: AreaDetector NDArray port name of the camera
+      PORTPREFIX:
+        type: str
+        description: Prefix for all plugin ports
+      NCHANS:
+        type: int
+        description: Number of channels for NDStats plugin
+        default: 20000
+      HIST_SIZE:
+        type: int
+        description: Histogram size for NDStats plugin
+        default: 256
+      XSIZE:
+        type: int
+        description: X size for NDStats plugin
+        default: 1024
+      YSIZE:
+        type: int
+        description: Y size for NDStats plugin
+        default: 768
+      MAX_ROIS:
+        type: int
+        description: Number of ROISTATs
+        default: 8
+
+    sub_entities:
+      - type: ADCore.NDPvxsPlugin
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.PVA"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":PVA:"
+
+      - type: ADCore.NDStats
+        HIST_SIZE: "{{ HIST_SIZE }}"
+        NCHANS: "{{ NCHANS }}"
+        NDARRAY_PORT: "{{ CAM }}"
+        P: "{{ P }}"
+        PORT: "{{ PORTPREFIX }}.stat"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        R: ":STAT:"
+        XSIZE: "{{ XSIZE }}"
+        YSIZE: "{{ YSIZE }}"
+
+      - type: ADCore.NDROIStat
+        NDARRAY_PORT: "{{ PORTPREFIX }}.stat"
+        P: "{{ P }}"
+        R: ":STATS:"
+        PORT: "{{ PORTPREFIX }}.roistat"
+        QUEUE: "{{ PLUGINQUEUE }}"
+        MAX_ROIS: "{{ MAX_ROIS }}"
+        NCHANS: "{{ NCHANS }}"
+
+      - type: ADCore.NDFileHDF5
+        PORT: "{{ PORTPREFIX }}.hdf5"
+        NDARRAY_PORT: "{{ PORTPREFIX }}.roistat"
+        P: "{{ P }}"
+        R: ":HDF5:"
