@@ -158,6 +158,10 @@ entity_models:
         type: int
         description: Number of ROISTATs
         default: 8
+      PLUGINQUEUE:
+        type: int
+        description: Queue size for all plugins
+        default: 16
 
     sub_entities:
       - type: ADCore.NDPvxsPlugin
