@@ -1,5 +1,23 @@
 blueapi:
-  
+  hostNetwork: false
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4000Mi
+    requests:
+      cpu: 500m
+      memory: 400Mi
+  nodeSelector:
+    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+  tolerations:
+    - key: nodetype
+      operator: Equal
+      value: training-rig
+      effect: NoSchedule
+    - key: beamline
+      operator: Equal
+      value: bl47p
+      effect: NoSchedule
   ingress:
     enabled: true
     hosts:
@@ -7,7 +25,6 @@ blueapi:
         paths:
           - path: /
             pathType: Prefix
-  
   extraEnvVars:
     - name: BEAMLINE
       value: p47
@@ -47,13 +64,10 @@ blueapi:
       level: "INFO"
       graylog:
         enabled: true
-    
     oidc:
       well_known_url: "https://authn.diamond.ac.uk/realms/master/.well-known/openid-configuration"
       client_id: "blueapi-cli"
       logout_redirect_endpoint: "oauth2/sign_out"
-    
-    
     numtracker:
       url: https://numtracker.diamond.ac.uk/graphql
     
@@ -64,8 +78,6 @@ blueapi:
           remote_url: https://github.com/DiamondLightSource/dodal.git
   initContainer:
     enabled: true
-
-
 oauth2:
   proxyVarsAsSecrets: false
   extraEnv:
