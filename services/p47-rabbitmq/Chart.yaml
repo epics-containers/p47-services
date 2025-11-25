@@ -1,5 +1,5 @@
 apiVersion: v2
-name: daq-rabbitmq
+name: p47-rabbitmq
 description: RabbitMQ instance for DAQ services on p47
 version: 2.2.0
 
