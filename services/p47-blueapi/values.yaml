@@ -74,7 +74,7 @@ blueapi:
       url: https://numtracker.diamond.ac.uk/graphql
     
     scratch:
-      root: /dls_sw/p47/software/blueapi/scratch
+      root: /dls_sw/htss/p47/scratch
       repositories:
         - name: dodal
           remote_url: https://github.com/DiamondLightSource/dodal.git
