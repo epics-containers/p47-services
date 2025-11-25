@@ -82,6 +82,8 @@ blueapi:
           remote_url:  https://github.com/DiamondLightSource/htss-rig-bluesky.git
   initContainer:
     enabled: true
+    persistentVolume:
+      enabled: true
 oauth2:
   proxyVarsAsSecrets: false
   extraEnv:
