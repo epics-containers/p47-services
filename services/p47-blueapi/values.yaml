@@ -76,6 +76,8 @@ blueapi:
     scratch:
       root: /dls_sw/htss/p47/scratch
       repositories:
+        - name: dodal
+          remote_url: https://github.com/DiamondLightSource/dodal/tree/DiamondJoseph-patch-1
         - name: htss-rig-bluesky
           remote_url:  https://github.com/DiamondLightSource/htss-rig-bluesky.git
   initContainer:
