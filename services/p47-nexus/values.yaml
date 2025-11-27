@@ -39,7 +39,10 @@ nexus-file-converter:
         
         devices:
           types:
-            synchrotron: NX_SOURCE
-#  securityContext:
-#    runAsUser:
-#    runAsGroup:
+            det: NX_DETECTOR
+            sample_stage: NX_COLLECTION
+            sample_stage.x: NX_POSITIONER
+            sample_stage.theta: NX_POSITIONER
+  securityContext:
+    runAsUser: 37887 # p47detector
+    runAsGroup: 37887
