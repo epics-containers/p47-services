@@ -79,7 +79,7 @@ blueapi:
         - name: dodal
           remote_url: https://github.com/DiamondLightSource/dodal.git
         - name: htss-rig-bluesky
-          remote_url:  https://github.com/DiamondLightSource/htss-rig-bluesky.git
+          remote_url: https://github.com/DiamondLightSource/htss-rig-bluesky.git
   initContainer:
     enabled: true
     persistentVolume:
