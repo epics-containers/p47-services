@@ -142,3 +142,6 @@ oauth2:
           values:
             - claim: access_token
               prefix: "Bearer "
+
+debug:
+  enabled: true
