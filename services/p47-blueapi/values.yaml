@@ -85,7 +85,7 @@ blueapi:
     persistentVolume:
       enabled: true
   debug:
-    enabled: true
+    enabled: false
 oauth2:
   proxyVarsAsSecrets: false
   extraEnv:
