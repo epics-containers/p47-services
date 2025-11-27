@@ -22,6 +22,9 @@ entities:
     PORT: DET.CAM
     R: ":DET:"
 
+  - type: autosave.Autosave
+    P: "BL47P-EA-DET-01:"
+
   - type: ADAravis.aravisSettings
     camera: DET.CAM
 

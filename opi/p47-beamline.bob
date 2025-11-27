@@ -24,7 +24,7 @@
     <transparent use_class="true">true</transparent>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
-  <widget type="group" version="2.0.0">
+  <widget type="group" version="3.0.0">
     <name>X Stage</name>
     <macros>
       <M>STAGE:X</M>
@@ -69,9 +69,9 @@
       <name>WritePV</name>
       <actions>
         <action type="write_pv">
+          <description>$(name)</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>$(name)</description>
         </action>
       </actions>
       <pv_name>$(P)$(M).STOP</pv_name>
@@ -93,9 +93,9 @@
       <name>WritePV</name>
       <actions>
         <action type="write_pv">
+          <description>$(name)</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>$(name)</description>
         </action>
       </actions>
       <pv_name>$(P)$(M).TWF</pv_name>
@@ -132,9 +132,9 @@
       <name>WritePV</name>
       <actions>
         <action type="write_pv">
+          <description>$(name)</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>$(name)</description>
         </action>
       </actions>
       <pv_name>$(P)$(M).TWR</pv_name>
@@ -146,7 +146,7 @@
       <tooltip>$(P)$(M).TWR = 1</tooltip>
     </widget>
   </widget>
-  <widget type="group" version="2.0.0">
+  <widget type="group" version="3.0.0">
     <name>Rotation Stage</name>
     <macros>
       <M>STAGE:A</M>
@@ -191,9 +191,9 @@
       <name>WritePV_1</name>
       <actions>
         <action type="write_pv">
+          <description>$(name)</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>$(name)</description>
         </action>
       </actions>
       <pv_name>$(P)$(M).STOP</pv_name>
@@ -215,9 +215,9 @@
       <name>WritePV_2</name>
       <actions>
         <action type="write_pv">
+          <description>$(name)</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>$(name)</description>
         </action>
       </actions>
       <pv_name>$(P)$(M).TWF</pv_name>
@@ -254,9 +254,9 @@
       <name>WritePV_3</name>
       <actions>
         <action type="write_pv">
+          <description>$(name)</description>
           <pv_name>$(pv_name)</pv_name>
           <value>1</value>
-          <description>$(name)</description>
         </action>
       </actions>
       <pv_name>$(P)$(M).TWR</pv_name>
@@ -268,7 +268,7 @@
       <tooltip>$(P)$(M).TWR = 1</tooltip>
     </widget>
   </widget>
-  <widget type="group" version="2.0.0">
+  <widget type="group" version="3.0.0">
     <name>Auto Generated Engineering Screens</name>
     <macros>
       <M>STAGE:A</M>
@@ -290,13 +290,13 @@
       <name>OpenDisplay</name>
       <actions>
         <action type="open_display">
+          <description>Open Display</description>
           <file>https://p47-opis.diamond.ac.uk/bl47p-ea-dcam-02/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:DET:</R>
           </macros>
           <target>tab</target>
-          <description>Open Display</description>
         </action>
       </actions>
       <text>BL47P-EA-DET-02</text>
@@ -317,13 +317,13 @@
       <name>OpenDisplay_2</name>
       <actions>
         <action type="open_display">
+          <description>Open Display</description>
           <file>https://p47-opis.diamond.ac.uk/bl47p-mo-ioc-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
           </macros>
           <target>tab</target>
-          <description>Open Display</description>
         </action>
       </actions>
       <text>BL47P-MO-MAP-01</text>
@@ -344,13 +344,13 @@
       <name>OpenDisplay_3</name>
       <actions>
         <action type="open_display">
+          <description>Open Display</description>
           <file>https://p47-opis.diamond.ac.uk/bl47p-ea-panda-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
           </macros>
           <target>tab</target>
-          <description>Open Display</description>
         </action>
       </actions>
       <text>BL47P-MO-PANDA-01</text>
@@ -371,13 +371,13 @@
       <name>OpenDisplay_1</name>
       <actions>
         <action type="open_display">
+          <description>Open Display</description>
           <file>https://p47-opis.diamond.ac.uk/bl47p-ea-dcam-01/index.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:TX:</R>
           </macros>
           <target>tab</target>
-          <description>Open Display</description>
         </action>
       </actions>
       <text>BL47P-EA-DET-01</text>
@@ -399,13 +399,13 @@
       <name>OpenDisplay_4</name>
       <actions>
         <action type="open_display">
+          <description>Open Display</description>
           <file>https://p47-opis.diamond.ac.uk/bl47p-ea-fastcs-01/ca_example.bob</file>
           <macros>
             <P>BL47P-EA-DET-01</P>
             <R>:HDF5:</R>
           </macros>
           <target>tab</target>
-          <description>Open Display</description>
         </action>
       </actions>
       <text>BL47P-EA-FASTCS-01</text>
@@ -416,7 +416,7 @@
       <tooltip>$(actions)</tooltip>
     </widget>
   </widget>
-  <widget type="group" version="2.0.0">
+  <widget type="group" version="3.0.0">
     <name>Sample Camera</name>
     <macros>
       <P>BL47P-EA-DET-01</P>
@@ -747,7 +747,7 @@
   </widget>
   <widget type="image" version="2.0.0">
     <name>Image</name>
-    <pv_name>pva://BL47P-EA-DET-01:TX:PVA</pv_name>
+    <pv_name>pva://BL47P-EA-DET-01:PVA:OUTPUT</pv_name>
     <x>408</x>
     <y>36</y>
     <width>828</width>
@@ -825,7 +825,7 @@
     <color_mode>21</color_mode>
     <unsigned>true</unsigned>
   </widget>
-  <widget type="group" version="2.0.0">
+  <widget type="group" version="3.0.0">
     <name>Overview Camera</name>
     <macros>
       <P>BL47P-EA-DET-02</P>
