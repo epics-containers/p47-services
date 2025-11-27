@@ -84,6 +84,8 @@ blueapi:
     enabled: true
     persistentVolume:
       enabled: true
+  debug:
+    enabled: true
 oauth2:
   proxyVarsAsSecrets: false
   extraEnv:
@@ -142,6 +144,3 @@ oauth2:
           values:
             - claim: access_token
               prefix: "Bearer "
-
-debug:
-  enabled: true
