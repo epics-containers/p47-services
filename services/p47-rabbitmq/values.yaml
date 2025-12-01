@@ -3,16 +3,23 @@ global:
     allowInsecureImages: true
 
 rabbitmq:
-  image:
-    repository: bitnamilegacy/rabbitmq
-  auth:
-    username: admin
-    existingPasswordSecret: rabbitmq-secrets
-    existingErlangSecret: rabbitmq-secrets
-  extraPlugins: rabbitmq_jms_topic_exchange,rabbitmq_stomp
-  persistence:
-    enabled: false
-  initScriptsCM: rabbitmq-init
+  customConfig: |-
+    stomp.default_user = guest
+    stomp.default_pass = guest
+    log.console = true
+    log.console.level = info
+    log.console.use_colors = off
+  authentication:
+    user:
+      value: guest
+    password:
+      value: guest
+    existingSecret: rabbitmq-secrets
+    erlangCookie:
+      secretKey: rabbitmq-erlang-cookie
+  plugins:
+  - rabbitmq_jms_topic_exchange
+  - rabbitmq_stomp
   rbac:
     create: false
   serviceAccount:
@@ -29,4 +36,13 @@ rabbitmq:
       - name: stomp
         port: 61613
         targetPort: stomp
-  resourcesPreset: medium
+        containerPort: 61613
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1024Mi
+      ephemeral-storage: 50Mi
+    limits:
+      cpu: 750m
+      memory: 1536Mi
+      ephemeral-storage: 2Gi
