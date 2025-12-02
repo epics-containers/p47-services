@@ -1,8 +1,7 @@
 apiVersion: v2
-name: daq-rabbitmq
-description: RabbitMQ instance for DAQ services
-
-version: 11.16.2
+name: p47-rabbitmq
+description: RabbitMQ instance for DAQ services on p47
+version: 2.2.0
 
 # When we deploy with the edge-containers-cli we override this on the command line.
 # Direct deployment with Helm will use the default beta value.
@@ -12,5 +11,5 @@ type: application
 
 dependencies:
   - name: rabbitmq
-    version: 16.0.14
-    repository: oci://registry-1.docker.io/bitnamicharts
+    version: 2.2.2
+    repository: https://groundhog2k.github.io/helm-charts/

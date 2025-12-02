@@ -1,4 +1,7 @@
 nexus-file-converter:
+  debug:
+    enabled: false
+    suspend: false
   beamline: p47
   template:
     entry/:
@@ -8,12 +11,6 @@ nexus-file-converter:
         name: p47
 
   volumes:
-  - name: nexus-template
-    configMap:
-      name: nexus-template
-      items:
-      - key: template.yaml
-        path: template.yaml
   - name: nexus-data
     hostPath:
       path: /exports/mybeamline/p47/data/
@@ -23,8 +20,6 @@ nexus-file-converter:
   - name: nexus-data
     mountPath: /exports/mybeamline/p47/data/
     mountPropagation: HostToContainer
-  - name: nexus-template
-    mountPath: /templates
 
   application:
     server:
@@ -33,14 +28,15 @@ nexus-file-converter:
       profiles:
         active: rabbitmq
       rabbitmq:
-        host: p47-rabbitmq
+        host: p47-rabbitmq-daq.diamond.ac.uk
         username: guest
         password: guest
     files:
       output:
+        
         directory:
-          staticDirectory: /exports/mybeamline/p47/data/2024/cm11111-1
-        nameTemplate: <DATA_SESSION>
+          staticDirectory: ""  # explicitly empty, get from StartDocument metadata
+        
         devices:
           types:
             det: NX_DETECTOR
