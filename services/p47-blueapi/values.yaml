@@ -1,4 +1,6 @@
 blueapi:
+  debug:
+    enabled: true
   hostNetwork: false
   resources:
     limits:
