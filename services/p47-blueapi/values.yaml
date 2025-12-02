@@ -65,6 +65,8 @@ blueapi:
     scratch:
       root: /dls_sw/htss/p47/scratch
       repositories:
+        - name: ophyd-async
+          remote_url: https://github.com/bluesky/ophyd-async.git
         - name: dodal
           remote_url: https://github.com/DiamondLightSource/dodal.git
         - name: htss-rig-bluesky
