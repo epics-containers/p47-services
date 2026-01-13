@@ -19,7 +19,7 @@ ioc-instance:
       image: alpine/git
       command:
         - git
-        - status
+        - version
 
   # don't use the ioc-instance livenesProbe, preStop which dont exist in fastcs image.
   livenessExecutable: ""
