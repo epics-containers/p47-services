@@ -1,0 +1,3 @@
+uv
+urllib3<2.4.0
+Kodman

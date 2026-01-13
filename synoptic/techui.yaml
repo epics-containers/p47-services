@@ -1,0 +1,11 @@
+beamline:
+  short_dom: "P47"
+  long_dom: "BL47P"
+  desc: "P47 Beamline or Tech Area"
+
+# add components for techUI-builder to build screens for
+components: {}
+
+  # DCAM1:
+  #   desc: GigE camera EXAMPLE
+  #   prefix: BL47P-DI-DCAM-01

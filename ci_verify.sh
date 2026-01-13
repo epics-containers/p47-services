@@ -13,6 +13,28 @@ set -xe
 rm -rf ${ROOT}/.ci_work/
 mkdir -p ${ROOT}/.ci_work
 
+# Perform pre-commit checks to ensure techui-builder has validated the synoptic
+# and that the ibek-runtme-support schema is up to date
+################################################################################
+
+
+cd ${ROOT}
+git submodule update --init
+
+pip install uv
+# use python 3.13 to ensure latest pydantic
+uv venv --python 3.13 --clear
+source .venv/bin/activate
+uv pip install -r requirements.txt
+
+# run pre-commit checking which tool versions will be used.
+uvx pre-commit install
+uvx ibek --version
+uvx techui-builder --version
+uvx pre-commit run --all-files --show-diff-on-failure
+
+# Verify the IOC instance definitions
+################################################################################
 # if a docker provider is specified, use it
 if [[ $DOCKER_PROVIDER ]]; then
     docker=$DOCKER_PROVIDER
@@ -22,7 +44,7 @@ else
 fi
 
 # copy the services to a temporary location to avoid dirtying the repo
-cp -r ${ROOT}/services/* ${ROOT}/.ci_work/
+cp -Lr ${ROOT}/services/* ${ROOT}/.ci_work/
 
 for service in ${ROOT}/.ci_work/*/  # */ to skip files
 do

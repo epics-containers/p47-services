@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../ibek-runtime-support/runtime.schema.json
+ioc_name: "{{ _global.get_env('IOC_NAME') }}"
+
+description: additional entities from the services repo
+
+# to create additional entities here:
+# 1. add folders to /ibek-runtime-support containing:
+#   - XXX.ibek.support.yaml
+#   - possibly epics DB templates
+#   - plus any other files that XXX.ibek.support.yaml uses
+# 2. symlink the files this ioc needs into this config folder
+# 3. uvx pre-commit run to regenerate runtime.schema.json
+# 4. add entities below, following the supplied schema
+
+entities: []

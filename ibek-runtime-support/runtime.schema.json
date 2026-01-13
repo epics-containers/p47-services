@@ -1,0 +1,406 @@
+{
+  "$defs": {
+    "RepeatEntity": {
+      "additionalProperties": false,
+      "description": "A definition of RepeatEntity for the type checker\n\nThis is not really used - instead the dynamic class is created\nby the make_entity_model function is used.",
+      "properties": {
+        "type": {
+          "const": "ibek.repeat",
+          "default": "ibek.repeat",
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "values": {
+          "anyOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "The list of values to iterate over",
+          "title": "Values"
+        },
+        "variable": {
+          "default": "index",
+          "description": "The variable name to use in the entity model",
+          "title": "Variable",
+          "type": "string"
+        },
+        "entity": {
+          "additionalProperties": true,
+          "description": "The entity model to repeat",
+          "title": "Entity",
+          "type": "object"
+        }
+      },
+      "required": [
+        "values",
+        "entity"
+      ],
+      "title": "RepeatEntity",
+      "type": "object"
+    },
+    "detectorPlugins_detectorPlugins": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "detectorPlugins.detectorPlugins",
+          "description": "Standard set of AreaDetector plugins for Ophyd",
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "P": {
+          "description": "Prefix for the AreaDetector PVs",
+          "title": "P",
+          "type": "string"
+        },
+        "CAM": {
+          "description": "AreaDetector NDArray port name of the camera",
+          "title": "Cam",
+          "type": "string"
+        },
+        "PORTPREFIX": {
+          "description": "Prefix for all plugin ports",
+          "title": "Portprefix",
+          "type": "string"
+        },
+        "NCHANS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of channels for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 20000,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nchans"
+        },
+        "HIST_SIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Histogram size for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Hist Size"
+        },
+        "XSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "X size for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 1024,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xsize"
+        },
+        "YSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Y size for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 768,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Ysize"
+        },
+        "MAX_ROIS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of ROISTATs",
+              "type": "integer"
+            }
+          ],
+          "default": 8,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Rois"
+        },
+        "PLUGINQUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Queue size for all plugins",
+              "type": "integer"
+            }
+          ],
+          "default": 16,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Pluginqueue"
+        }
+      },
+      "required": [
+        "type",
+        "P",
+        "CAM",
+        "PORTPREFIX"
+      ],
+      "title": "detectorPlugins_detectorPlugins",
+      "type": "object"
+    },
+    "detectorPlugins_gdaPlugins": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "detectorPlugins.gdaPlugins",
+          "description": "Standard set of AreaDetector plugins for GDA",
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "P": {
+          "description": "Prefix for the AreaDetector PVs",
+          "title": "P",
+          "type": "string"
+        },
+        "CAM": {
+          "description": "AreaDetector NDArray port name of the camera",
+          "title": "Cam",
+          "type": "string"
+        },
+        "PORTPREFIX": {
+          "description": "Prefix for all plugin ports",
+          "title": "Portprefix",
+          "type": "string"
+        },
+        "PLUGINQUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Queue size for all plugins",
+              "type": "integer"
+            }
+          ],
+          "default": 16,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Pluginqueue"
+        },
+        "DISPLAYQUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Queue size for display plugins",
+              "type": "integer"
+            }
+          ],
+          "default": 2,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Displayqueue"
+        },
+        "HIST_SIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Histogram size for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Hist Size"
+        },
+        "NCHANS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of channels for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 20000,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nchans"
+        },
+        "XSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "X size for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 1024,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xsize"
+        },
+        "YSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Y size for NDStats plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 768,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Ysize"
+        },
+        "NELEMENTS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements for NDStdArrays plugin",
+              "type": "integer"
+            }
+          ],
+          "default": 786432,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nelements"
+        },
+        "ARRFTVL": {
+          "default": "UCHAR",
+          "description": "FTVL for NDStdArrays plugin",
+          "title": "Arrftvl",
+          "type": "string"
+        },
+        "ARRTYPE": {
+          "default": "Int8",
+          "description": "TYPE for NDStdArrays plugin",
+          "title": "Arrtype",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "P",
+        "CAM",
+        "PORTPREFIX"
+      ],
+      "title": "detectorPlugins_gdaPlugins",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "ioc_name": {
+      "description": "Name of IOC instance",
+      "title": "Ioc Name",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of what the IOC does",
+      "title": "Description",
+      "type": "string"
+    },
+    "entities": {
+      "description": "List of entities this IOC instantiates",
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "detectorPlugins.detectorPlugins": "#/$defs/detectorPlugins_detectorPlugins",
+            "detectorPlugins.gdaPlugins": "#/$defs/detectorPlugins_gdaPlugins",
+            "ibek.repeat": "#/$defs/RepeatEntity"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/detectorPlugins_gdaPlugins"
+          },
+          {
+            "$ref": "#/$defs/detectorPlugins_detectorPlugins"
+          },
+          {
+            "$ref": "#/$defs/RepeatEntity"
+          }
+        ]
+      },
+      "title": "Entities",
+      "type": "array"
+    },
+    "shared": {
+      "default": [],
+      "description": "A place to create any anchors required for repeating YAML",
+      "items": {},
+      "title": "Shared",
+      "type": "array"
+    }
+  },
+  "required": [
+    "ioc_name",
+    "description",
+    "entities"
+  ],
+  "title": "NewIOC",
+  "type": "object"
+}
