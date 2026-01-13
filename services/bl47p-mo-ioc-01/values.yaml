@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-pmac-runtime:2025.11.1
+  image: ghcr.io/epics-containers/ioc-pmac-runtime:2026.1.1
 
   volumes:
     - name: dev-shm
