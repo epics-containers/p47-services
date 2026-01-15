@@ -7,6 +7,9 @@ ioc-instance:
     pvc: false
     hostPath: /exports/mybeamline/data/
 
+  # comment change (for testing CI only)
+
+  # enable debug mode
   # # disable host networking to allow root user
   # hostNetwork: false
 
