@@ -43,23 +43,19 @@ else
     if ! docker version &>/dev/null; then docker=podman; else docker=docker; fi
 fi
 
-# Determine diff base:
-# - PR/MR: target branch
-# - Push: upstream remote branch if it exists
-# - Else: previous commit or empty tree
-DIFF_BASE_BRANCH="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-${GITHUB_BASE_REF:-}}"
-
-if [[ -n "$DIFF_BASE_BRANCH" ]]; then
-  DIFF_BASE="origin/$DIFF_BASE_BRANCH"
+# Determine diff base
+if [[ -n "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-}" ]]; then
+    # GitLab MR
+    DIFF_BASE="origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+elif [[ -n "${GITHUB_BASE_REF:-}" ]]; then
+    # GitHub PR
+    DIFF_BASE="origin/${GITHUB_BASE_REF}"
+elif git rev-parse HEAD~1 >/dev/null 2>&1; then
+    # normal push
+    DIFF_BASE="HEAD~1"
 else
-  # Try upstream branch
-  DIFF_BASE=$(git for-each-ref --format='%(upstream:short)' "$(git symbolic-ref -q HEAD)")
-
-  # Fallback to previous commit
-  [[ -z "$DIFF_BASE" && $(git rev-parse HEAD~1 2>/dev/null) ]] && DIFF_BASE="HEAD~1"
-
-  # Fallback to empty tree for first commit
-  [[ -z "$DIFF_BASE" ]] && DIFF_BASE="$(git hash-object -t tree /dev/null)"
+    # first commit
+    DIFF_BASE=$(git hash-object -t tree /dev/null)
 fi
 
 # Get changed services (excluding values.yaml)
