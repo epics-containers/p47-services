@@ -50,9 +50,10 @@ else
   DIFF_BASE="${CI_COMMIT_BEFORE_SHA}"
 fi
 
-# Get changed services
+# Get changed services (excluding values.yaml)
 CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" "$CI_COMMIT_SHA" \
   | grep '^services/' \
+  | grep -v "values.yaml" \
   | cut -d/ -f2 \
   | sort -u)
 
@@ -60,6 +61,9 @@ if [[ -z "$CHANGED_SERVICES" ]]; then
   echo "No services changed. Exiting."
   exit 0
 fi
+
+# Need to make sure values.yaml is included in the ci
+cp -L "${ROOT}/services/values.yaml" "${ROOT}/.ci_work/"
 
 # copy only the changed services to a temporary location to avoid dirtying the repo
 for svc in $CHANGED_SERVICES; do
