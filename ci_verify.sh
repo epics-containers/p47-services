@@ -44,16 +44,22 @@ else
 fi
 
 # Determine diff base
-if [[ -n "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-}" ]]; then
-  DIFF_BASE="origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+DIFF_BASE_BRANCH="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-${GITHUB_BASE_REF:-}}"
+DIFF_BASE_SHA="${CI_COMMIT_BEFORE_SHA:-${GITHUB_EVENT_BEFORE:-}}"
+
+if [[ -n "$DIFF_BASE_BRANCH" ]]; then
+  DIFF_BASE="origin/$DIFF_BASE_BRANCH"
+elif [[ -n "$DIFF_BASE_SHA" ]]; then
+  DIFF_BASE="$DIFF_BASE_SHA"
 else
-  DIFF_BASE="${CI_COMMIT_BEFORE_SHA}"
+  echo "Unable to determine DIFF_BASE"
+  exit 1
 fi
 
 # Get changed services (excluding values.yaml)
-CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" "$CI_COMMIT_SHA" \
+CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" HEAD \
   | grep '^services/' \
-  | grep -v "values.yaml" \
+  | grep -v 'values.yaml' \
   | cut -d/ -f2 \
   | sort -u)
 
