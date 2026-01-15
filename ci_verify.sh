@@ -43,17 +43,23 @@ else
     if ! docker version &>/dev/null; then docker=podman; else docker=docker; fi
 fi
 
-# Determine diff base
+# Determine diff base:
+# - PR/MR: target branch
+# - Push: upstream remote branch if it exists
+# - Else: previous commit or empty tree
 DIFF_BASE_BRANCH="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-${GITHUB_BASE_REF:-}}"
-DIFF_BASE_SHA="${CI_COMMIT_BEFORE_SHA:-${GITHUB_EVENT_BEFORE:-}}"
 
 if [[ -n "$DIFF_BASE_BRANCH" ]]; then
   DIFF_BASE="origin/$DIFF_BASE_BRANCH"
-elif [[ -n "$DIFF_BASE_SHA" ]]; then
-  DIFF_BASE="$DIFF_BASE_SHA"
 else
-  echo "Unable to determine DIFF_BASE"
-  exit 1
+  # Try upstream branch
+  DIFF_BASE=$(git for-each-ref --format='%(upstream:short)' "$(git symbolic-ref -q HEAD)")
+
+  # Fallback to previous commit
+  [[ -z "$DIFF_BASE" && $(git rev-parse HEAD~1 2>/dev/null) ]] && DIFF_BASE="HEAD~1"
+
+  # Fallback to empty tree for first commit
+  [[ -z "$DIFF_BASE" ]] && DIFF_BASE="$(git hash-object -t tree /dev/null)"
 fi
 
 # Get changed services (excluding values.yaml)
@@ -63,10 +69,6 @@ CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" HEAD \
   | cut -d/ -f2 \
   | sort -u)
 
-if [[ -z "$CHANGED_SERVICES" ]]; then
-  echo "No services changed. Exiting."
-  exit 0
-fi
 
 # Need to make sure values.yaml is included in the ci
 cp -L "${ROOT}/services/values.yaml" "${ROOT}/.ci_work/"
@@ -77,6 +79,8 @@ for svc in $CHANGED_SERVICES; do
   cp -Lr "${ROOT}/services/$svc" "${ROOT}/.ci_work/"
 done
 
+# enable nullglob so * is not taken literally if no services are changed
+shopt -s nullglob
 for service in ${ROOT}/.ci_work/*/  # */ to skip files
 do
     ### Lint each service chart and validate if schema given ###
@@ -134,5 +138,7 @@ do
 
     fi
 done
+# disable nullglob to restore default behavior
+shopt -u nullglob
 
 rm -r ${ROOT}/.ci_work
