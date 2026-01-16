@@ -10,7 +10,7 @@ entities:
     value: "GMT0BST"
 
   - type: epics.EpicsCaMaxArrayBytes
-    max_bytes: 3000000
+    max_bytes: 30000000
 
   - type: devIocStats.iocAdminSoft
     IOC: "{{ ioc_name | upper }}"
