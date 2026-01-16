@@ -16,4 +16,4 @@ dependencies:
   - name: oauth2-proxy
     alias: oauth2
     repository: https://oauth2-proxy.github.io/manifests
-    version: 10.0.1
+    version: 10.1.0
