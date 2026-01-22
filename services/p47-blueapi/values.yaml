@@ -76,7 +76,6 @@ blueapi:
       url: https://numtracker.diamond.ac.uk/graphql
     
     scratch:
-      root: /dls_sw/htss/p47/scratch
       repositories:
         # - name: ophyd-async
         #   remote_url: https://github.com/bluesky/ophyd-async.git
