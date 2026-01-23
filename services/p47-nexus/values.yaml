@@ -13,12 +13,12 @@ nexus-file-converter:
   volumes:
   - name: nexus-data
     hostPath:
-      path: /exports/mybeamline/p47/data/
+      path: /exports/mybeamline/data/
       type: DirectoryOrCreate
 
   volumeMounts:
   - name: nexus-data
-    mountPath: /exports/mybeamline/p47/data/
+    mountPath: /exports/mybeamline/data/
     mountPropagation: HostToContainer
 
   application:
