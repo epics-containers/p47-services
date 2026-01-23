@@ -10,6 +10,18 @@ nexus-file-converter:
         NX_class@: NXinstrument
         name: p47
 
+  nodeSelector:
+    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+  tolerations:
+    - key: nodetype
+      operator: Equal
+      value: training-rig
+      effect: NoSchedule
+    - key: beamline
+      operator: Equal
+      value: bl47p
+      effect: NoSchedule
+
   volumes:
   - name: nexus-data
     hostPath:
