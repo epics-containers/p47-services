@@ -141,7 +141,7 @@ oauth2:
             extraAudiences: ["blueapi"]
             issuerURL: https://authn.diamond.ac.uk/realms/master
       injectRequestHeaders:
-        - name: Authorization
+        - name: "Authorization"
           values:
             - claim: access_token
               prefix: "Bearer "
