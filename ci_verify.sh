@@ -52,14 +52,13 @@ DIFF_BASE="${DIFF_BASE:-${CI_COMMIT_BEFORE_SHA:-${GITHUB_EVENT_BEFORE:-HEAD~1}}}
 # Get changed services (excluding values.yaml)
 CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" HEAD \
   | grep '^services/' \
-  | grep -v "values.yaml" \
+  | grep -v 'values.yaml' \
   | cut -d/ -f2 \
   | sort -u)
 
-if [[ -z "$CHANGED_SERVICES" ]]; then
-  echo "No services changed. Exiting."
-  exit 0
-fi
+
+# Need to make sure values.yaml is included in the ci
+cp -L "${ROOT}/services/values.yaml" "${ROOT}/.ci_work/"
 
 # Need to make sure values.yaml is included in the ci
 cp -L "${ROOT}/services/values.yaml" "${ROOT}/.ci_work/"
@@ -70,6 +69,8 @@ for svc in $CHANGED_SERVICES; do
   cp -Lr "${ROOT}/services/$svc" "${ROOT}/.ci_work/"
 done
 
+# enable nullglob so * is not taken literally if no services are changed
+shopt -s nullglob
 for service in ${ROOT}/.ci_work/*/  # */ to skip files
 do
     ### Lint each service chart and validate if schema given ###
