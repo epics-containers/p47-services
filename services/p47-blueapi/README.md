@@ -14,7 +14,12 @@ Please add the instrument session in the worker.env.metadata.instrument_session
 
 
 3. Add the client secret and cookie secret to `templates/secret.yaml`:
-  - To obtain the client secret, message on slack #athena-components and request a Keycloak client named `p47-blueapi` on `authn.diamond.ac.uk` for blueapi, specifying the ingress `p47-blueapi.diamond.ac.uk`. The support team will send you the required secret.
+
+  - To obtain the client secret, Create a ticket in [Keycloak Client registration](https://jira.diamond.ac.uk/servicedesk/customer/portal/5/create/176) with  
+    Hostname: `https://p47-blueapi.diamond.ac.uk`
+    Keycloak Environment: Dev/Test and Production
+    ClientId: `{instrument}Blueapi`
+    GPG Public Key: Please follow docs [here](https://dev-guide.diamond.ac.uk/authn/how-tos/request-a-registration-with-keycloak/)
   - To generate a cookie secret, refer to the [OAuth2 Proxy documentation](https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview#generating-a-cookie-secret).
 
   After obtaining both secrets, seal them with the following commands:
