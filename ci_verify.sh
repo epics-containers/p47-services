@@ -43,15 +43,14 @@ else
     if ! docker version &>/dev/null; then docker=podman; else docker=docker; fi
 fi
 
-# Determine diff base
-if [[ -n "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-}" ]]; then
-  DIFF_BASE="origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
-else
-  DIFF_BASE="${CI_COMMIT_BEFORE_SHA}"
-fi
+# Determine diff base (supports GitLab, GitHub, and local)
+MERGE_BASE="${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:-${GITHUB_BASE_REF:-}}"
+[[ -n "$MERGE_BASE" ]] && git fetch origin "$MERGE_BASE" --depth=1 2>/dev/null || true
+DIFF_BASE="${MERGE_BASE:+origin/$MERGE_BASE}"
+DIFF_BASE="${DIFF_BASE:-${CI_COMMIT_BEFORE_SHA:-${GITHUB_EVENT_BEFORE:-HEAD~1}}}"
 
 # Get changed services (excluding values.yaml)
-CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" "$CI_COMMIT_SHA" \
+CHANGED_SERVICES=$(git diff --name-only "$DIFF_BASE" HEAD \
   | grep '^services/' \
   | grep -v "values.yaml" \
   | cut -d/ -f2 \
