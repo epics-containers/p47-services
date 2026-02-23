@@ -10,7 +10,7 @@ type: application
 
 dependencies:
   - name: blueapi
-    version: "1.11.5"
+    version: "1.12.0"
     repository: "oci://ghcr.io/diamondlightsource/charts"
 
   - name: oauth2-proxy
