@@ -1,26 +1,66 @@
 tiled:
-  config:
-    authentication:
-      allow_anonymous_access: true
-    trees:
-    - args:
-        init_if_not_exists: true
-        readable_storage:
-        - /exports/mybeamline/data
-        uri: sqlite:////exports/mybeamline/tiled-catalog/catalog.db
-        writable_storage: /exports/mybeamline/tiled-catalog
-      path: /
-      tree: catalog
   extraEnvVars:
-  - name: TILED_SINGLE_USER_API_KEY
+  - name: USER_NAME
     valueFrom:
       secretKeyRef:
-        key: TILED_SINGLE_USER_API_KEY
-        name: tiled-secret
+        name: postgres-secret
+        key: USERDB_USER
+  
+  - name: POSTGRESQL_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgres-secret
+        key: ADMIN_PASS
+  
+  - name: PYTHONPATH
+    value: /deploy/
+  image:
+    tag: 0.2.7
+  config:
+    database:
+      uri: sqlite:////storage/auth.db
+      init_if_not_exists: true
+    authentication:
+      secret_keys:
+        - SECRET
+      providers:
+      - provider: keycloak_oidc
+        authenticator: tiled.authenticators:ProxiedOIDCAuthenticator
+        args:
+          audience: account
+          client_id: p47-tiled
+          device_flow_client_id: tiled-cli
+          well_known_uri: "https://identity.diamond.ac.uk/realms/dls/.well-known/openid-configuration"
+          confirmation_message: "You have logged in with identity-test.diamond.ac.uk as {id}."
+    access_control:
+      access_policy: "access_policy.dls:DiamondOpenPolicyAgentAuthorizationPolicy"
+      args:
+        authorization_provider: https://pxx-opa.diamond.ac.uk/v1/data/diamond/policy/
+        token_audience: account
+        empty_access_blob_public: true
+    trees:
+      - path: /
+        tree: catalog
+        args:
+          uri: "postgresql+asyncpg://postgres:${POSTGRESQL_PASSWORD}@p47-tiled-postgres:5432/tiled-db"
+          writable_storage: "postgresql://postgres:${POSTGRESQL_PASSWORD}@p47-tiled-postgres:5432/data"
+          # uri: "sqlite:////storage/catalog.db"
+          # writable_storage: "sqlite:////storage/data.db"
+          # readable_storage:
+          # - /exports/mybeamline
+          # This creates the database if it does not exist. This is convenient, but in
+          # a horizontally-scaled deployment, this can be a race condition and multiple
+          # containers may simultaneously attempt to create the database.
+          # If that is a problem, set this to false, and run:
+          #
+          # tiled catalog init URI
+          #
+          # separately.
+          init_if_not_exists: true
   nodeSelector:
     kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
   ingress:
-    enabled: true
+    enabled: false
     className: "nginx"
     hosts:
       - host: p47-tiled.diamond.ac.uk
@@ -47,11 +87,149 @@ tiled:
   - mountPath: /deploy/config
     name: config
     readOnly: true
-  - mountPath: /exports/mybeamline
-    mountPropagation: HostToContainer
-    name: data
+  # - mountPath: /exports/mybeamline
+  #   mountPropagation: HostToContainer
+  #   name: data
+  # - name: storage
+  #   mountPath: "/storage"
+    # readOnly: false
+  - name: access-policy
+    mountPath: /deploy/access_policy
+    readOnly: true
   volumes:
-  - hostPath:
-      path: /exports/mybeamline
-      type: DirectoryOrCreate
-    name: data
+  # - hostPath:
+  #     path: /exports/mybeamline
+  #     type: DirectoryOrCreate
+  #   name: data
+  # - name: storage
+  #   persistentVolumeClaim:
+  #     claimName: tiled-storage-pvc
+  - name: access-policy
+    configMap:
+      name: tiled-access-policy
+
+glazed:
+  image:
+    # TODO: Update to latest glazed after
+    # https://github.com/DiamondLightSource/glazed/pull/98 merged and released
+    repository: ghcr.io/zohebshaikh/glazed
+    tag: "0.1.3"
+  customConfig:
+    enabled: true
+    toml: |-
+      bind_address = "0.0.0.0:3000"
+      public_address = "https://p47-tiled.diamond.ac.uk/glazed/"
+
+      [tiled_client]
+      address = "http://p47-tiled:8000"
+
+oauth2:
+  proxyVarsAsSecrets: false
+  extraEnv:
+    - name: OAUTH2_PROXY_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: tiled-secret
+          key: client-secret
+    - name: OAUTH2_PROXY_COOKIE_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: tiled-secret
+          key: cookie-secret
+  config:
+    configFile: |-
+      skip_provider_button = true
+      skip_jwt_bearer_tokens = true
+      cookie_refresh="1m"
+      cookie_expire="30m"
+      email_domains = [ "*" ]
+      whitelist_domains=["identity.diamond.ac.uk"]
+  ingress:
+    enabled: true
+    hosts:
+      - p47-tiled.diamond.ac.uk
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+    path: /
+    pathType: Prefix
+  alphaConfig:
+    enabled: true
+    configData:
+      upstreamConfig:
+        proxyRawPath: true
+        upstreams:
+          - id: glazed
+            path: /glazed/(.*)
+            uri: http://p47-tiled-glazed:3000
+            rewriteTarget: /$1
+          - id: tiled
+            path: /
+            uri: http://p47-tiled:8000
+      providers:
+        - provider: oidc
+          id: identity.diamond.ac.uk
+          clientID: p47-tiled
+          clientSecret: ${OAUTH2_PROXY_CLIENT_SECRET}
+          oidcConfig:
+            insecureAllowUnverifiedEmail: true
+            insecureSkipNonce: true
+            emailClaim: sub
+            audienceClaims: ["aud"]
+            extraAudiences: ["account"]
+            issuerURL: https://identity.diamond.ac.uk/realms/dls
+      injectRequestHeaders:
+        - name: Authorization
+          values:
+            - claimSource: 
+                claim: access_token
+                prefix: "Bearer "
+
+
+## Postgres
+postgres:
+    replicaCount: 1
+
+    ## Use Kubernetes Deployment instead of StatefulSet
+    useDeployment: true
+
+    ## Database and user (user is optional, but recommended, as 'postgres' would be the only user otherwise)
+    userDatabase:
+      ## Optional existing secret with database name, user and password
+      existingSecret: postgres-secret
+      name: 
+        ## Name of the user database
+        value: tiled-db
+      password:
+        ## Password of the database user
+        secretKey: USER_PASS
+      user:
+        ## Database user with full access rights
+        value: tiled
+
+    ## Database configuration
+    settings:
+      ## Optional existing secret for the Postgres superuser
+      existingSecret: postgres-secret
+      superuserPassword:
+        secretKey: ADMIN_PASS
+      ## Postgres database authentication method
+      ## For example: "md5"
+      authMethod: scram-sha-256
+      ## Optional init database arguments
+      initDbArgs: "--auth-local=scram-sha-256 --auth=scram-sha-256"
+
+    storage:
+      volumeName: tiled-db-postgres 
+      keepPvc: true
+      className: db-nvme-storage
+      requestedSize: 8Gi
+      accessModes:
+        - ReadWriteOnce
+
+    resources:
+      limits:
+        cpu: 2
+        memory: 2G
+      requests:
+        cpu: "0.5"
+        memory: 1G
