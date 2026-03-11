@@ -9,8 +9,8 @@ blueapi:
   #   requests:
   #     cpu: 500m
   #     memory: 400Mi
-  nodeSelector:
-    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+  # nodeSelector:
+  #   kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
   tolerations:
     - key: nodetype
       operator: Equal
