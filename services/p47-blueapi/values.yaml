@@ -2,13 +2,13 @@ blueapi:
   debug:
     enabled: true
   hostNetwork: false
-  resources:
-    limits:
-      cpu: 2000m
-      memory: 4000Mi
-    requests:
-      cpu: 500m
-      memory: 400Mi
+  # resources:
+  #   limits:
+  #     cpu: 2000m
+  #     memory: 4000Mi
+  #   requests:
+  #     cpu: 500m
+  #     memory: 400Mi
   nodeSelector:
     kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
   tolerations:
