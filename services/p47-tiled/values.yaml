@@ -118,10 +118,10 @@ glazed:
     enabled: true
     toml: |-
       bind_address = "0.0.0.0:3000"
-      public_address = "https://p46-tiled.diamond.ac.uk/glazed/"
+      public_address = "https://p47-tiled.diamond.ac.uk/glazed/"
 
       [tiled_client]
-      address = "http://p46-tiled:8000"
+      address = "http://p47-tiled:8000"
 
 oauth2:
   proxyVarsAsSecrets: false
@@ -147,7 +147,7 @@ oauth2:
   ingress:
     enabled: true
     hosts:
-      - p46-tiled.diamond.ac.uk
+      - p47-tiled.diamond.ac.uk
     annotations:
       nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
     path: /
@@ -160,15 +160,15 @@ oauth2:
         upstreams:
           - id: glazed
             path: /glazed/(.*)
-            uri: http://p46-tiled-glazed:3000
+            uri: http://p47-tiled-glazed:3000
             rewriteTarget: /$1
           - id: tiled
             path: /
-            uri: http://p46-tiled:8000
+            uri: http://p47-tiled:8000
       providers:
         - provider: oidc
           id: identity.diamond.ac.uk
-          clientID: p46-tiled
+          clientID: p47-tiled
           clientSecret: ${OAUTH2_PROXY_CLIENT_SECRET}
           oidcConfig:
             insecureAllowUnverifiedEmail: true
