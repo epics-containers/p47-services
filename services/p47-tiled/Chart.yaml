@@ -11,5 +11,18 @@ type: application
 
 dependencies:
   - name: tiled
-    version: "0.1.0-b29"
+    version: "0.2.2"
     repository: "oci://ghcr.io/bluesky/charts"
+
+  - name: glazed
+    version: "0.1.1"
+    repository: "oci://ghcr.io/diamondlightsource/charts"
+
+  - name: oauth2-proxy
+    alias: oauth2
+    repository: https://oauth2-proxy.github.io/manifests
+    version: 10.1.4
+
+  - name: postgres
+    version: 1.6.1
+    repository: https://groundhog2k.github.io/helm-charts/
