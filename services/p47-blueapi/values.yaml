@@ -2,15 +2,15 @@ blueapi:
   debug:
     enabled: true
   hostNetwork: false
-  resources:
-    limits:
-      cpu: 2000m
-      memory: 4000Mi
-    requests:
-      cpu: 500m
-      memory: 400Mi
-  nodeSelector:
-    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+  # resources:
+  #   limits:
+  #     cpu: 2000m
+  #     memory: 4000Mi
+  #   requests:
+  #     cpu: 500m
+  #     memory: 400Mi
+  # nodeSelector:
+  #   kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
   tolerations:
     - key: nodetype
       operator: Equal
@@ -40,6 +40,11 @@ blueapi:
       value: "NO"
     - name: EPICS_CA_AUTO_ADDR_LIST
       value: "NO"
+    - name: TILED_WRITER_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: blueapi-secret
+          key: tiled-writer-secret
   tracing:
     otlp:
       enabled: true
@@ -50,7 +55,7 @@ blueapi:
       metadata:
         instrument: p47
       sources:
-      - kind: dodal
+      - kind: deviceManager
         module: dodal.beamlines.training_rig
       - kind: planFunctions
         module: htss_rig_bluesky.plans
@@ -72,9 +77,17 @@ blueapi:
       well_known_url: "https://identity.diamond.ac.uk/realms/dls/.well-known/openid-configuration"
       client_id: "blueapiCli"
       logout_redirect_endpoint: "oauth2/sign_out"
+      client_audience: "account"
     numtracker:
       url: https://numtracker-staging.diamond.ac.uk/graphql
-    
+
+    tiled:
+      enabled: true
+      url: "http://p47-tiled:8000/api/v1/"
+      authentication:
+        client_id: "p47TiledWriter"
+        client_secret: ${TILED_WRITER_SECRET}
+
     scratch:
       repositories:
         # - name: ophyd-async
