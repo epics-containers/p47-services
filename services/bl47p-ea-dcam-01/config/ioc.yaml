@@ -9,6 +9,10 @@ entities:
     name: EPICS_TZ
     value: "GMT0BST"
 
+  - ingress:
+      port: 8080
+      dns_suffix: "http://i21-cameras/DET-01"
+
   - type: epics.EpicsCaMaxArrayBytes
     max_bytes: 3000000
 
