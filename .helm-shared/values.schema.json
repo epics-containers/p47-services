@@ -28,7 +28,6 @@
             "type": "object",
             "description": "Shared values for epics-pvcs chart."
         }
-    }
-},
-"additionalProperties": false
+    },
+    "additionalProperties": false
 }
