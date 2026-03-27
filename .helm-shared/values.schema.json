@@ -23,7 +23,12 @@
             "type": "object",
             "unevaluatedProperties": false,
             "description": "Shared values for dev-c7 charts. These represent DLS legacy IOCs running out of the shared file system"
+        },
+        "epics-pvcs": {
+            "type": "object",
+            "description": "Shared values for epics-pvcs chart."
         }
-    },
-    "additionalProperties": false
+    }
+},
+"additionalProperties": false
 }

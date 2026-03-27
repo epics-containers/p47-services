@@ -58,3 +58,6 @@ ioc-instance:
 # shared setting for all legacy IOCs using the dev-c7 helm chart
 dev-c7:
   <<: *shared
+
+epics-pvcs:
+  <<: *shared
