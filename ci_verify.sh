@@ -97,7 +97,7 @@ do
            rm -rf /services/$service_name/charts
         "
 
-    ### Valiate each ioc config ###
+    ### Validate each ioc config ###
     # Skip if subfolder has no config to validate
     if [ ! -f "${service}/config/ioc.yaml" ]; then
         continue

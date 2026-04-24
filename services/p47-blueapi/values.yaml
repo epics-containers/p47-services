@@ -55,12 +55,12 @@ blueapi:
       metadata:
         instrument: p47
       sources:
-      - kind: deviceManager
-        module: dodal.beamlines.training_rig
-      - kind: planFunctions
-        module: htss_rig_bluesky.plans
-      - kind: planFunctions
-        module: dodal.plans
+        - kind: deviceManager
+          module: dodal.beamlines.training_rig
+        - kind: planFunctions
+          module: htss_rig_bluesky.plans
+        - kind: planFunctions
+          module: dodal.plans
       events:
         broadcast_status_events: false
     stomp:
@@ -74,10 +74,11 @@ blueapi:
       graylog:
         enabled: true
     oidc:
-      well_known_url: "https://identity.diamond.ac.uk/realms/dls/.well-known/openid-configuration"
+      well_known_url: "https://identity.diamond.ac.uk/realms/dls/.well-known/openid-c\
+        onfiguration"
       client_id: "blueapiCli"
-      logout_redirect_endpoint: "oauth2/sign_out"
       client_audience: "account"
+      logout_redirect_endpoint: "oauth2/sign_out"
     numtracker:
       url: https://numtracker-staging.diamond.ac.uk/graphql
 
@@ -151,13 +152,12 @@ oauth2:
             insecureAllowUnverifiedEmail: true
             insecureSkipNonce: true
             emailClaim: sub
-            audienceClaims: ["aud"]
-            extraAudiences: ["account"]
+            audienceClaims: [ "aud" ]
+            extraAudiences: [ "account" ]
             issuerURL: https://identity.diamond.ac.uk/realms/dls
       injectRequestHeaders:
         - name: Authorization
           values:
-          - claimSource:
-              claim: access_token
-              prefix: "Bearer "
-
+            - claimSource:
+                claim: access_token
+                prefix: "Bearer "
