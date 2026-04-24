@@ -2,7 +2,6 @@
 
 ioc-instance:
   image: gitlab.diamond.ac.uk:5050/controls/containers/iocs/ioc-dlslinuxvac/ioc-dlslinuxvac-linux-runtime:2026.4.2
-
   # mount in the beamline data folder
   # dataVolume:
   #   pvc: false
@@ -11,7 +10,7 @@ ioc-instance:
   # nodeSelector:
   #   location: sr03c
 
-  tolerations:
-    - key: location
-      operator: Equal
-      value: sr03c
+  # tolerations:
+  #   - key: location
+  #     operator: Equal
+  #     value: sr03c
