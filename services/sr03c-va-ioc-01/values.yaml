@@ -8,8 +8,8 @@ ioc-instance:
   #   pvc: false
   #   hostPath: /dls/ixx/data
 
-  nodeSelector:
-    location: sr03c
+  # nodeSelector:
+  #   location: sr03c
 
   tolerations:
     - key: location
