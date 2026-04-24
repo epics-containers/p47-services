@@ -29,5 +29,5 @@
             "description": "Shared values for epics-pvcs chart."
         }
     },
-    "additionalProperties": false
+    "unevaluatedProperties": false
 }
