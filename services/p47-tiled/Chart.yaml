@@ -11,7 +11,7 @@ type: application
 
 dependencies:
   - name: tiled
-    version: "0.2.2"
+    version: "0.2.14"
     repository: "oci://ghcr.io/bluesky/charts"
 
   - name: glazed
