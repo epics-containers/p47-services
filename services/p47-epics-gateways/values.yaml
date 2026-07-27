@@ -1,6 +1,8 @@
 epics-gateways:
-  # switch to developer image for debugging
-  image: ghcr.io/epics-containers/epics-gateways-developer:2026.4.1
+  # developer image for debugging no longer needed - defaults to helm chart version
+  # image: ghcr.io/epics-containers/epics-gateways-developer:2026.3.18
 
-  # needs to be a server in controls dev network
-  nodeName: bl47p-ea-serv-01.diamond.ac.uk
+  # use ixxdetector account for your beamline
+  securityContext:
+    runAsUser: 37887
+    runAsGroup: 37887

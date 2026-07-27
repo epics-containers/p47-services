@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://github.com/epics-containers/ioc-adaravis/releases/download/2025.8.1/ibek.ioc.schema.json
+# yaml-language-server: $schema=../ioc.schema.json
 
 ioc_name: "{{ _global.get_env('IOC_NAME') }}"
 
@@ -8,10 +8,6 @@ entities:
   - type: epics.EpicsEnvSet
     name: EPICS_TZ
     value: "GMT0BST"
-
-  - ingress:
-      port: 8080
-      dns_suffix: "http://i21-cameras/DET-01"
 
   - type: epics.EpicsCaMaxArrayBytes
     max_bytes: 3000000
