@@ -40,16 +40,13 @@ blueapi:
       value: "NO"
     - name: EPICS_CA_AUTO_ADDR_LIST
       value: "NO"
+    
     - name: TILED_WRITER_SECRET
       valueFrom:
         secretKeyRef:
           name: blueapi-secret
           key: tiled-writer-secret
-  tracing:
-    otlp:
-      enabled: true
-      server:
-        host: http://opentelemetry-collector.tracing
+    
   worker:
     env:
       metadata:
@@ -76,19 +73,21 @@ blueapi:
     oidc:
       well_known_url: "https://identity.diamond.ac.uk/realms/dls/.well-known/openid-configuration"
       client_id: "blueapiCli"
-      logout_redirect_endpoint: "oauth2/sign_out"
       client_audience: "account"
+      logout_redirect_endpoint: "oauth2/sign_out"
     numtracker:
       url: https://numtracker-staging.diamond.ac.uk/graphql
-
+    
+    
     tiled:
       enabled: true
-      url: "http://p47-tiled:8000/api/v1/"
+      url: "https://tiled.diamond.ac.uk/api/v1/"
       authentication:
         client_id: "p47TiledWriter"
         client_secret: ${TILED_WRITER_SECRET}
-
+    
     scratch:
+      root: /workspaces
       repositories:
         # - name: ophyd-async
         #   remote_url: https://github.com/bluesky/ophyd-async.git
@@ -100,6 +99,8 @@ blueapi:
     enabled: true
     persistentVolume:
       enabled: true
+
+
 oauth2:
   proxyVarsAsSecrets: false
   extraEnv:
@@ -157,7 +158,6 @@ oauth2:
       injectRequestHeaders:
         - name: Authorization
           values:
-          - claimSource:
-              claim: access_token
-              prefix: "Bearer "
-
+            - claimSource:
+                claim: access_token
+                prefix: "Bearer "

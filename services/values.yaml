@@ -14,10 +14,12 @@ shared: &shared
 
   # running as ixxdetector account uid,gid gives access to /dls/ixx/data
   securityContext:
+    allowPrivilegeEscalation: false
     runAsUser: 37887
     runAsGroup: 37887
 
-  # affinity and tolerations to get the right nodes on pollux
+  # affinity chooses which servers to run on
+  # Accelerator must set this for CIAs, Beamlines don't need it
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -28,6 +30,8 @@ shared: &shared
                 values:
                   - bl47p
 
+  # tolerations allow us to run on a tainted server
+  # Accelerator must set this for CIAs, Beamlines don't need it
   tolerations:
     - key: beamline
       operator: Equal

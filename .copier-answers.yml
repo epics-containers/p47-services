@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 5.2.4-4-g32487d7
+_commit: 5.7.1
 _src_path: gh:epics-containers/services-template-helm
 athena_services:
 - rabbitmq
@@ -16,3 +16,4 @@ instrument: p47
 location: bl47p
 logging_url: https://graylog2.diamond.ac.uk/search?rangetype=relative&fields=message%2Csource&width=1489&highlightMessage=&relative=172800&q=pod_name%3A{service_name}*
 numtracker_enabled: true
+tiled_enabled: true
