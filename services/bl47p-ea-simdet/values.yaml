@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=../../.helm-shared/values.schema.json
+
+# Three simulated area detectors deployed from this single folder by the
+# ioc-group chart. The release is called bl47p-ea-simdet, so the IOCs are
+# bl47p-ea-simdet-01, -02 and -03.
+
+# settings shared by every IOC in the group
+ioc-instance:
+  image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2.11ec3
+
+# one entry per IOC. Every entry MUST have a NAME - it is appended to the
+# release name to make that IOC's Kubernetes resources unique. The remaining
+# keys become extra container environment variables for that IOC alone, and
+# config/ioc.yaml reads them back with _global.get_env().
+iocs:
+  - NAME: "01"
+    WIDTH: "1024"
+    HEIGHT: "1024"
+
+  - NAME: "02"
+    WIDTH: "640"
+    HEIGHT: "480"
+
+  - NAME: "03"
+    WIDTH: "256"
+    HEIGHT: "256"

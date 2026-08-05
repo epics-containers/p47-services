@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=../ioc.schema.json
+
+# One config folder shared by every IOC in the bl47p-ea-simdet group. It
+# specialises itself per instance because IOC_NAME differs per instance, and
+# because ioc-group adds this instance's WIDTH and HEIGHT from values.yaml to
+# the container environment.
+
+ioc_name: "{{ _global.get_env('IOC_NAME') }}"
+
+description: A simulated area detector, one of the bl47p-ea-simdet group
+
+entities:
+  - type: epics.EpicsEnvSet
+    name: EPICS_TZ
+    value: GMT0BST
+
+  - type: devIocStats.iocAdminSoft
+    IOC: "{{ ioc_name | upper }}"
+
+  - type: ADSimDetector.simDetector
+    PORT: DET.DET
+    P: "{{ ioc_name | upper }}"
+    R: ":DET:"
+    # DATATYPE: 0 = Int8
+    DATATYPE: 0
+    WIDTH: "{{ _global.get_env('WIDTH') }}"
+    HEIGHT: "{{ _global.get_env('HEIGHT') }}"
+
+  - type: ADCore.NDStdArrays
+    PORT: DET.ARR
+    P: "{{ ioc_name | upper }}"
+    R: ":ARR:"
+    NDARRAY_PORT: DET.DET
+    TYPE: Int8
+    FTVL: CHAR
+    # the array PV must be big enough to hold one whole image
+    NELEMENTS: "{{ (_global.get_env('WIDTH') | int) * (_global.get_env('HEIGHT') | int) }}"
+
+  - type: epics.PostStartupCommand
+    command: |
+      dbpf {{ ioc_name | upper }}:DET:AcquireTime 0.1
+      dbpf {{ ioc_name | upper }}:ARR:EnableCallbacks 1
+      dbpf {{ ioc_name | upper }}:DET:Acquire 1
