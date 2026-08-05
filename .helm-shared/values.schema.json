@@ -34,7 +34,7 @@
                 "type": "object",
                 "required": ["NAME"]
             },
-            "description": "For services using the ioc-group chart only: one entry per IOC instance in the group. Each entry is a map of environment variables appended to ioc-instance.env for that instance alone. Every entry MUST include NAME - its value is appended to the release name to make that IOC's Kubernetes resources unique. TODO: replace with a $ref to ioc-group.schema.json once ioc-group is released."
+            "description": "For services using the ioc-group chart only: one entry per IOC instance in the group. Each entry is a map of environment variables appended to ioc-instance.env for that instance alone. Every entry MUST include NAME - its value is appended to the release name to make that IOC's Kubernetes resources unique. TODO: replace with a $ref to ioc-group.schema.json once ec-helm-charts publishes it as a release asset (it needs a symlink in that repo's schemas/ folder)."
         }
     },
     "unevaluatedProperties": false

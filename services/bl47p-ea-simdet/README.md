@@ -20,23 +20,14 @@ back with `{{ _global.get_env('WIDTH') }}`.
 To add a fourth detector, add another entry to `iocs` in `values.yaml`. The
 config folder does not change.
 
-## Local checkout of ec-helm-charts required (for now)
+## Chart version
 
-`ioc-group` has not been released to `oci://ghcr.io/epics-containers/charts`
-yet, so `.helm-shared/GroupChart.yaml` points at a local checkout of
-`ec-helm-charts` next to this repo. Two consequences until it is released:
+`.helm-shared/GroupChart.yaml` pins `ioc-group` 5.7.0-beta.1 from
+`oci://ghcr.io/epics-containers/charts`. That is a **prerelease**, cut from the
+`repeating-ioc` branch of `ec-helm-charts` so that this group can be tested in
+argocd - bump it to a stable version once `ioc-group` is merged to main.
 
-1. Build `ioc-group`'s own dependencies once before deploying, otherwise the
-   packaged `ioc-group` has no `ioc-instance` inside it and `helm template`
-   fails with `no template "ioc-instance" associated with template "gotpl"`:
-
-   ```bash
-   helm dependency update ../ec-helm-charts/Charts/ioc-group
-   ```
-
-2. This instance is listed in `.ci_skip_checks`, because CI runs helm in a
-   container that cannot see `../ec-helm-charts`.
-
-When `ioc-group` is released, switch `.helm-shared/GroupChart.yaml` to the
-commented out `oci://` lines and remove `bl47p-ea-simdet` from
-`.ci_skip_checks`.
+The packaged `ioc-group` vendors the `ioc-instance` library it was built
+against, so unlike the single IOC services this one does not depend on
+`ioc-instance` directly and does not follow the version in
+`.helm-shared/Chart.yaml`.
