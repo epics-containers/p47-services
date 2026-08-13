@@ -1,17 +1,7 @@
 ## yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/diamondlightsource/fastcs-example-debug:2025.10.1
-  args:
-    - stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"
-
-  extraContainers:
-    - name: temp-controller-simulator
-      image: ghcr.io/diamondlightsource/fastcs-example:2025.10.1
-      command:
-        - tickit
-        - all
-        - /epics/ioc/config/temp_controller.yaml
+  image: http://ghcr.io/hyperrealist/fastcs-pandablocks:0.0.0
 
   # example of adding an initContainer
   initContainers:
