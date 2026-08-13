@@ -4,7 +4,7 @@ ioc-instance:
   image: ghcr.io/hyperrealist/fastcs-pandablocks:0.0.0
 
   args:
-    - fastcs-pandablocks run bl01c-ea-panda-01 BL47C-EA-PANDA-01 --screens-dir /epics/opi
+    - fastcs-pandablocks run bl01c-ea-panda-01 BL47C-EA-PANDA-01
 
   extraContainers:
     - name: temp-controller-simulator
