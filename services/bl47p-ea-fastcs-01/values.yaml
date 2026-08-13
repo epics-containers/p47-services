@@ -3,6 +3,14 @@
 ioc-instance:
   image: http://ghcr.io/hyperrealist/fastcs-pandablocks:0.0.0
 
+  extraContainers:
+    - name: temp-controller-simulator
+      image: ghcr.io/diamondlightsource/fastcs-example:2025.10.1
+      command:
+        - tickit
+        - all
+        - /epics/ioc/config/temp_controller.yaml
+
   # example of adding an initContainer
   initContainers:
     - name: test-init
