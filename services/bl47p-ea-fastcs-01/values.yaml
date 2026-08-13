@@ -1,7 +1,7 @@
 ## yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: http://ghcr.io/hyperrealist/fastcs-pandablocks:0.0.0
+  image: ghcr.io/hyperrealist/fastcs-pandablocks:0.0.0
 
   extraContainers:
     - name: temp-controller-simulator
