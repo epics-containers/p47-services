@@ -1,14 +1,81 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
+# TEMPORARY — podbench hotfix mode live test (podbench 0.6.0).
+# This is the compiled-IOC probe: a cpp target has no venv for the claim to
+# carry, so the layout is expected to be inert here. Revert to the main
+# version of this file to retire the test.
+
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-pmac-runtime:2026.6.1
+
+  # podbench: supervisor loop around the IOC's own entrypoint.
+  command:
+    - bash
+    - -c
+  args:
+    - |
+      while :; do
+        (
+          if [ -x /podbench/app/.venv/bin/python ]; then
+            export PATH="/podbench/app/.venv/bin:$PATH"
+            echo "podbench: running the hotfixed project"
+          fi
+          exec /epics/ioc/start.sh
+        ) &
+        child=$!
+        echo $child > /tmp/podbench-child.pid
+        wait $child; rc=$?
+        kill -TERM -"$child" 2>/dev/null || true
+        [ -e /tmp/podbench-hold ] || exit $rc
+      done
+
+  # podbench: the application's own check, short-circuited while the pod is
+  # held, so the kubelet cannot restart a held pod and take the seat with it.
+  #
+  # initialDelaySeconds and periodSeconds are ADDED BY HAND. podbench 0.6.0's
+  # --print-values emits only exec.command, and ioc-instance renders a supplied
+  # livenessProbe wholesale — the 120s/30s defaults live on the mutually
+  # exclusive livenessExecutable branch. Without these two lines this IOC would
+  # be probed from t=0 every 10s and could restart-loop before it reaches the
+  # brick. Reported upstream; remove once --print-values carries the timings.
+  livenessProbe:
+    exec:
+      command:
+        - bash
+        - -c
+        - 'if [ -e /tmp/podbench-hold ]; then exit 0; fi; exec /bin/bash /epics/ioc/liveness.sh'
+    initialDelaySeconds: 120
+    periodSeconds: 30
+    failureThreshold: 3
+    timeoutSeconds: 1
 
   volumes:
     - name: dev-shm
       emptyDir:
         medium: Memory
         sizeLimit: 1Gi
+    # podbench: generic ephemeral volume rather than the real PVC that
+    # --print-values emits — see the note in bl47p-ea-fastcs-01/values.yaml.
+    - name: podbench-app
+      ephemeral:
+        volumeClaimTemplate:
+          metadata:
+            labels:
+              podbench.dev/test-claim: "true"
+          spec:
+            accessModes: [ReadWriteOnce]
+            resources:
+              requests:
+                storage: 2Gi
+    - name: podbench-home
+      emptyDir:
+        sizeLimit: 2Gi
 
   volumeMounts:
     - name: dev-shm
       mountPath: /dev/shm
+    - name: podbench-app
+      mountPath: /podbench/app
+
+  podSecurityContext:
+    fsGroup: 37887

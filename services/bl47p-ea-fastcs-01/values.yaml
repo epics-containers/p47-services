@@ -1,17 +1,101 @@
 ## yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
+# TEMPORARY — podbench hotfix mode live test (podbench 0.6.0).
+# Everything marked "podbench:" below is test scaffolding and comes straight
+# from `podbench hotfix --print-values`, with one deliberate deviation noted
+# on the claim. Revert this file to its main version to retire the test.
+
 ioc-instance:
   image: ghcr.io/diamondlightsource/fastcs-example-debug:2025.10.1
+
+  # podbench: the supervisor loop replaces the bare entrypoint. The original
+  # command is exec'd unchanged inside it; the loop only relaunches when the
+  # hold file exists, so a normal exit still ends the container.
+  command:
+    - bash
+    - -c
   args:
-    - stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"
+    - |
+      while :; do
+        (
+          if [ -x /podbench/app/.venv/bin/python ]; then
+            export PATH="/podbench/app/.venv/bin:$PATH"
+            echo "podbench: running the hotfixed project"
+          fi
+          exec stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"
+        ) &
+        child=$!
+        echo $child > /tmp/podbench-child.pid
+        wait $child; rc=$?
+        kill -TERM -"$child" 2>/dev/null || true
+        [ -e /tmp/podbench-hold ] || exit $rc
+      done
+
+  # podbench: DEVIATION from --print-values, which emits a real PVC via the
+  # podbench chart's hotfixProject key. That chart is not deployed here and
+  # this service account has no `create` on persistentvolumeclaims, so the
+  # claim is a generic ephemeral volume instead — the ephemeral-volume
+  # controller creates it with the pod as owner, needing only `pods: create`.
+  # Measured working on netapp in the 2026-08-22 preflight. The cost is that
+  # it does not survive pod *replacement*, only container restart.
+  volumes:
+    - name: podbench-app
+      ephemeral:
+        volumeClaimTemplate:
+          metadata:
+            labels:
+              podbench.dev/test-claim: "true"
+          spec:
+            accessModes: [ReadWriteOnce]
+            resources:
+              requests:
+                storage: 2Gi
+    # podbench: the seat's home. Deliberately declared and not mounted by the
+    # application container — an ephemeral container may only mount volumes
+    # its pod already declares, and pod volumes cannot be added later.
+    - name: podbench-home
+      emptyDir:
+        sizeLimit: 2Gi
+
+  # podbench: beside the application's project, never over it.
+  volumeMounts:
+    - name: podbench-app
+      mountPath: /podbench/app
+
+  # podbench: without fsGroup the claim is present and unwritable, which is
+  # worse than absent — everything starts, then fails.
+  podSecurityContext:
+    fsGroup: 37887
 
   extraContainers:
     - name: temp-controller-simulator
       image: ghcr.io/diamondlightsource/fastcs-example:2025.9.1
+      # podbench: same supervisor loop around this container's own entrypoint.
+      # /tmp is per-container, so it gets its own pid and hold files while
+      # sharing the one claim — both containers run the same project.
       command:
-        - tickit
-        - all
-        - /epics/ioc/config/temp_controller.yaml
+        - bash
+        - -c
+      args:
+        - |
+          while :; do
+            (
+              if [ -x /podbench/app/.venv/bin/python ]; then
+                export PATH="/podbench/app/.venv/bin:$PATH"
+                echo "podbench: running the hotfixed project"
+              fi
+              exec tickit all /epics/ioc/config/temp_controller.yaml
+            ) &
+            child=$!
+            echo $child > /tmp/podbench-child.pid
+            wait $child; rc=$?
+            kill -TERM -"$child" 2>/dev/null || true
+            [ -e /tmp/podbench-hold ] || exit $rc
+          done
+      # No volumeMounts here on purpose: ioc-instance forces
+      # `volumeMounts: *volumeMounts` onto every extraContainer and
+      # initContainer, so this container inherits the main container's mounts
+      # — /podbench/app included — and any block written here is discarded.
 
   # example of adding an initContainer
   initContainers:
