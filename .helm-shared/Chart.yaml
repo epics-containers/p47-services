@@ -14,3 +14,19 @@ dependencies:
     import-values:
       - child: ioc-instance
         parent: ioc-instance
+
+  # podbench Hotfix mode's claim, for whichever service is being hotfixed today.
+  #
+  # Declared here, in the Chart.yaml every ec-service shares, and it costs the
+  # other seven nothing: the chart renders absolutely nothing unless a service
+  # sets `podbench-hotfix-claim.enabled`. That guard is what makes a shared
+  # declaration possible, and podbench has a test that renders this exact shape
+  # to prove it.
+  #
+  # Only the claim comes from here. The volumes, volumeMounts, command/args and
+  # podSecurityContext that go with it are fields inside ioc-instance's own pod
+  # template, so they are in the service's values - written by
+  # `podbench hotfix --print-values --values`, not by hand.
+  - name: podbench-hotfix-claim
+    version: 0.7.1
+    repository: "oci://ghcr.io/gilesknap/charts"

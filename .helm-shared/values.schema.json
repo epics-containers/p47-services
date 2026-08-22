@@ -32,6 +32,12 @@
             "$ref": "https://github.com/epics-containers/ec-helm-charts/releases/download/5.7.0-beta.2/ioc-group.schema.json#/properties/iocs",
             "type": "array",
             "description": "Shared values for ioc-group charts. These represent a group of ibek IOCs that differ only by environment"
+        },
+        "podbench-hotfix-claim": {
+            "$ref": "https://github.com/gilesknap/podbench/releases/download/0.7.1/podbench-hotfix-claim.values.schema.json",
+            "type": "object",
+            "unevaluatedProperties": false,
+            "description": "podbench Hotfix mode's claim. Declared because this schema sets unevaluatedProperties: false, so a key the chart reads has to be named here or an editor marks it wrong. Set `enabled: true` on the one service being hotfixed; every other service renders nothing."
         }
     },
     "unevaluatedProperties": false

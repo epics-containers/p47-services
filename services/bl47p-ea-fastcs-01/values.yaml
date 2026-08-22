@@ -3,8 +3,21 @@
 ioc-instance:
   image: ghcr.io/diamondlightsource/fastcs-example-debug:2025.10.1
   args:
-    - stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"
-
+    - |
+      while :; do
+        (
+          if [ -x /podbench/app/.venv/bin/python ]; then
+            export PATH="/podbench/app/.venv/bin:$PATH"
+            echo "podbench: running the hotfixed project"
+          fi
+          exec bash -c 'stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"'
+        ) &
+        child=$!
+        echo $child > /tmp/podbench-child.pid
+        wait $child; rc=$?
+        kill -TERM -"$child" 2>/dev/null || true
+        [ -e /tmp/podbench-hold ] || exit $rc
+      done
   extraContainers:
     - name: temp-controller-simulator
       image: ghcr.io/diamondlightsource/fastcs-example:2025.9.1
@@ -24,3 +37,46 @@ ioc-instance:
   # don't use the ioc-instance livenesProbe, preStop which dont exist in fastcs image.
   livenessExecutable: ""
   preStopExecutable: ""
+  # beamline-data is repeated from the shared values file, and must be: a helm
+  # list does not merge across the parent/child values merge, it replaces.
+  # This service declared no `volumes` of its own before, so it inherited the
+  # shared one wholesale; declaring one here takes that over completely.
+  volumes:
+    - name: beamline-data
+      hostPath:
+        path: /exports/mybeamline/data/
+    - name: podbench-app
+      persistentVolumeClaim:
+        claimName: bl47p-ea-fastcs-01-podbench-project
+      # Declared and deliberately *not mounted* by the application. An ephemeral
+      # container may only mount volumes its pod already declares, and pod volumes
+      # cannot be added after the pod is created - so the seat's home is here at
+      # deploy time or the seat does without one.
+    - name: podbench-home
+      emptyDir:
+        sizeLimit: 2Gi
+  # beamline-data is repeated from the shared values file, and must be: a helm
+  # list does not merge across the parent/child values merge, it replaces.
+  # This service declared no `volumeMounts` of its own before, so it inherited the
+  # shared one wholesale; declaring one here takes that over completely.
+  volumeMounts:
+    - name: beamline-data
+      mountPath: /exports/mybeamline/data/
+    - name: podbench-app
+      mountPath: /podbench/app
+  command:
+    - bash
+    - -c
+  # Not optional. The claim is created root:root and the application does not
+  # run as root; without this the mount path is present and unwritable, which
+  # is worse than absent - everything starts, then fails.
+  podSecurityContext:
+    fsGroup: 37887
+
+# podbench Hotfix mode: a claim carrying the project, mounted beside the
+# application's own and never over it. The claim's name comes from the
+# release, and `podbench hotfix --print-values` wrote the matching
+# volume into the application's own values.
+podbench-hotfix-claim:
+  enabled: true
+  size: 2Gi
