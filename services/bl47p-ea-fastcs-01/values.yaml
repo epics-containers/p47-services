@@ -78,5 +78,5 @@ ioc-instance:
 # release, and `podbench hotfix --print-values` wrote the matching
 # volume into the application's own values.
 podbench-hotfix-claim:
-  enabled: false
+  enabled: true
   size: 2Gi
