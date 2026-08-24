@@ -18,28 +18,13 @@ shared: &shared
     runAsUser: 37887
     runAsGroup: 37887
 
-  # affinity chooses which servers to run on
-  # Accelerator must set this for CIAs, Beamlines don't need it
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: beamline
-                operator: In
-                values:
-                  - bl47p
+  nodeSelector:
+    beamline: p47
 
-  # tolerations allow us to run on a tainted server
-  # Accelerator must set this for CIAs, Beamlines don't need it
   tolerations:
     - key: beamline
       operator: Equal
-      value: bl47p
-      effect: NoSchedule
-    - key: location
-      operator: Equal
-      value: bl47p
+      value: p47
       effect: NoSchedule
     - key: nodetype
       operator: Equal

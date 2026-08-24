@@ -11,15 +11,16 @@ nexus-file-converter:
         name: p47
 
   nodeSelector:
-    kubernetes.io/hostname: bl47p-ea-serv-01.diamond.ac.uk
+    beamline: p47
+
   tolerations:
+    - key: beamline
+      operator: Equal
+      value: p47
+      effect: NoSchedule
     - key: nodetype
       operator: Equal
       value: training-rig
-      effect: NoSchedule
-    - key: beamline
-      operator: Equal
-      value: bl47p
       effect: NoSchedule
 
   volumes:

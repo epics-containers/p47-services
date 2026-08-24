@@ -19,24 +19,13 @@ service_ip: 172.23.168.209
 
 # add affinity and tolerances as required below. Delete these if not required
 
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: beamline
-              operator: In
-              values:
-                - bl47p
+nodeSelector:
+  beamline: p47
 
 tolerations:
   - key: beamline
     operator: Equal
-    value: bl47p
-    effect: NoSchedule
-  - key: location
-    operator: Equal
-    value: bl47p
+    value: p47
     effect: NoSchedule
   - key: nodetype
     operator: Equal
