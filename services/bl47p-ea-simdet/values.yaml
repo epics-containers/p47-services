@@ -6,7 +6,7 @@
 
 # settings shared by every IOC in the group
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2.11ec3
+  image: ghcr.io/epics-containers/ioc-adsimdetector-runtime:2.11ec4
 
 # one entry per IOC. Every entry MUST have a NAME - it is appended to the
 # release name to make that IOC's Kubernetes resources unique. The remaining
