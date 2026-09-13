@@ -17,3 +17,7 @@ dependencies:
     alias: oauth2
     repository: https://oauth2-proxy.github.io/manifests
     version: 10.7.0
+
+  - name: podbench-hotfix-claim
+    version: "0.12.0-beta.2"
+    repository: "oci://ghcr.io/epics-containers/charts"

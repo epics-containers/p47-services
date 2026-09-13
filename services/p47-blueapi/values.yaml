@@ -100,6 +100,54 @@ blueapi:
     persistentVolume:
       enabled: true
 
+  podSecurityContext:
+    fsGroup: 1000
+  volumes:
+    - name: podbench-app
+      persistentVolumeClaim:
+        claimName: p47-blueapi-podbench-project
+    - name: podbench-wrapper
+      configMap:
+        name: p47-blueapi-podbench-wrapper
+        defaultMode: 0755
+  volumeMounts:
+    - name: podbench-app
+      mountPath: /podbench/app
+    - name: podbench-wrapper
+      mountPath: /app/.venv/bin/blueapi
+      subPath: blueapi
+  livenessProbe:
+    httpGet: null
+    exec:
+      command:
+        - bash
+        - -c
+        - >-
+          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
+          'import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+  readinessProbe:
+    httpGet: null
+    exec:
+      command:
+        - bash
+        - -c
+        - >-
+          exec /app/.venv/bin/python -c
+          'import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+  startupProbe:
+    httpGet: null
+    exec:
+      command:
+        - bash
+        - -c
+        - >-
+          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
+          'import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+    failureThreshold: 18
+
 oauth2:
   proxyVarsAsSecrets: false
   extraEnv:
@@ -173,3 +221,7 @@ oauth2:
       operator: Equal
       value: training-rig
       effect: NoSchedule
+
+podbench-hotfix-claim:
+  enabled: true
+  size: 10Gi
