@@ -1,14 +1,53 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-pmac-runtime:2026.6.1
+  image: ghcr.io/epics-containers/ioc-pmac-developer:2026.6.1
 
   volumes:
     - name: dev-shm
       emptyDir:
         medium: Memory
         sizeLimit: 1Gi
+    - name: podbench-app
+      persistentVolumeClaim:
+        claimName: bl47p-mo-ioc-01-podbench-project
 
   volumeMounts:
     - name: dev-shm
       mountPath: /dev/shm
+    - name: podbench-app
+      mountPath: /podbench/app
+  command: [bash, -c]
+  args:
+    - |
+      while :; do
+        [ ! -x /podbench/app/.venv/bin/python ] || export PATH="/podbench/app/.venv/bin:$PATH"
+        [ ! -f /podbench/app/.podbench-ptrace.so ] || export LD_PRELOAD=/podbench/app/.podbench-ptrace.so
+        setsid bash -c "$1" &
+        child=$!
+        echo $child > /tmp/podbench-child.pid
+        wait $child; rc=$?
+        kill -TERM -"$child" 2>/dev/null || true
+        [ -e /tmp/podbench-hold ] || exit $rc
+      done
+    - podbench-supervisor
+    - |
+      if [[ -f /podbench/app/ioc/start.sh ]]; then
+        exec bash /podbench/app/ioc/start.sh
+      else
+        exec bash -c /epics/ioc/start.sh
+      fi
+  livenessProbe:
+    exec:
+      command: [bash, -c, "[ -e /tmp/podbench-hold ] && exit 0; exec /bin/bash /epics/ioc/liveness.sh"]
+    failureThreshold: 3
+    initialDelaySeconds: 120
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 1
+  podSecurityContext:
+    fsGroup: 37887
+
+podbench-hotfix-claim:
+  enabled: true
+  size: 10Gi

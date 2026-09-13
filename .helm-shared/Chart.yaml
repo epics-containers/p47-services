@@ -28,5 +28,5 @@ dependencies:
   # template, so they are in the service's values - written by
   # `podbench hotfix --print-values --values`, not by hand.
   - name: podbench-hotfix-claim
-    version: 0.7.1
-    repository: "oci://ghcr.io/gilesknap/charts"
+    version: "0.12.0-beta.2"
+    repository: "oci://ghcr.io/epics-containers/charts"

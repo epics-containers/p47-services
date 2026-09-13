@@ -5,13 +5,9 @@ ioc-instance:
   args:
     - |
       while :; do
-        (
-          if [ -x /podbench/app/.venv/bin/python ]; then
-            export PATH="/podbench/app/.venv/bin:$PATH"
-            echo "podbench: running the hotfixed project"
-          fi
-          exec bash -c 'stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"'
-        ) &
+        [ ! -x /podbench/app/.venv/bin/python ] || export PATH="/podbench/app/.venv/bin:$PATH"
+        [ ! -f /podbench/app/.podbench-ptrace.so ] || export LD_PRELOAD=/podbench/app/.podbench-ptrace.so
+        setsid bash -c 'exec stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"' &
         child=$!
         echo $child > /tmp/podbench-child.pid
         wait $child; rc=$?
