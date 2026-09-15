@@ -54,6 +54,10 @@ blueapi:
           [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
           'import urllib.request;
           urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+    # P47 BlueAPI needs more than the chart's 50 s to connect training-rig
+    # devices. Interim: podbench regenerates this block, see
+    # https://github.com/epics-containers/podbench/issues/268.
+    failureThreshold: 18
   # podbench-hotfix: end
   hostNetwork: false
   # resources:
