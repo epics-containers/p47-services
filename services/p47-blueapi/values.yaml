@@ -1,6 +1,60 @@
 blueapi:
+  # podbench-hotfix: begin podbench 0.21.1.dev2+gd0a03aeb5.d20260915
   debug:
     enabled: false
+  podSecurityContext:
+    fsGroup: 1000
+  volumes:
+    - name: podbench-app
+      persistentVolumeClaim:
+        claimName: p47-blueapi-podbench-project
+    - name: podbench-runtime
+      configMap:
+        name: p47-blueapi-podbench-runtime
+    - name: podbench-wrapper
+      configMap:
+        name: p47-blueapi-podbench-wrapper
+        defaultMode: 0755
+  volumeMounts:
+    - name: podbench-app
+      mountPath: /podbench/app
+    - name: podbench-runtime
+      mountPath: /podbench/runtime
+      readOnly: true
+    - name: podbench-wrapper
+      mountPath: /app/.venv/bin/blueapi
+      subPath: blueapi
+  livenessProbe:
+    httpGet: null
+    exec:
+      command:
+        - bash
+        - -c
+        - >-
+          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
+          'import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+  readinessProbe:
+    httpGet: null
+    exec:
+      command:
+        - bash
+        - -c
+        - >-
+          exec /app/.venv/bin/python -c
+          'import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+  startupProbe:
+    httpGet: null
+    exec:
+      command:
+        - bash
+        - -c
+        - >-
+          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
+          'import urllib.request;
+          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+  # podbench-hotfix: end
   hostNetwork: false
   # resources:
   #   limits:
@@ -99,54 +153,6 @@ blueapi:
     enabled: true
     persistentVolume:
       enabled: true
-
-  podSecurityContext:
-    fsGroup: 1000
-  volumes:
-    - name: podbench-app
-      persistentVolumeClaim:
-        claimName: p47-blueapi-podbench-project
-    - name: podbench-wrapper
-      configMap:
-        name: p47-blueapi-podbench-wrapper
-        defaultMode: 0755
-  volumeMounts:
-    - name: podbench-app
-      mountPath: /podbench/app
-    - name: podbench-wrapper
-      mountPath: /app/.venv/bin/blueapi
-      subPath: blueapi
-  livenessProbe:
-    httpGet: null
-    exec:
-      command:
-        - bash
-        - -c
-        - >-
-          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
-          'import urllib.request;
-          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
-  readinessProbe:
-    httpGet: null
-    exec:
-      command:
-        - bash
-        - -c
-        - >-
-          exec /app/.venv/bin/python -c
-          'import urllib.request;
-          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
-  startupProbe:
-    httpGet: null
-    exec:
-      command:
-        - bash
-        - -c
-        - >-
-          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
-          'import urllib.request;
-          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
-    failureThreshold: 18
 
 oauth2:
   proxyVarsAsSecrets: false

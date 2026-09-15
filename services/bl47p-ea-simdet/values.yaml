@@ -8,33 +8,30 @@
 ioc-instance:
   image: ghcr.io/epics-containers/ioc-adsimdetector-developer:2.11ec3
 
+# one entry per IOC. Every entry MUST have a NAME - it is appended to the
+# release name to make that IOC's Kubernetes resources unique. The remaining
+# keys become extra container environment variables for that IOC alone, and
+# config/ioc.yaml reads them back with _global.get_env().
+
+  # podbench-hotfix: begin podbench 0.21.1.dev2+gd0a03aeb5.d20260915
   volumes:
     - name: podbench-app
       persistentVolumeClaim:
         claimName: bl47p-ea-simdet-podbench-project
+    - name: podbench-runtime
+      configMap:
+        name: bl47p-ea-simdet-podbench-runtime
   volumeMounts:
     - name: podbench-app
       mountPath: /podbench/app
+    - name: podbench-runtime
+      mountPath: /podbench/runtime
+      readOnly: true
   command: [bash, -c]
   args:
-    - |
-      while :; do
-        [ ! -x /podbench/app/.venv/bin/python ] || export PATH="/podbench/app/.venv/bin:$PATH"
-        [ ! -f /podbench/app/.podbench-ptrace.so ] || export LD_PRELOAD=/podbench/app/.podbench-ptrace.so
-        setsid bash -c "$1" &
-        child=$!
-        echo $child > /tmp/podbench-child.pid
-        wait $child; rc=$?
-        kill -TERM -"$child" 2>/dev/null || true
-        [ -e /tmp/podbench-hold ] || exit $rc
-      done
+    - "source /podbench/runtime/podbench.sh; podbench_supervise \"$1\" '/bin/bash /epics/ioc/liveness.sh' true"
     - podbench-supervisor
-    - |
-      if [[ -f /podbench/app/ioc/start.sh ]]; then
-        exec bash /podbench/app/ioc/start.sh
-      else
-        exec bash -c /epics/ioc/start.sh
-      fi
+    - podbench_script /podbench/app/ioc/start.sh bash -c /epics/ioc/start.sh
   livenessProbe:
     exec:
       command: [bash, -c, "[ -e /tmp/podbench-hold ] && exit 0; exec /bin/bash /epics/ioc/liveness.sh"]
@@ -45,11 +42,8 @@ ioc-instance:
     timeoutSeconds: 1
   podSecurityContext:
     fsGroup: 37887
+  # podbench-hotfix: end
 
-# one entry per IOC. Every entry MUST have a NAME - it is appended to the
-# release name to make that IOC's Kubernetes resources unique. The remaining
-# keys become extra container environment variables for that IOC alone, and
-# config/ioc.yaml reads them back with _global.get_env().
 iocs:
   - NAME: "01"
     WIDTH: "1024"

@@ -6,19 +6,5 @@ metadata:
 data:
   blueapi: |
     #!/bin/bash
-    while :; do
-      if [ -f /podbench/app/.podbench-ptrace.so ]; then
-        export LD_PRELOAD=/podbench/app/.podbench-ptrace.so
-      fi
-      if [ -x /podbench/app/.venv/bin/python ]; then
-        python=/podbench/app/.venv/bin/python
-      else
-        python=/app/.venv/bin/python
-      fi
-      setsid "$python" -m blueapi "$@" &
-      child=$!
-      echo $child > /tmp/podbench-child.pid
-      wait $child; rc=$?
-      kill -TERM -"$child" 2>/dev/null || true
-      [ -e /tmp/podbench-hold ] || exit $rc
-    done
+    printf -v args "%q " "$@"
+    source /podbench/runtime/podbench.sh; podbench_supervise 'podbench_python /app/.venv/bin/python -m blueapi '"$args" '/app/.venv/bin/python -c '"'"'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'"'"'' true
