@@ -60,13 +60,18 @@ blueapi:
     failureThreshold: 18
   # podbench-hotfix: end
   hostNetwork: false
-  # resources:
-  #   limits:
-  #     cpu: 2000m
-  #     memory: 4000Mi
-  #   requests:
-  #     cpu: 500m
-  #     memory: 400Mi
+  # The chart's default 2Gi ephemeral-storage limit is nearly filled by the
+  # /app/.venv emptyDir (1.7Gi); a podbench debug seat then evicts the pod.
+  # See https://github.com/epics-containers/podbench/issues/269.
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 4000Mi
+      ephemeral-storage: 6Gi
+    requests:
+      cpu: 200m
+      memory: 400Mi
+      ephemeral-storage: 100Mi
   nodeSelector:
     beamline: p47
 
