@@ -32,10 +32,9 @@
 # failures back into real ones, e.g. to confirm a fix.
 #
 # bl47p-ea-fastcs-01's PVs use the pv_prefix from its own
-# config/controller.yaml (T01-EA-FASTCS-01, not rewritten for p47 - a known
-# quirk of that file, left alone here) and its image has neither caget nor
-# pvxget on PATH, so its direct checks exec into another IOC's Pod on the
-# same beamline host instead (see direct_pod_override below).
+# config/controller.yaml (BL47P-EA-FASTCS-01) and its image has neither
+# caget nor pvxget on PATH, so its direct checks exec into another IOC's
+# Pod on the same beamline host instead (see direct_pod_override below).
 #
 # Now that the gateway runs on the same host as the IOCs (services main,
 # commit 5afcf20), a CA or PVA client can occasionally see one of these PVs
@@ -127,7 +126,7 @@ declare -A known_issues=(
 # or a real detector, not just liveness.
 #
 # bl47p-ea-fastcs-01 has no devIocStats, so it is listed explicitly: its
-# pv_prefix (T01-EA-FASTCS-01) comes straight from
+# pv_prefix (BL47P-EA-FASTCS-01) comes straight from
 # services/bl47p-ea-fastcs-01/config/controller.yaml, and Power/RampRate_RBV
 # are two of fastcs's own read PVs for its demo TemperatureController
 # (confirmed live: both CA and PVA serve them, directly and through the
@@ -139,7 +138,7 @@ declare -A ioc_pvs=(
     [bl47p-ea-simdet-01]="BL47P-EA-SIMDET-01:UPTIME BL47P-EA-SIMDET-01:DET:Acquire"
     [bl47p-ea-simdet-02]="BL47P-EA-SIMDET-02:UPTIME BL47P-EA-SIMDET-02:DET:Acquire"
     [bl47p-ea-simdet-03]="BL47P-EA-SIMDET-03:UPTIME BL47P-EA-SIMDET-03:DET:Acquire"
-    [bl47p-ea-fastcs-01]="T01-EA-FASTCS-01:Power T01-EA-FASTCS-01:RampRate_RBV"
+    [bl47p-ea-fastcs-01]="BL47P-EA-FASTCS-01:Power BL47P-EA-FASTCS-01:RampRate_RBV"
 )
 
 # bl47p-ea-fastcs-01's image has no caget/pvxget on PATH (it's a plain
