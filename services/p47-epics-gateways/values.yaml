@@ -6,3 +6,31 @@ epics-gateways:
   securityContext:
     runAsUser: 37887
     runAsGroup: 37887
+
+  # Run on the p47 beamline host, beside the IOCs. With hostNetwork (the chart
+  # default) the gateway's client side then broadcasts on the beamline subnet,
+  # where the IOCs answer; from a cloud node their searches never arrive.
+  # Its server side listens on 9064/9075, clear of the IOCs' 5064/5075, and
+  # in-cluster clients reach it through the p47-epics-gateways Service.
+  # The chart has no nodeSelector value, so this affinity stands in for the
+  # IOCs' nodeSelector (beamline: p47).
+  hostNetwork: true
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: beamline
+                operator: In
+                values:
+                  - p47
+
+  tolerations:
+    - key: beamline
+      operator: Equal
+      value: p47
+      effect: NoSchedule
+    - key: nodetype
+      operator: Equal
+      value: training-rig
+      effect: NoSchedule
