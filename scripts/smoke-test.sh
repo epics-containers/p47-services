@@ -31,20 +31,21 @@
 # does not let it block step 1 or fail the run. Use --strict to turn expected
 # failures back into real ones, e.g. to confirm a fix.
 #
-# bl47p-ea-fastcs-01 is a dev/example service on a feature branch
-# (podbench-hotfix-claim), not part of the physical beamline, and it has no
-# EPICS PVs at all: it is excluded from the PV checks (but still has to be a
-# healthy Pod, like everything else, in step 1).
+# bl47p-ea-fastcs-01's PVs use the pv_prefix from its own
+# config/controller.yaml (T01-EA-FASTCS-01, not rewritten for p47 - a known
+# quirk of that file, left alone here) and its image has neither caget nor
+# pvxget on PATH, so its direct checks exec into another IOC's Pod on the
+# same beamline host instead (see direct_pod_override below).
 #
 # Now that the gateway runs on the same host as the IOCs (services main,
-# commit 5afcf20), a CA client can occasionally see one of these PVs
-# advertised twice and print a libca "duplicate process variable name"
-# warning. That is benign - the read still succeeds - so this script never
-# treats it as a failure; it is filtered out of PASS/FAIL lines and reported
-# once as a note instead.
+# commit 5afcf20), a CA or PVA client can occasionally see one of these PVs
+# advertised twice (libca's "duplicate process variable name", or pvxs's
+# "Duplicate PV name") and print a warning. That is benign - the read still
+# succeeds - so this script never treats it as a failure; it is filtered out
+# of PASS/FAIL lines and reported once as a note instead.
 #
-# The exit status is 0 only when every non-excluded, non-expected check
-# passes. The optional login/plan step never affects the exit status.
+# The exit status is 0 only when every non-expected check passes. The
+# optional login/plan step never affects the exit status.
 
 set -euo pipefail
 
@@ -120,15 +121,17 @@ declare -A known_issues=(
     [bl47p-synoptic]="services-template-helm#145: Init:CrashLoopBackOff (techui-builder can't apt-get as non-root); parked, no ETA"
 )
 
-# IOCs with no EPICS PVs to check at all (still checked for Pod health)
-declare -A excluded_iocs=(
-    [bl47p-ea-fastcs-01]="dev/example service on branch podbench-hotfix-claim, not part of the physical beamline"
-)
-
 # the PVs to read from each IOC, by release name. The default when an IOC
 # is not listed here is <IOC_NAME>:UPTIME from devIocStats, which every IOC
 # below also has; the entries here add one PV that exercises real hardware
 # or a real detector, not just liveness.
+#
+# bl47p-ea-fastcs-01 has no devIocStats, so it is listed explicitly: its
+# pv_prefix (T01-EA-FASTCS-01) comes straight from
+# services/bl47p-ea-fastcs-01/config/controller.yaml, and Power/RampRate_RBV
+# are two of fastcs's own read PVs for its demo TemperatureController
+# (confirmed live: both CA and PVA serve them, directly and through the
+# gateway).
 declare -A ioc_pvs=(
     [bl47p-mo-ioc-01]="BL47P-MO-IOC-01:UPTIME BL47P-MO-MAP-01:STAGE:X.RBV"
     [bl47p-ea-dcam-01]="BL47P-EA-DCAM-01:UPTIME BL47P-EA-DET-01:DET:Acquire"
@@ -136,11 +139,20 @@ declare -A ioc_pvs=(
     [bl47p-ea-simdet-01]="BL47P-EA-SIMDET-01:UPTIME BL47P-EA-SIMDET-01:DET:Acquire"
     [bl47p-ea-simdet-02]="BL47P-EA-SIMDET-02:UPTIME BL47P-EA-SIMDET-02:DET:Acquire"
     [bl47p-ea-simdet-03]="BL47P-EA-SIMDET-03:UPTIME BL47P-EA-SIMDET-03:DET:Acquire"
+    [bl47p-ea-fastcs-01]="T01-EA-FASTCS-01:Power T01-EA-FASTCS-01:RampRate_RBV"
 )
 
-# a libca warning that only shows up because the gateway now runs on the
+# bl47p-ea-fastcs-01's image has no caget/pvxget on PATH (it's a plain
+# fastcs Python image, not one of the EPICS-base IOC images); run its direct
+# checks from another IOC's Pod instead. Still "direct" - both Pods are on
+# the same hostNetwork beamline host, so this is not through the gateway.
+declare -A direct_pod_override=(
+    [bl47p-ea-fastcs-01]=bl47p-mo-ioc-01-0
+)
+
+# a CA/PVA warning that only shows up because the gateway now runs on the
 # same host as the IOCs; benign (the read still succeeds), never a failure
-benign_ca_warning='[Dd]uplicate process variable|[Ii]dentical process variable'
+benign_ca_warning='[Dd]uplicate process variable|[Ii]dentical process variable|[Dd]uplicate PV name'
 
 # the value of an option, or an error when it is missing
 need_value() {
@@ -449,15 +461,11 @@ iocs=$(kubectl get pods -n "$namespace" -l ioc=true \
 checked_any=false
 while read -r ioc; do
     [[ -n $ioc ]] || continue
-    if [[ -n ${excluded_iocs[$ioc]:-} ]]; then
-        warn "$ioc: excluded from PV checks (${excluded_iocs[$ioc]})"
-        continue
-    fi
     if [[ -n ${known_issues[$ioc]:-} ]] && ! $strict; then
         warn "$ioc: no PVs to check (${known_issues[$ioc]})"
         continue
     fi
-    pod="${ioc}-0"
+    pod="${direct_pod_override[$ioc]:-${ioc}-0}"
     read -r -a pvs <<<"${ioc_pvs[$ioc]:-${ioc^^}:UPTIME}"
     for pv in "${pvs[@]}"; do
         checked_any=true
@@ -473,7 +481,7 @@ while read -r ioc; do
             python3 -c "$pva_get_py" "$pv" || true
     done
 done <<<"$iocs"
-$checked_any || die "no IOC had any PV to check (all excluded?)"
+$checked_any || die "no IOC had any PV to check (all known issues?)"
 
 # ---------------------------------------------------------------------------
 # 3. blueapi healthz, through its oauth2-proxy
