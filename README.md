@@ -2,6 +2,26 @@
 
 This repository holds the a definition of p47 IOC Instances and services. Each sub folder of the `services` directory contains a helm chart for a specific service or IOC. The corresponding deployments repo can be found at [https://gitlab.diamond.ac.uk/controls/containers/beamline/p47-deployment].
 
+## Smoke test
+
+`scripts/smoke-test.sh` checks the live p47 beamline end to end, read-only:
+Argo CD apps and pods healthy, each IOC's representative PVs answering both
+directly on the beamline host and through the gateway, blueapi's healthz,
+and the OPIs served over HTTP. An optional, human-gated step logs in to the
+real DLS Keycloak with a device code (via blueapi's own `login` command) and
+submits a small test plan; the script never attempts that login itself.
+
+```bash
+scripts/smoke-test.sh \
+  --argocd-kubeconfig <kubeconfig for argus, the Argo CD Applications> \
+  --pod-cluster <kubeconfig for pollux, where the beamline Pods run>
+```
+
+See `scripts/smoke-test.sh --help` for every option, including `--strict`
+(don't excuse the known, parked `bl47p-synoptic` failure,
+services-template-helm#145) and `--login` (run the optional device-code
+login and plan).
+
 ## Using pre-commit hooks
 
 Pre commit hooks will validate the synoptic and additional soft support if present. To install pre-commit hooks run:
