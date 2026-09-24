@@ -5608,11 +5608,13 @@
           "type": "string"
         },
         "input_eos": {
+          "default": "\n",
           "description": "Input end of string (terminator)",
           "title": "Input Eos",
           "type": "string"
         },
         "output_eos": {
+          "default": "\n",
           "description": "Output end of string (terminator)",
           "title": "Output Eos",
           "type": "string"
@@ -5645,6 +5647,7 @@
               "type": "boolean"
             }
           ],
+          "default": false,
           "description": "union of <class 'bool'> and jinja representation of {typ}",
           "title": "Noautoconnect"
         },
@@ -5660,10 +5663,12 @@
               "type": "boolean"
             }
           ],
+          "default": false,
           "description": "union of <class 'bool'> and jinja representation of {typ}",
           "title": "Noprocesseos"
         },
         "simulation": {
+          "default": "",
           "description": "IP port to connect to if in simulation mode",
           "title": "Simulation",
           "type": "string"
@@ -5680,45 +5685,40 @@
               "type": "integer"
             }
           ],
+          "default": 9600,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Baud"
         },
         "parity": {
           "$ref": "#/$defs/ibek__entity_factory__parity__2",
+          "default": "none",
           "description": "Parity"
         },
         "crtscts": {
           "$ref": "#/$defs/crtscts",
+          "default": "N",
           "description": "Set hardware flow control on"
         },
         "stop": {
           "$ref": "#/$defs/ibek__entity_factory__stop__2",
+          "default": "1",
           "description": "Stop Bits"
         },
         "disconnectOnReadTimeout": {
           "$ref": "#/$defs/disconnectOnReadTimeout",
+          "default": "Y",
           "description": "Disconnect when a read times out"
         },
         "bits": {
           "$ref": "#/$defs/ibek__entity_factory__bits__1",
+          "default": "8",
           "description": "Bits"
         }
       },
       "required": [
         "type",
         "port",
-        "name",
-        "input_eos",
-        "output_eos",
-        "noAutoConnect",
-        "noProcessEos",
-        "simulation",
-        "baud",
-        "parity",
-        "crtscts",
-        "stop",
-        "disconnectOnReadTimeout",
-        "bits"
+        "name"
       ],
       "title": "asyn_AsynIPServer",
       "type": "object"
@@ -6104,6 +6104,34 @@
       "title": "autosave_Autosave",
       "type": "object"
     },
+    "autosave_auto_save_restoreStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "autosave.auto_save_restoreStatus",
+          "description": "Autosave/restore status records providing heartbeat, status and\nreboot monitoring PVs.",
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "P": {
+          "description": "PV prefix for save/restore status records",
+          "title": "P",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "P"
+      ],
+      "title": "autosave_auto_save_restoreStatus",
+      "type": "object"
+    },
     "crtscts": {
       "enum": [
         "Y",
@@ -6134,90 +6162,6 @@
       ],
       "title": "dbrtype",
       "type": "string"
-    },
-    "devIocStats_devIocStatsHelper": {
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "const": "devIocStats.devIocStatsHelper",
-          "description": "TODO:ADD DESCRIPTION",
-          "title": "Type",
-          "type": "string"
-        },
-        "entity_enabled": {
-          "default": true,
-          "description": "enable or disable this entity instance",
-          "title": "Entity Enabled",
-          "type": "boolean"
-        },
-        "ioc": {
-          "description": "ioc name",
-          "title": "Ioc",
-          "type": "string"
-        },
-        "name": {
-          "description": "gui element name",
-          "title": "Name",
-          "type": "string"
-        },
-        "scanMonitor": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'bool'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "choice to include scan monitor",
-              "type": "boolean"
-            }
-          ],
-          "default": true,
-          "description": "union of <class 'bool'> and jinja representation of {typ}",
-          "title": "Scanmonitor"
-        },
-        "guiTags": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'bool'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "choice to include gui tags",
-              "type": "boolean"
-            }
-          ],
-          "default": true,
-          "description": "union of <class 'bool'> and jinja representation of {typ}",
-          "title": "Guitags"
-        },
-        "screen": {
-          "default": "ioc_stats_softdls.edl",
-          "description": "edm file for gui tags",
-          "title": "Screen",
-          "type": "string"
-        },
-        "EDM_FILE": {
-          "default": "ioc_stats_softdls.edl",
-          "description": "edm screen, defaults to ioc_stats_softdls.edl",
-          "title": "Edm File",
-          "type": "string"
-        },
-        "IOC": {
-          "description": "ioc name",
-          "title": "Ioc",
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "ioc",
-        "name",
-        "IOC"
-      ],
-      "title": "devIocStats_devIocStatsHelper",
-      "type": "object"
     },
     "devIocStats_iocAdminScanMon": {
       "additionalProperties": false,
@@ -6301,46 +6245,6 @@
         "IOC"
       ],
       "title": "devIocStats_iocAdminVxWorks",
-      "type": "object"
-    },
-    "devIocStats_iocGui": {
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "const": "devIocStats.iocGui",
-          "description": "TODO:ADD DESCRIPTION",
-          "title": "Type",
-          "type": "string"
-        },
-        "entity_enabled": {
-          "default": true,
-          "description": "enable or disable this entity instance",
-          "title": "Entity Enabled",
-          "type": "boolean"
-        },
-        "name": {
-          "default": "None",
-          "description": "name for gui elements",
-          "title": "Name",
-          "type": "string"
-        },
-        "EDM_FILE": {
-          "default": "ioc_stats_softdls.edl",
-          "description": "edm screen, defaults to ioc_stats_softdls.edl",
-          "title": "Edm File",
-          "type": "string"
-        },
-        "IOC": {
-          "description": "ioc name",
-          "title": "Ioc",
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "IOC"
-      ],
-      "title": "devIocStats_iocGui",
       "type": "object"
     },
     "disconnectOnReadTimeout": {
@@ -7315,11 +7219,10 @@
             "asyn.AsynSerial": "#/$defs/asyn_AsynSerial",
             "asyn.Vxi11": "#/$defs/asyn_Vxi11",
             "autosave.Autosave": "#/$defs/autosave_Autosave",
-            "devIocStats.devIocStatsHelper": "#/$defs/devIocStats_devIocStatsHelper",
+            "autosave.auto_save_restoreStatus": "#/$defs/autosave_auto_save_restoreStatus",
             "devIocStats.iocAdminScanMon": "#/$defs/devIocStats_iocAdminScanMon",
             "devIocStats.iocAdminSoft": "#/$defs/devIocStats_iocAdminSoft",
             "devIocStats.iocAdminVxWorks": "#/$defs/devIocStats_iocAdminVxWorks",
-            "devIocStats.iocGui": "#/$defs/devIocStats_iocGui",
             "epics.DbAlias": "#/$defs/epics_DbAlias",
             "epics.DbLine": "#/$defs/epics_DbLine",
             "epics.DbText": "#/$defs/epics_DbText",
@@ -7343,19 +7246,46 @@
         },
         "oneOf": [
           {
-            "$ref": "#/$defs/devIocStats_devIocStatsHelper"
-          },
-          {
             "$ref": "#/$defs/devIocStats_iocAdminVxWorks"
           },
           {
             "$ref": "#/$defs/devIocStats_iocAdminScanMon"
           },
           {
-            "$ref": "#/$defs/devIocStats_iocGui"
+            "$ref": "#/$defs/devIocStats_iocAdminSoft"
           },
           {
-            "$ref": "#/$defs/devIocStats_iocAdminSoft"
+            "$ref": "#/$defs/epics_EpicsCaMaxArrayBytes"
+          },
+          {
+            "$ref": "#/$defs/epics_EpicsTsMinWest"
+          },
+          {
+            "$ref": "#/$defs/epics_dbpf"
+          },
+          {
+            "$ref": "#/$defs/epics_EpicsEnvSet"
+          },
+          {
+            "$ref": "#/$defs/epics_StartupCommand"
+          },
+          {
+            "$ref": "#/$defs/epics_PostStartupCommand"
+          },
+          {
+            "$ref": "#/$defs/epics_PreBootCommandSet"
+          },
+          {
+            "$ref": "#/$defs/epics_InterruptVectorVME"
+          },
+          {
+            "$ref": "#/$defs/epics_DbLine"
+          },
+          {
+            "$ref": "#/$defs/epics_DbText"
+          },
+          {
+            "$ref": "#/$defs/epics_DbAlias"
           },
           {
             "$ref": "#/$defs/ADAravis_aravisCamera"
@@ -7460,39 +7390,6 @@
             "$ref": "#/$defs/ADCore_NDScatter"
           },
           {
-            "$ref": "#/$defs/epics_EpicsCaMaxArrayBytes"
-          },
-          {
-            "$ref": "#/$defs/epics_EpicsTsMinWest"
-          },
-          {
-            "$ref": "#/$defs/epics_dbpf"
-          },
-          {
-            "$ref": "#/$defs/epics_EpicsEnvSet"
-          },
-          {
-            "$ref": "#/$defs/epics_StartupCommand"
-          },
-          {
-            "$ref": "#/$defs/epics_PostStartupCommand"
-          },
-          {
-            "$ref": "#/$defs/epics_PreBootCommandSet"
-          },
-          {
-            "$ref": "#/$defs/epics_InterruptVectorVME"
-          },
-          {
-            "$ref": "#/$defs/epics_DbLine"
-          },
-          {
-            "$ref": "#/$defs/epics_DbText"
-          },
-          {
-            "$ref": "#/$defs/epics_DbAlias"
-          },
-          {
             "$ref": "#/$defs/pvlogging_BlacklistPvs"
           },
           {
@@ -7500,6 +7397,9 @@
           },
           {
             "$ref": "#/$defs/autosave_Autosave"
+          },
+          {
+            "$ref": "#/$defs/autosave_auto_save_restoreStatus"
           },
           {
             "$ref": "#/$defs/asyn_AsynIP"
