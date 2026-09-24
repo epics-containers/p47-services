@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-adaravis-runtime:R2-3ec2-beta.1
+  image: ghcr.io/epics-containers/ioc-adaravis-runtime:R2-3ec2-beta.1@sha256:634c74cdef456cb100beede0e2ea5d2458ce8a9fe3223dd3374627a7a3e71e91
 
   dataVolume:
     pvc: false
