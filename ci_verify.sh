@@ -197,14 +197,14 @@ do
         # IP) fails fast instead of hanging the job. The timeout does not
         # include the image pull, and when it fires the container's main
         # process exits, so the container stops with it.
-        # The probe matches the '--test)' case arm that parses start.sh's
-        # arguments, not any other mention of --test.
+        # The probe looks for any mention of --test in start.sh, however
+        # start.sh parses its arguments.
         $docker run --rm --entrypoint bash \
             $selinux_opt \
             -v "${service}/config:/epics/ioc/config${vol_z}" \
             "${image}" \
             -c "
-            if grep -q -- '--test)' /epics/ioc/start.sh; then
+            if grep -q -- '--test' /epics/ioc/start.sh; then
                 timeout --kill-after=10s 60s /epics/ioc/start.sh --test
             else
                 echo 'start.sh has no --test support; falling back to ibek runtime generate2'
