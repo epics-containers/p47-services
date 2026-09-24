@@ -154,9 +154,12 @@ do
         runtime=/tmp/ioc-runtime/$(basename ${service})
         mkdir -p ${runtime}
 
-        # avoid issues with auto-gen genicam pvi files (ioc-adaravis only)
-        sed -i s/AutoADGenICam/ADGenICam/ ${service}/config/ioc.yaml
-
+        # ioc-adaravis: the image's start.sh writes each camera's PVI device
+        # file /epics/pvi-defs/ADAravis-<P>.pvi.device.yaml before ibek runs,
+        # normally from the live camera's GenICam XML. No camera is reachable
+        # in CI, so write it with start.sh's camera-independent fallback
+        # (makePvi.py with no XML input) instead.
+        #
         # This will fail and exit if the ioc.yaml is invalid
         # Also show the startup script we just generated (and verify it exists)
         # 'ibek runtime generate2 /config' reads the whole mounted config folder
@@ -166,7 +169,18 @@ do
             -v ${service}/config:/config:z \
             ${image} \
             -c "
-            ibek runtime generate2 /config  &&
+            set -e
+            if [[ -f /epics/ioc/scripts/makePvi.py ]]; then
+                for p in \$(yq -r '.entities[] | select(.type == \"ADAravis.aravisCamera\") | .P' /config/ioc.yaml); do
+                    python /epics/ioc/scripts/makePvi.py \
+                        --input_xml_file '' \
+                        --output_folder /epics/pvi-defs/ \
+                        --pvi_device_name ADAravis-\${p} \
+                        --label \"GenICam \${p}\" \
+                        --embed_in ADAravis
+                done
+            fi
+            ibek runtime generate2 /config
             cat /epics/runtime/st.cmd
             "
 
