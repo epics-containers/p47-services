@@ -6,10 +6,14 @@ set -e
 
 # setup an ssh tunnel to the gateways and opis services. Use the beamline's
 # fixed DNS names rather than the gateways/opis Services' LoadBalancer IPs:
-# those IPs are only routed on the DLS internal network, so a VPN client's ssh
-# session (which reaches diamond.ac.uk names fine) cannot reach them, and the
-# kubectl lookup itself needs a cluster login this script no longer requires.
-gateways=bl47p-ea-serv-01.diamond.ac.uk
+# those IPs are only routed on the DLS internal network, and the kubectl
+# lookup of them needs a cluster login.
+#
+# The gateways run with hostNetwork on the p47 beamline server, so its CA
+# (9064) and PVA (9075) ports are the gateways themselves. The local ports
+# must stay 9064 and 9075: a PVA name server's search reply names the server
+# port, and the client connects to that port on the tunnel's local end.
+gateways=p47-k8s-serv-01.diamond.ac.uk
 opis=p47-opis.diamond.ac.uk
 sock="$HOME/.ssh/cm-%r@%h:%p"
 ssh -fNM -S "$sock" -L 9064:$gateways:9064 -L 9075:$gateways:9075 -L 8099:$opis:80 $HOSTNAME
