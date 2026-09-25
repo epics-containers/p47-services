@@ -1,8 +1,4 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-adaravis-runtime:R2-3ec2-beta.1@sha256:634c74cdef456cb100beede0e2ea5d2458ce8a9fe3223dd3374627a7a3e71e91
-
-  dataVolume:
-    pvc: false
-    hostPath: /exports/mybeamline/data/
+  image: ghcr.io/epics-containers/ioc-adaravis-runtime:R2-3ec2-beta.2@sha256:e71fa7e8b0e4b7076420849ef1f1eee8013b0b6021895f34d3804a30a9834e14
