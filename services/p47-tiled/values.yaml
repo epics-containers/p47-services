@@ -15,6 +15,15 @@ tiled:
   - name: PYTHONPATH
     value: /deploy/
   image:
+    # WARNING: do not raise this past 0.2.9 on its own. The access-policy
+    # plugin embedded in templates/configmap.yaml uses
+    # PrincipalType.external, which tiled removed in v0.2.10
+    # (bluesky/tiled#1377). The server still starts, but every
+    # authenticated request then fails with AttributeError (HTTP 500), and
+    # nothing in CI catches it. A bump must carry the port to
+    # PrincipalType.user in the same commit -- see
+    # epics-containers/p46-services#219, and t11-services for a working
+    # 0.2.18 + ported-plugin pair.
     tag: 0.2.7
   config:
     database:
