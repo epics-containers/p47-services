@@ -174,39 +174,19 @@
           "type": "boolean"
         },
         "P": {
-          "description": "Device prefix",
+          "description": "Device Prefix",
           "title": "P",
           "type": "string"
         },
         "R": {
-          "description": "Device suffix",
+          "description": "Device Suffix",
           "title": "R",
           "type": "string"
         },
         "PORT": {
-          "description": "Asyn port name",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Asyn port of the callback source",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -216,13 +196,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -232,7 +232,7 @@
               "type": "string"
             },
             {
-              "description": "Asyn address of the callback source",
+              "description": "Input array port address",
               "type": "integer"
             }
           ],
@@ -277,22 +277,6 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Queue"
         },
-        "N_CACHE": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Number of NDArrays to store in cache",
-              "type": "integer"
-            }
-          ],
-          "default": 10000,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "N Cache"
-        },
         "BLOCK": {
           "anyOf": [
             {
@@ -308,6 +292,38 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
+        },
+        "N_CACHE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of NDArrays to store in cache",
+              "type": "integer"
+            }
+          ],
+          "default": 10000,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "N Cache"
         },
         "ATTR_IND": {
           "description": "Attribute index",
@@ -370,29 +386,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDAttribute plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -402,13 +398,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -478,6 +494,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "MAX_ATTRIBUTES": {
           "anyOf": [
@@ -631,29 +663,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the FFT_calc plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -663,13 +675,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -708,38 +740,6 @@
           "default": "I/O Intr",
           "description": "Specified scan rate for cpu intensive PVs"
         },
-        "PRECOUNT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Pre-trigger frame count",
-              "type": "integer"
-            }
-          ],
-          "default": 100,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Precount"
-        },
-        "POSTCOUNT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Post-trigger frame count",
-              "type": "integer"
-            }
-          ],
-          "default": 100,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Postcount"
-        },
         "QUEUE": {
           "anyOf": [
             {
@@ -771,6 +771,54 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
+        },
+        "PRECOUNT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Pre-trigger frame count",
+              "type": "integer"
+            }
+          ],
+          "default": 100,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Precount"
+        },
+        "POSTCOUNT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Post-trigger frame count",
+              "type": "integer"
+            }
+          ],
+          "default": 100,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Postcount"
         },
         "MAX_BUFFERS": {
           "anyOf": [
@@ -830,6 +878,22 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
         "P": {
           "description": "Device Prefix",
           "title": "P",
@@ -841,13 +905,25 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDCodec plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
         },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
+        "ADDR": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn port address",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Addr"
         },
         "TIMEOUT": {
           "anyOf": [
@@ -865,21 +941,9 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Timeout"
         },
-        "ADDR": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn Port address",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Addr"
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -950,7 +1014,7 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "MAX_THREADS": {
+        "XMLSIZE": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -958,13 +1022,13 @@
               "type": "string"
             },
             {
-              "description": "Maximum number threads",
+              "description": "Number of elements of the ND attributes xml waveform record",
               "type": "integer"
             }
           ],
-          "default": 1,
+          "default": 256,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -992,6 +1056,22 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
         "P": {
           "description": "Device Prefix",
           "title": "P",
@@ -1003,29 +1083,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDColorConvert plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -1035,13 +1095,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -1112,7 +1192,7 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "MAX_THREADS": {
+        "XMLSIZE": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -1120,13 +1200,13 @@
               "type": "string"
             },
             {
-              "description": "Maximum number threads",
+              "description": "Number of elements of the ND attributes xml waveform record",
               "type": "integer"
             }
           ],
-          "default": 1,
+          "default": 256,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -1155,44 +1235,19 @@
           "type": "boolean"
         },
         "P": {
-          "description": "Device prefix",
+          "description": "Device Prefix",
           "title": "P",
           "type": "string"
         },
         "R": {
-          "description": "Device suffix",
+          "description": "Device Suffix",
           "title": "R",
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDFFT plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "NCHANS": {
-          "description": "Length of time series waveform",
-          "title": "Nchans",
-          "type": "string"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn port timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -1209,6 +1264,26 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -1247,18 +1322,6 @@
           "default": "I/O Intr",
           "description": "Specified scan rate for cpu intensive PVs"
         },
-        "TIME_LINK": {
-          "default": "0.1",
-          "description": "Time in seconds between points (Can point to a record - use CP)",
-          "title": "Time Link",
-          "type": "string"
-        },
-        "NAME": {
-          "default": "0",
-          "description": "Label for signal",
-          "title": "Name",
-          "type": "string"
-        },
         "QUEUE": {
           "anyOf": [
             {
@@ -1290,6 +1353,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "PRIORITY": {
           "anyOf": [
@@ -1338,6 +1417,23 @@
           "default": 1,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Max Threads"
+        },
+        "NCHANS": {
+          "description": "Length of time series waveform",
+          "title": "Nchans",
+          "type": "string"
+        },
+        "TIME_LINK": {
+          "default": "0.1",
+          "description": "Time in seconds between points (Can point to a record - use CP)",
+          "title": "Time Link",
+          "type": "string"
+        },
+        "NAME": {
+          "default": "0",
+          "description": "Label for signal",
+          "title": "Name",
+          "type": "string"
         }
       },
       "required": [
@@ -1377,29 +1473,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDFileHDF5 plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn Port timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -1409,13 +1485,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -1454,22 +1550,6 @@
           "default": "I/O Intr",
           "description": "Specified scan rate for cpu intensive PVs"
         },
-        "XMLSIZE": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Number of elements of the XML layout waveform record",
-              "type": "integer"
-            }
-          ],
-          "default": 2048,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Xmlsize"
-        },
         "QUEUE": {
           "anyOf": [
             {
@@ -1501,6 +1581,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the XML layout waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 2048,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -1539,29 +1635,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDFileJPEG plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -1571,13 +1647,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -1647,6 +1743,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -1685,29 +1797,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDFileMagick plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -1717,13 +1809,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -1793,6 +1905,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -1830,30 +1958,10 @@
           "title": "R",
           "type": "string"
         },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
         "PORT": {
-          "description": "Port name for the NDFileNetCDF plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -1863,13 +1971,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -1939,14 +2067,30 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
         "type",
         "P",
         "R",
-        "NDARRAY_PORT",
-        "PORT"
+        "PORT",
+        "NDARRAY_PORT"
       ],
       "title": "ADCore_NDFileNetCDF",
       "type": "object"
@@ -1977,29 +2121,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDFileNexus plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -2009,13 +2133,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -2085,6 +2229,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -2123,29 +2283,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDFileHDF5 plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -2155,7 +2295,7 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
@@ -2163,10 +2303,25 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
         },
-        "SCANRATE": {
-          "$ref": "#/$defs/SCANRATE",
-          "default": "I/O Intr",
-          "description": "Specified scan rate for cpu intensive PVs"
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -2200,6 +2355,11 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Enabled"
         },
+        "SCANRATE": {
+          "$ref": "#/$defs/SCANRATE",
+          "default": "I/O Intr",
+          "description": "Specified scan rate for cpu intensive PVs"
+        },
         "QUEUE": {
           "anyOf": [
             {
@@ -2231,6 +2391,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -2268,30 +2444,10 @@
           "title": "R",
           "type": "string"
         },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
         "PORT": {
-          "description": "Port name for the NDFileTIFF plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -2301,13 +2457,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -2377,14 +2553,30 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
         "type",
         "P",
         "R",
-        "NDARRAY_PORT",
-        "PORT"
+        "PORT",
+        "NDARRAY_PORT"
       ],
       "title": "ADCore_NDFileTIFF",
       "type": "object"
@@ -2404,31 +2596,20 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
-        "NDARRAY_PORT": {
-          "description": "Input Array Port",
-          "title": "Ndarray Port",
+        "P": {
+          "description": "Device Prefix",
+          "title": "P",
+          "type": "string"
+        },
+        "R": {
+          "description": "Device Suffix",
+          "title": "R",
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDGather plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -2438,13 +2619,34 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input Array Port",
+          "title": "Ndarray Port",
+          "type": "string"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -2454,7 +2656,7 @@
               "type": "string"
             },
             {
-              "description": "Input Array Address",
+              "description": "Input array port address",
               "type": "integer"
             }
           ],
@@ -2515,6 +2717,22 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
+        },
         "MAX_PORTS": {
           "anyOf": [
             {
@@ -2530,24 +2748,14 @@
           "default": 5,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Max Ports"
-        },
-        "P": {
-          "description": "Device Prefix",
-          "title": "P",
-          "type": "string"
-        },
-        "R": {
-          "description": "Device Suffix",
-          "title": "R",
-          "type": "string"
         }
       },
       "required": [
         "type",
-        "NDARRAY_PORT",
-        "PORT",
         "P",
-        "R"
+        "R",
+        "PORT",
+        "NDARRAY_PORT"
       ],
       "title": "ADCore_NDGather",
       "type": "object"
@@ -2567,31 +2775,20 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
-        "NDARRAY_PORT": {
-          "description": "Input Array Port",
-          "title": "Ndarray Port",
+        "P": {
+          "description": "Device Prefix",
+          "title": "P",
+          "type": "string"
+        },
+        "R": {
+          "description": "Device Suffix",
+          "title": "R",
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDGather plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -2601,13 +2798,34 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input Array Port",
+          "title": "Ndarray Port",
+          "type": "string"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -2617,7 +2835,7 @@
               "type": "string"
             },
             {
-              "description": "Input Array Address",
+              "description": "Input array port address",
               "type": "integer"
             }
           ],
@@ -2678,15 +2896,21 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "P": {
-          "description": "Device Prefix",
-          "title": "P",
-          "type": "string"
-        },
-        "R": {
-          "description": "Device Suffix",
-          "title": "R",
-          "type": "string"
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "N": {
           "description": "Port number (1 - maxPorts)",
@@ -2701,10 +2925,10 @@
       },
       "required": [
         "type",
-        "NDARRAY_PORT",
-        "PORT",
         "P",
         "R",
+        "PORT",
+        "NDARRAY_PORT",
         "N",
         "MAX_PORTS"
       ],
@@ -2726,6 +2950,22 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
         "P": {
           "description": "Device Prefix",
           "title": "P",
@@ -2736,46 +2976,10 @@
           "title": "R",
           "type": "string"
         },
-        "NOverlays": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Number of overlays to create",
-              "type": "integer"
-            }
-          ],
-          "default": 8,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Noverlays"
-        },
         "PORT": {
-          "description": "Port name for the NDOverlay plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -2785,13 +2989,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -2862,7 +3086,7 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "MAX_THREADS": {
+        "XMLSIZE": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -2870,13 +3094,29 @@
               "type": "string"
             },
             {
-              "description": "Maximum number threads",
+              "description": "Number of elements of the ND attributes xml waveform record",
               "type": "integer"
             }
           ],
-          "default": 1,
+          "default": 256,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
+          "title": "Xmlsize"
+        },
+        "NOverlays": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of overlays to create",
+              "type": "integer"
+            }
+          ],
+          "default": 8,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Noverlays"
         }
       },
       "required": [
@@ -2915,13 +3155,25 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDPosPlugin plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
         },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
+        "ADDR": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn port address",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Addr"
         },
         "TIMEOUT": {
           "anyOf": [
@@ -2939,21 +3191,9 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Timeout"
         },
-        "ADDR": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn Port address",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Addr"
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -3023,6 +3263,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "PRIORITY": {
           "anyOf": [
@@ -3093,29 +3349,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDProcess plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -3125,13 +3361,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -3201,6 +3457,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -3239,18 +3511,25 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDPosPlugin plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
         },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "PVNAME": {
-          "description": "Name of the PV to post NDArray out on",
-          "title": "Pvname",
-          "type": "string"
+        "ADDR": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn port address",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Addr"
         },
         "TIMEOUT": {
           "anyOf": [
@@ -3268,21 +3547,9 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Timeout"
         },
-        "ADDR": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn Port address",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Addr"
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -3352,6 +3619,27 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
+        },
+        "PVNAME": {
+          "description": "Name of the PV to post NDArray out on",
+          "title": "Pvname",
+          "type": "string"
         },
         "PRIORITY": {
           "anyOf": [
@@ -3412,6 +3700,22 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
         "P": {
           "description": "Device Prefix",
           "title": "P",
@@ -3423,29 +3727,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDROI plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -3455,13 +3739,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -3532,7 +3836,7 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "MAX_THREADS": {
+        "XMLSIZE": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -3540,13 +3844,13 @@
               "type": "string"
             },
             {
-              "description": "Maximum number threads",
+              "description": "Number of elements of the ND attributes xml waveform record",
               "type": "integer"
             }
           ],
-          "default": 1,
+          "default": 256,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -3574,26 +3878,7 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
-        "P": {
-          "description": "First part of base PV name",
-          "title": "P",
-          "type": "string"
-        },
-        "R": {
-          "description": "Second part of base PV name",
-          "title": "R",
-          "type": "string"
-        },
-        "PORT": {
-          "description": "Port name for the NDROIStat plugin",
-          "title": "Port",
-          "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
+        "MAX_THREADS": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -3601,13 +3886,28 @@
               "type": "string"
             },
             {
-              "description": "Timeout",
+              "description": "Maximum number threads",
               "type": "integer"
             }
           ],
           "default": 1,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
+          "title": "Max Threads"
+        },
+        "P": {
+          "description": "Device Prefix",
+          "title": "P",
+          "type": "string"
+        },
+        "R": {
+          "description": "Device Suffix",
+          "title": "R",
+          "type": "string"
+        },
+        "PORT": {
+          "description": "Port name for this plugin",
+          "title": "Port",
+          "type": "string"
         },
         "ADDR": {
           "anyOf": [
@@ -3617,13 +3917,33 @@
               "type": "string"
             },
             {
-              "description": "asyn address on port",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -3693,6 +4013,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 1024,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "MAX_ROIS": {
           "anyOf": [
@@ -3725,38 +4061,6 @@
           "default": 4096,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Nchans"
-        },
-        "MAX_THREADS": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Maximum number threads",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
-        },
-        "XMLSIZE": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Number of elements of the ND attributes xml waveform record",
-              "type": "integer"
-            }
-          ],
-          "default": 1024,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Xmlsize"
         }
       },
       "required": [
@@ -3883,29 +4187,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDTimeSeries plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -3915,13 +4199,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -3960,6 +4264,54 @@
           "default": "I/O Intr",
           "description": "Specified scan rate for cpu intensive PVs"
         },
+        "QUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Input array queue size",
+              "type": "integer"
+            }
+          ],
+          "default": 2,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Queue"
+        },
+        "BLOCK": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Blocking callbacks?",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
+        },
         "NAME": {
           "anyOf": [
             {
@@ -3975,6 +4327,136 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Name"
+        }
+      },
+      "required": [
+        "type",
+        "P",
+        "R",
+        "PORT",
+        "NDARRAY_PORT"
+      ],
+      "title": "ADCore_NDScatter",
+      "type": "object"
+    },
+    "ADCore_NDStats": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "ADCore.NDStats",
+          "description": "This plugin calculates statistics like X and Y profile, centroid, and plots a histogram of binned pixels",
+          "title": "Type",
+          "type": "string"
+        },
+        "entity_enabled": {
+          "default": true,
+          "description": "enable or disable this entity instance",
+          "title": "Entity Enabled",
+          "type": "boolean"
+        },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
+        "P": {
+          "description": "Device Prefix",
+          "title": "P",
+          "type": "string"
+        },
+        "R": {
+          "description": "Device Suffix",
+          "title": "R",
+          "type": "string"
+        },
+        "PORT": {
+          "description": "Port name for this plugin",
+          "title": "Port",
+          "type": "string"
+        },
+        "ADDR": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn port address",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
+        },
+        "NDARRAY_ADDR": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Input array port address",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Ndarray Addr"
+        },
+        "ENABLED": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Plugin Enabled at startup?",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Enabled"
+        },
+        "SCANRATE": {
+          "$ref": "#/$defs/SCANRATE",
+          "default": "I/O Intr",
+          "description": "Specified scan rate for cpu intensive PVs"
         },
         "QUEUE": {
           "anyOf": [
@@ -4007,41 +4489,22 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
-        }
-      },
-      "required": [
-        "type",
-        "P",
-        "R",
-        "PORT",
-        "NDARRAY_PORT"
-      ],
-      "title": "ADCore_NDScatter",
-      "type": "object"
-    },
-    "ADCore_NDStats": {
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "const": "ADCore.NDStats",
-          "description": "This plugin calculates statistics like X and Y profile, centroid, and plots a histogram of binned pixels",
-          "title": "Type",
-          "type": "string"
         },
-        "entity_enabled": {
-          "default": true,
-          "description": "enable or disable this entity instance",
-          "title": "Entity Enabled",
-          "type": "boolean"
-        },
-        "PORT": {
-          "description": "Port name for the NDStats plugin",
-          "title": "Port",
-          "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "HIST_SIZE": {
           "anyOf": [
@@ -4057,16 +4520,6 @@
           ],
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Hist Size"
-        },
-        "P": {
-          "description": "Device Prefix",
-          "title": "P",
-          "type": "string"
-        },
-        "R": {
-          "description": "Device Suffix",
-          "title": "R",
-          "type": "string"
         },
         "XSIZE": {
           "anyOf": [
@@ -4098,22 +4551,6 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Ysize"
         },
-        "ENABLED": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Plugin Enabled at startup?",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Enabled"
-        },
         "NCHANS": {
           "anyOf": [
             {
@@ -4129,102 +4566,6 @@
           "default": 2048,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Nchans"
-        },
-        "QUEUE": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Input array queue size",
-              "type": "integer"
-            }
-          ],
-          "default": 2,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Queue"
-        },
-        "BLOCK": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Blocking callbacks?",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Block"
-        },
-        "NDARRAY_ADDR": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Input array port address",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Ndarray Addr"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
-        },
-        "ADDR": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn Port address",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Addr"
-        },
-        "MAX_THREADS": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Maximum number threads",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
         },
         "MAX_BUFFERS": {
           "anyOf": [
@@ -4258,11 +4599,6 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Max Memory"
         },
-        "SCANRATE": {
-          "$ref": "#/$defs/SCANRATE",
-          "default": "I/O Intr",
-          "description": "Specified scan rate for cpu intensive PVs"
-        },
         "TS_PORT": {
           "default": "$(PORT)_TS",
           "description": "TS port",
@@ -4272,11 +4608,11 @@
       },
       "required": [
         "type",
+        "P",
+        "R",
         "PORT",
         "NDARRAY_PORT",
         "HIST_SIZE",
-        "P",
-        "R",
         "XSIZE",
         "YSIZE"
       ],
@@ -4298,6 +4634,22 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
         "P": {
           "description": "Device Prefix",
           "title": "P",
@@ -4309,53 +4661,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDStdArrays plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TYPE": {
-          "description": "Asyn Type e.g. Int32",
-          "title": "Type",
-          "type": "string"
-        },
-        "FTVL": {
-          "$ref": "#/$defs/FTVL",
-          "description": "Field Type of Value"
-        },
-        "NELEMENTS": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Number of elements",
-              "type": "integer"
-            }
-          ],
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Nelements"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -4365,13 +4673,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -4442,7 +4770,7 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "MAX_THREADS": {
+        "XMLSIZE": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -4450,13 +4778,37 @@
               "type": "string"
             },
             {
-              "description": "Maximum number threads",
+              "description": "Number of elements of the ND attributes xml waveform record",
               "type": "integer"
             }
           ],
-          "default": 1,
+          "default": 256,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
+          "title": "Xmlsize"
+        },
+        "TYPE": {
+          "description": "Asyn Type e.g. Int32",
+          "title": "Type",
+          "type": "string"
+        },
+        "FTVL": {
+          "$ref": "#/$defs/FTVL",
+          "description": "Field Type of Value"
+        },
+        "NELEMENTS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements",
+              "type": "integer"
+            }
+          ],
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nelements"
         }
       },
       "required": [
@@ -4488,54 +4840,19 @@
           "type": "boolean"
         },
         "P": {
-          "description": "Device prefix",
+          "description": "Device Prefix",
           "title": "P",
           "type": "string"
         },
         "R": {
-          "description": "Device suffix",
+          "description": "Device Suffix",
           "title": "R",
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDTimeSeries plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "NCHANS": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Length of time series waveform",
-              "type": "integer"
-            }
-          ],
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Nchans"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -4552,6 +4869,26 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -4590,28 +4927,6 @@
           "default": "I/O Intr",
           "description": "Specified scan rate for cpu intensive PVs"
         },
-        "TIME_LINK": {
-          "default": "0.1",
-          "description": "Time between points (Can point to a record - use CP)",
-          "title": "Time Link",
-          "type": "string"
-        },
-        "NSIGNALS": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Maximum number of time series signals",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Nsignals"
-        },
         "QUEUE": {
           "anyOf": [
             {
@@ -4643,6 +4958,59 @@
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
+        },
+        "NCHANS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Length of time series waveform",
+              "type": "integer"
+            }
+          ],
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nchans"
+        },
+        "TIME_LINK": {
+          "default": "0.1",
+          "description": "Time between points (Can point to a record - use CP)",
+          "title": "Time Link",
+          "type": "string"
+        },
+        "NSIGNALS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number of time series signals",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Nsignals"
         },
         "PRIORITY": {
           "anyOf": [
@@ -4709,6 +5077,22 @@
           "title": "Entity Enabled",
           "type": "boolean"
         },
+        "MAX_THREADS": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Maximum number threads",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Max Threads"
+        },
         "P": {
           "description": "Device Prefix",
           "title": "P",
@@ -4720,29 +5104,9 @@
           "type": "string"
         },
         "PORT": {
-          "description": "Port name for the NDTransform plugin",
+          "description": "Port name for this plugin",
           "title": "Port",
           "type": "string"
-        },
-        "NDARRAY_PORT": {
-          "description": "Input array port",
-          "title": "Ndarray Port"
-        },
-        "TIMEOUT": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Timeout",
-              "type": "integer"
-            }
-          ],
-          "default": 1,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Timeout"
         },
         "ADDR": {
           "anyOf": [
@@ -4752,13 +5116,33 @@
               "type": "string"
             },
             {
-              "description": "Asyn Port address",
+              "description": "Asyn port address",
               "type": "integer"
             }
           ],
           "default": 0,
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Addr"
+        },
+        "TIMEOUT": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn timeout",
+              "type": "integer"
+            }
+          ],
+          "default": 1,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Timeout"
+        },
+        "NDARRAY_PORT": {
+          "description": "Input array port name",
+          "title": "Ndarray Port"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -4829,7 +5213,7 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Block"
         },
-        "MAX_THREADS": {
+        "XMLSIZE": {
           "anyOf": [
             {
               "description": "jinja that renders to <class 'int'>",
@@ -4837,13 +5221,13 @@
               "type": "string"
             },
             {
-              "description": "Maximum number threads",
+              "description": "Number of elements of the ND attributes xml waveform record",
               "type": "integer"
             }
           ],
-          "default": 1,
+          "default": 256,
           "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Max Threads"
+          "title": "Xmlsize"
         }
       },
       "required": [
@@ -4886,10 +5270,21 @@
           "title": "Port",
           "type": "string"
         },
-        "NDARRAY_PORT": {
-          "description": "Input Array Port",
-          "title": "Ndarray Port",
-          "type": "string"
+        "ADDR": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Asyn port address",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Addr"
         },
         "TIMEOUT": {
           "anyOf": [
@@ -4899,7 +5294,7 @@
               "type": "string"
             },
             {
-              "description": "Timeout",
+              "description": "Asyn timeout",
               "type": "integer"
             }
           ],
@@ -4907,21 +5302,10 @@
           "description": "union of <class 'int'> and jinja representation of {typ}",
           "title": "Timeout"
         },
-        "ADDR": {
-          "anyOf": [
-            {
-              "description": "jinja that renders to <class 'int'>",
-              "pattern": ".*\\{\\{.*\\}\\}.*",
-              "type": "string"
-            },
-            {
-              "description": "Asyn Port address",
-              "type": "integer"
-            }
-          ],
-          "default": 0,
-          "description": "union of <class 'int'> and jinja representation of {typ}",
-          "title": "Addr"
+        "NDARRAY_PORT": {
+          "description": "Input Array Port",
+          "title": "Ndarray Port",
+          "type": "string"
         },
         "NDARRAY_ADDR": {
           "anyOf": [
@@ -4931,7 +5315,7 @@
               "type": "string"
             },
             {
-              "description": "Input Array Address",
+              "description": "Input array port address",
               "type": "integer"
             }
           ],
@@ -4959,6 +5343,54 @@
           "$ref": "#/$defs/SCANRATE",
           "default": "I/O Intr",
           "description": "Specified scan rate for cpu intensive PVs"
+        },
+        "QUEUE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Input array queue size",
+              "type": "integer"
+            }
+          ],
+          "default": 2,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Queue"
+        },
+        "BLOCK": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Blocking callbacks?",
+              "type": "integer"
+            }
+          ],
+          "default": 0,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Block"
+        },
+        "XMLSIZE": {
+          "anyOf": [
+            {
+              "description": "jinja that renders to <class 'int'>",
+              "pattern": ".*\\{\\{.*\\}\\}.*",
+              "type": "string"
+            },
+            {
+              "description": "Number of elements of the ND attributes xml waveform record",
+              "type": "integer"
+            }
+          ],
+          "default": 256,
+          "description": "union of <class 'int'> and jinja representation of {typ}",
+          "title": "Xmlsize"
         },
         "PRECOUNT": {
           "anyOf": [
