@@ -15,7 +15,7 @@ dependencies:
     repository: "oci://ghcr.io/bluesky/charts"
 
   - name: glazed
-    version: "0.1.1"
+    version: "0.2.0"
     repository: "oci://ghcr.io/diamondlightsource/charts"
 
   - name: oauth2-proxy
