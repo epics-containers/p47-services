@@ -22,22 +22,22 @@
 # independently of whether owners are set on them.
 
 # [Controls]
-/services/bl47p-*/ @hgv27681
-/services/values.yaml @hgv27681
-/.helm-shared/ @hgv27681
-/services/p47-epics-gateways/ @hgv27681
-/services/p47-epics-opis/ @hgv27681
-/services/p47-epics-pvcs/ @hgv27681
+/services/bl47p-*/ @gilesknap
+/services/values.yaml @gilesknap
+/.helm-shared/ @gilesknap
+/services/p47-epics-gateways/ @gilesknap
+/services/p47-epics-opis/ @gilesknap
+/services/p47-epics-pvcs/ @gilesknap
 
 # [Data Acquisition]
-/services/p47-blueapi/ @hgv27681
-/services/p47-nexus/ @hgv27681
-/services/p47-rabbitmq/ @hgv27681
+/services/p47-blueapi/ @gilesknap
+/services/p47-nexus/ @gilesknap
+/services/p47-rabbitmq/ @gilesknap
 
 # [Tech UI]
-/services/bl47p-synoptic/ @hgv27681
-/synoptic/ @hgv27681
+/services/bl47p-synoptic/ @gilesknap
+/synoptic/ @gilesknap
 # claimed by both Controls (the broader '/services/bl47p-*/' glob
 # above) and Tech UI: an explicit line after every broader glob, naming
 # both teams' owners, so this is the line that wins.
-/services/bl47p-synoptic/ @hgv27681
+/services/bl47p-synoptic/ @gilesknap
