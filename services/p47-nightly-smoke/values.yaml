@@ -75,7 +75,7 @@ scheduled-jobs:
     # may use. blueapi requires one per task, and with numtracker and tiled
     # enabled it must be valid. Until it is set the scan check fails.
     - name: SCAN_INSTRUMENT_SESSION
-      value: REPLACE-WITH-P47-SESSION
+      value: "42330"
     - name: SCAN_TIMEOUT
       value: "300"
 

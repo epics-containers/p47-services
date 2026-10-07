@@ -35,7 +35,7 @@ env vars in `values.yaml`:
 |---|---|---|
 | `SCAN_PLAN` | `num_rscan` | dodal's relative N-point scan |
 | `SCAN_PARAMS` | `{"detectors": ["det"], "params": [["sample_stage.x", [-0.5, 0.5]]], "num": 3}` | move the training rig stage x from -0.5 to +0.5 relative to where it is, in 3 points, reading the camera at each; the stage returns to its start afterwards |
-| `SCAN_INSTRUMENT_SESSION` | `REPLACE-WITH-P47-SESSION` | **must be replaced** with a real p47 instrument session the client may use; blueapi requires one on every task |
+| `SCAN_INSTRUMENT_SESSION` | `42330` | a real p47 instrument session the client may use; blueapi requires one on every task |
 | `SCAN_TIMEOUT` | `300` | seconds |
 
 `det` and `sample_stage` are the device names of
