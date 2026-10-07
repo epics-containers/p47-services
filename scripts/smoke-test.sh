@@ -44,7 +44,8 @@
 # of PASS/FAIL lines and reported once as a note instead.
 #
 # The exit status is 0 only when every non-expected check passes. The
-# optional login/plan step never affects the exit status.
+# optional login/plan step does not affect it when skipped, but once it runs
+# (a person asked for it), a failed login or plan counts as a failure.
 
 set -euo pipefail
 
@@ -553,7 +554,7 @@ if [[ $login == no ]]; then
     log "skipped"
 else
     if ! command -v blueapi >/dev/null; then
-        warn "blueapi CLI not found on PATH; install it and re-run with --login"
+        check 1 "blueapi CLI not found on PATH; install it and re-run with --login"
     else
         config=$(mktemp --suffix .yaml)
         cat >"$config" <<EOF
@@ -568,12 +569,12 @@ EOF
         if blueapi -c "$config" login; then
             log "logged in. Submitting plan '$login_plan' with params: $login_params"
             if blueapi -c "$config" controller run "$login_plan" "$login_params"; then
-                log "plan submitted and completed"
+                check 0 "plan '$login_plan' submitted and completed"
             else
-                warn "plan '$login_plan' did not complete; this does not fail the smoke test"
+                check 1 "plan '$login_plan' did not complete"
             fi
         else
-            warn "login did not complete; this does not fail the smoke test"
+            check 1 "login did not complete"
         fi
         rm -f "$config"
     fi
