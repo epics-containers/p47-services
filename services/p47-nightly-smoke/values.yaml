@@ -1,0 +1,90 @@
+# yaml-language-server: $schema=https://github.com/epics-containers/ec-helm-charts/releases/download/5.15.0-beta.1/scheduled-jobs.schema.json
+scheduled-jobs:
+  image: ghcr.io/epics-containers/ec-nightly:0.1.0-beta.5
+  schedule: "0 1 * * *" # every night at 1am
+  timeZone: Europe/London
+
+  activeDeadlineSeconds: 1800
+
+  # the job only talks to blueapi and Keycloak over HTTP, it never calls the
+  # Kubernetes API, so do not mount a ServiceAccount token
+  automountServiceAccountToken: false
+
+  # same placement as the other p47 services (services/values.yaml `shared`).
+  # The chart has no nodeSelector value, so use affinity for beamline: p47.
+  hostNetwork: true
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsUser: 37887
+    runAsGroup: 37887
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: beamline
+                operator: In
+                values: [p47]
+  tolerations:
+    - key: beamline
+      operator: Equal
+      value: p47
+      effect: NoSchedule
+    - key: nodetype
+      operator: Equal
+      value: training-rig
+      effect: NoSchedule
+
+  env:
+    - name: BLUEAPI_URL
+      value: http://p47-blueapi.p47-beamline.svc.cluster.local:80
+    - name: INSTRUMENT
+      value: p47
+    - name: REPORT_DIR
+      value: /reports
+    # EXPECTED_PLANS and EXPECTED_DEVICES are deliberately unset, so the plans
+    # and devices checks only assert that blueapi lists at least one. The
+    # blueapi image bakes in dodal and htss_rig_bluesky and nothing in this
+    # repo pins their versions, so no names can be asserted reliably.
+    - name: CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: p47-blueapi-test-runner
+          key: client-id
+    - name: CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: p47-blueapi-test-runner
+          key: client-secret
+
+    # The scan check: run one real plan on the worker and fail the job unless
+    # it completes successfully within SCAN_TIMEOUT. A relative scan (it puts
+    # the motor back where it started) of the training rig stage, x -0.5..+0.5
+    # in 3 points, reading the camera at each point. Device names are those of
+    # dodal.beamlines.training_rig with BEAMLINE=p47: det is the Aravis camera
+    # on bl47p-ea-dcam-01 (BL47P-EA-DET-01) and sample_stage is
+    # BL47P-MO-MAP-01:STAGE on bl47p-mo-ioc-01.
+    - name: SCAN_PLAN
+      value: num_rscan
+    - name: SCAN_PARAMS
+      value: >-
+        {"detectors": ["det"],
+        "params": [["sample_stage.x", [-0.5, 0.5]]],
+        "num": 3}
+    # TODO: a real, active p47 instrument session that the test-runner client
+    # may use. blueapi requires one per task, and with numtracker and tiled
+    # enabled it must be valid. Until it is set the scan check fails.
+    - name: SCAN_INSTRUMENT_SESSION
+      value: "42330"
+    - name: SCAN_TIMEOUT
+      value: "300"
+
+  volumes:
+    - name: reports
+      emptyDir: {}
+  volumeMounts:
+    - name: reports
+      mountPath: /reports
+
+  jobs:
+    blueapi: {}
