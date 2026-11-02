@@ -8,41 +8,7 @@ ioc-instance:
       emptyDir:
         medium: Memory
         sizeLimit: 1Gi
-    - name: podbench-app
-      persistentVolumeClaim:
-        claimName: bl47p-mo-ioc-01-podbench-project
-    - name: podbench-runtime
-      configMap:
-        name: bl47p-mo-ioc-01-podbench-runtime
 
   volumeMounts:
     - name: dev-shm
       mountPath: /dev/shm
-    - name: podbench-app
-      mountPath: /podbench/app
-    - name: podbench-runtime
-      mountPath: /podbench/runtime
-      readOnly: true
-
-  # podbench-hotfix: begin podbench 0.21.1.dev2+gd0a03aeb5.d20260915
-  command: [bash, -c]
-  args:
-    - "source /podbench/runtime/podbench.sh; podbench_supervise \"$1\" '/bin/bash /epics/ioc/liveness.sh' true"
-    - podbench-supervisor
-    - podbench_script /podbench/app/ioc/start.sh bash -c /epics/ioc/start.sh
-  livenessProbe:
-    exec:
-      command: [bash, -c, "[ -e /tmp/podbench-hold ] && exit 0; exec /bin/bash /epics/ioc/liveness.sh"]
-    failureThreshold: 3
-    initialDelaySeconds: 120
-    periodSeconds: 30
-    successThreshold: 1
-    timeoutSeconds: 1
-  podSecurityContext:
-    fsGroup: 37887
-  # podbench-hotfix: end
-
-
-podbench-hotfix-claim:
-  enabled: true
-  size: 10Gi
