@@ -1,64 +1,10 @@
 blueapi:
-  # podbench-hotfix: begin podbench 0.21.1.dev2+gd0a03aeb5.d20260915
   debug:
     enabled: false
-  podSecurityContext:
-    fsGroup: 1000
-  volumes:
-    - name: podbench-app
-      persistentVolumeClaim:
-        claimName: p47-blueapi-podbench-project
-    - name: podbench-runtime
-      configMap:
-        name: p47-blueapi-podbench-runtime
-    - name: podbench-wrapper
-      configMap:
-        name: p47-blueapi-podbench-wrapper
-        defaultMode: 0755
-  volumeMounts:
-    - name: podbench-app
-      mountPath: /podbench/app
-    - name: podbench-runtime
-      mountPath: /podbench/runtime
-      readOnly: true
-    - name: podbench-wrapper
-      mountPath: /app/.venv/bin/blueapi
-      subPath: blueapi
-  livenessProbe:
-    httpGet: null
-    exec:
-      command:
-        - bash
-        - -c
-        - >-
-          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
-          'import urllib.request;
-          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
-  readinessProbe:
-    httpGet: null
-    exec:
-      command:
-        - bash
-        - -c
-        - >-
-          exec /app/.venv/bin/python -c
-          'import urllib.request;
-          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
+  # P47 BlueAPI needs more than the chart default 50 s to connect training-rig
+  # devices. Only the threshold is set: the chart keeps its own httpGet probe.
   startupProbe:
-    httpGet: null
-    exec:
-      command:
-        - bash
-        - -c
-        - >-
-          [ -e /tmp/podbench-hold ] || exec /app/.venv/bin/python -c
-          'import urllib.request;
-          urllib.request.urlopen("http://127.0.0.1:8000/healthz", timeout=1)'
-    # P47 BlueAPI needs more than the chart's 50 s to connect training-rig
-    # devices. Interim: podbench regenerates this block, see
-    # https://github.com/epics-containers/podbench/issues/268.
     failureThreshold: 18
-  # podbench-hotfix: end
   hostNetwork: false
   # The chart's default 2Gi ephemeral-storage limit is nearly filled by the
   # /app/.venv emptyDir (1.7Gi); a podbench debug seat then evicts the pod.
@@ -236,7 +182,3 @@ oauth2:
       operator: Equal
       value: training-rig
       effect: NoSchedule
-
-podbench-hotfix-claim:
-  enabled: true
-  size: 10Gi

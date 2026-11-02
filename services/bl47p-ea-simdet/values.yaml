@@ -12,38 +12,6 @@ ioc-instance:
 # release name to make that IOC's Kubernetes resources unique. The remaining
 # keys become extra container environment variables for that IOC alone, and
 # config/ioc.yaml reads them back with _global.get_env().
-
-  # podbench-hotfix: begin podbench 0.21.1.dev2+gd0a03aeb5.d20260915
-  volumes:
-    - name: podbench-app
-      persistentVolumeClaim:
-        claimName: bl47p-ea-simdet-podbench-project
-    - name: podbench-runtime
-      configMap:
-        name: bl47p-ea-simdet-podbench-runtime
-  volumeMounts:
-    - name: podbench-app
-      mountPath: /podbench/app
-    - name: podbench-runtime
-      mountPath: /podbench/runtime
-      readOnly: true
-  command: [bash, -c]
-  args:
-    - "source /podbench/runtime/podbench.sh; podbench_supervise \"$1\" '/bin/bash /epics/ioc/liveness.sh' true"
-    - podbench-supervisor
-    - podbench_script /podbench/app/ioc/start.sh bash -c /epics/ioc/start.sh
-  livenessProbe:
-    exec:
-      command: [bash, -c, "[ -e /tmp/podbench-hold ] && exit 0; exec /bin/bash /epics/ioc/liveness.sh"]
-    failureThreshold: 3
-    initialDelaySeconds: 120
-    periodSeconds: 30
-    successThreshold: 1
-    timeoutSeconds: 1
-  podSecurityContext:
-    fsGroup: 37887
-  # podbench-hotfix: end
-
 iocs:
   - NAME: "01"
     WIDTH: "1024"
@@ -56,7 +24,3 @@ iocs:
   - NAME: "03"
     WIDTH: "256"
     HEIGHT: "256"
-
-podbench-hotfix-claim:
-  enabled: true
-  size: 10Gi

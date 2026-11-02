@@ -2,28 +2,9 @@
 
 ioc-instance:
   image: ghcr.io/diamondlightsource/fastcs-example-debug:2025.10.1
-  # podbench-hotfix: begin podbench 0.21.1.dev2+gd0a03aeb5.d20260915
-  volumes:
-    - name: podbench-app
-      persistentVolumeClaim:
-        claimName: bl47p-ea-fastcs-01-podbench-project
-    - name: podbench-runtime
-      configMap:
-        name: bl47p-ea-fastcs-01-podbench-runtime
-  volumeMounts:
-    - name: podbench-app
-      mountPath: /podbench/app
-    - name: podbench-runtime
-      mountPath: /podbench/runtime
-      readOnly: true
-  command: [bash, -c]
   args:
-    - "source /podbench/runtime/podbench.sh; podbench_supervise \"$1\" true true"
-    - podbench-supervisor
-    - exec stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"
-  podSecurityContext:
-    fsGroup: 37887
-  # podbench-hotfix: end
+    - stdio-socket --ptty "fastcs-example run /epics/ioc/config/controller.yaml"
+
   extraContainers:
     - name: temp-controller-simulator
       image: ghcr.io/diamondlightsource/fastcs-example:2025.9.1
@@ -43,7 +24,3 @@ ioc-instance:
   # don't use the ioc-instance livenesProbe, preStop which dont exist in fastcs image.
   livenessExecutable: ""
   preStopExecutable: ""
-
-podbench-hotfix-claim:
-  enabled: true
-  size: 10Gi
