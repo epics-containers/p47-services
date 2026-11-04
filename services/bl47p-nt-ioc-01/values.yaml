@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=../../.helm-shared/values.schema.json
+
+ioc-instance:
+  image: ghcr.io/epics-containers/ioc-terminalserver-runtime:2026.11.1-beta.1
+
+  # startupProbe: waits for the IOC to serve Channel Access (UPTIME) before
+  # marking the pod Ready.
+  startupExecutable: /epics/ioc/startup.sh
