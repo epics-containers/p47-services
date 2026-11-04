@@ -2,7 +2,7 @@
 
 ioc-instance:
   # use a lightweight IOC because epics-base has no ioc.dbd or start.sh
-  image: ghcr.io/epics-containers/ioc-generic-runtime:2026.11.1
+  image: ghcr.io/epics-containers/ioc-generic-runtime:2026.11.2
 
   rebootEveryCommit: true
 
