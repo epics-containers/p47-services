@@ -12,7 +12,7 @@ entities:
   - type: devIocStats.iocAdminSoft
     IOC: "{{ ioc_name | upper }}"
 
-  - type: terminalServer.Moxa32
+  - type: terminalServer.Acs32
     name: TSERV
     P: BL47P-NT-TSERV-01
     HOST: ts0001
