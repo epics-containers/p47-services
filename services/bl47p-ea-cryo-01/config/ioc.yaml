@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=../ioc.schema.json
+
+ioc_name: "{{ _global.get_env('IOC_NAME') }}"
+
+description: Oxford N-Helix screens with no device attached, on a closed local port
+
+entities:
+  - type: epics.EpicsEnvSet
+    name: EPICS_TZ
+    value: GMT0BST
+
+  - type: epics.EpicsEnvSet
+    name: STREAM_PROTOCOL_PATH
+    value: /epics/runtime/protocol/
+
+  - type: devIocStats.iocAdminSoft
+    IOC: "{{ ioc_name | upper }}"
+
+  - type: asyn.AsynIP
+    name: CRYOport
+    port: 127.0.0.1:1
+
+  - type: oxCryo.OXNH700
+    P: BL47P-EA-HELIX-01
+    PORT: CRYOport
