@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../.helm-shared/values.schema.json
 
 ioc-instance:
-  image: ghcr.io/epics-containers/ioc-adaravis-runtime:R2-3ec5
+  image: ghcr.io/epics-containers/ioc-adaravis-runtime:R2-3ec6
 
   # comment change (for testing CI only)
 
