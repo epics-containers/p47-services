@@ -44,7 +44,8 @@
 # of PASS/FAIL lines and reported once as a note instead.
 #
 # The exit status is 0 only when every non-expected check passes. The
-# optional login/plan step never affects the exit status.
+# optional login/plan step does not affect it when skipped, but once it runs
+# (a person asked for it), a failed login or plan counts as a failure.
 
 set -euo pipefail
 
@@ -88,8 +89,12 @@ Options:
                           (default: https://p47-blueapi.diamond.ac.uk)
       --login-plan NAME   plan to submit after login (default: count)
       --login-params JSON parameters for that plan (default: a short count
-                          on a simulated detector; check the device name
-                          with the blueapi CLI first - see the header)
+                          on the training_rig detector 'det'; check the
+                          device name with the blueapi CLI first - see the
+                          header)
+      --instrument-session ID
+                          instrument session to run the plan under, passed
+                          to blueapi as -i (default: 42330)
   -h, --help              show this help
 EOF
 }
@@ -104,7 +109,9 @@ strict=false
 login=""
 blueapi_url="https://p47-blueapi.diamond.ac.uk"
 login_plan="count"
-login_params='{"detectors": ["bl47p_ea_simdet_01"], "num": 1}'
+login_params='{"detectors": ["det"], "num": 1}'
+# blueapi 1.17 requires -i/--instrument-session on `controller run`
+instrument_session=42330
 
 # the root app, as p47-deployment's apps.yaml names it
 root_app=p47
@@ -219,6 +226,11 @@ while (($#)); do
     --login-params)
         need_value "$1" $# "${2:-}"
         login_params=$2
+        shift 2
+        ;;
+    --instrument-session)
+        need_value "$1" $# "${2:-}"
+        instrument_session=$2
         shift 2
         ;;
     -*)
@@ -520,7 +532,7 @@ OAuth. A person must complete the login in a browser; this script never
 attempts it and never touches auth config.
 
   blueapi -c <config> login
-  blueapi -c <config> controller run $login_plan '$login_params'
+  blueapi -c <config> controller run -i $instrument_session $login_plan '$login_params'
 
 The config points at p47's real oidc settings (mirrors the worker config in
 services/p47-blueapi/values.yaml:135-139):
@@ -534,9 +546,10 @@ services/p47-blueapi/values.yaml:135-139):
 
 It needs the blueapi CLI, DLS network access to identity.diamond.ac.uk and
 $blueapi_url, and a browser to complete the device code. The default plan
-targets a simulated detector; check its device name first with the blueapi
-CLI (this device name is not verified against a live login) and override it
-with --login-plan/--login-params if it differs.
+targets the training_rig detector 'det' and runs under instrument session
+$instrument_session (--instrument-session); check the device name first with
+the blueapi CLI (not verified against p47's image) and override it with
+--login-plan/--login-params if it differs.
 EOF
 
 if [[ -z $login ]]; then
@@ -553,7 +566,7 @@ if [[ $login == no ]]; then
     log "skipped"
 else
     if ! command -v blueapi >/dev/null; then
-        warn "blueapi CLI not found on PATH; install it and re-run with --login"
+        check 1 "blueapi CLI not found on PATH; install it and re-run with --login"
     else
         config=$(mktemp --suffix .yaml)
         cat >"$config" <<EOF
@@ -567,13 +580,13 @@ EOF
         log "logging in (a browser prompt/device code follows; complete it to continue)"
         if blueapi -c "$config" login; then
             log "logged in. Submitting plan '$login_plan' with params: $login_params"
-            if blueapi -c "$config" controller run "$login_plan" "$login_params"; then
-                log "plan submitted and completed"
+            if blueapi -c "$config" controller run -i "$instrument_session" "$login_plan" "$login_params"; then
+                check 0 "plan '$login_plan' submitted and completed"
             else
-                warn "plan '$login_plan' did not complete; this does not fail the smoke test"
+                check 1 "plan '$login_plan' did not complete"
             fi
         else
-            warn "login did not complete; this does not fail the smoke test"
+            check 1 "login did not complete"
         fi
         rm -f "$config"
     fi
