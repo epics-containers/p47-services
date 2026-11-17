@@ -5,7 +5,7 @@
 # because ioc-group adds this instance's WIDTH and HEIGHT from values.yaml to
 # the container environment.
 
-ioc_name: "{{ _global.get_env('IOC_NAME') }}"
+ioc_name: "{{ env.IOC_NAME }}"
 
 description: A simulated area detector, one of the bl47p-ea-simdet group
 
@@ -23,8 +23,8 @@ entities:
     R: ":DET:"
     # DATATYPE: 0 = Int8
     DATATYPE: 0
-    WIDTH: "{{ _global.get_env('WIDTH') }}"
-    HEIGHT: "{{ _global.get_env('HEIGHT') }}"
+    WIDTH: "{{ env.WIDTH }}"
+    HEIGHT: "{{ env.HEIGHT }}"
 
   - type: ADCore.NDStdArrays
     PORT: DET.ARR
@@ -34,7 +34,7 @@ entities:
     TYPE: Int8
     FTVL: CHAR
     # the array PV must be big enough to hold one whole image
-    NELEMENTS: "{{ (_global.get_env('WIDTH') | int) * (_global.get_env('HEIGHT') | int) }}"
+    NELEMENTS: "{{ (env.WIDTH | int) * (env.HEIGHT | int) }}"
 
   - type: epics.PostStartupCommand
     command: |

@@ -11,7 +11,7 @@ ioc-instance:
 # one entry per IOC. Every entry MUST have a NAME - it is appended to the
 # release name to make that IOC's Kubernetes resources unique. The remaining
 # keys become extra container environment variables for that IOC alone, and
-# config/ioc.yaml reads them back with _global.get_env().
+# config/ioc.yaml reads them back with env.VARIABLE_NAME
 iocs:
   - NAME: "01"
     WIDTH: "1024"
